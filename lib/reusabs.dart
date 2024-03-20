@@ -1,5 +1,38 @@
+// ignore_for_file: constant_identifier_names
+
 import "package:flutter/material.dart";
 import "package:percent_indicator/linear_percent_indicator.dart";
+
+class CustomIcons {
+  CustomIcons._();
+
+  static const _kFontFam = 'CustomIcons';
+  static const String? _kFontPkg = null;
+
+  static const IconData calender =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData car_icon =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData earthicon =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData profile =
+      IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData search =
+      IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData plane_icon =
+      IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home =
+      IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData pump_icon =
+      IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData sign_icon =
+      IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData location =
+      IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+}
+
+///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 class CardView extends StatefulWidget {
   final String img;
@@ -363,7 +396,10 @@ Card avatarcard(
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(avail),
+                              Text(
+                                avail,
+                                style: const TextStyle(fontSize: 17),
+                              ),
                               SizedBox(
                                 child: btn,
                               )
@@ -405,7 +441,8 @@ Card avatarcard(
   );
 }
 
-///////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 
 Widget sbh(double height) {
   return SizedBox(
@@ -415,6 +452,32 @@ Widget sbh(double height) {
 
 Widget sbw(double width) {
   return SizedBox(
-    height: width,
+    width: width,
   );
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+class ProfileComp {
+  static ListTile profiletile(String title, void Function() ontap) {
+    return ListTile(
+      onTap: ontap,
+      title: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 2.0,
+          horizontal: 15.0,
+        ),
+        child: Text(
+          title,
+          style: const TextStyle(fontSize: 16, color: Colors.grey),
+        ),
+      ),
+      contentPadding: const EdgeInsets.only(right: 5.0),
+      trailing: const Icon(Icons.navigate_next),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+          side: BorderSide(color: Color.fromARGB(255, 203, 203, 203))),
+    );
+  }
 }
