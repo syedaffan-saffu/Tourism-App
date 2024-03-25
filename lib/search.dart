@@ -65,6 +65,8 @@ class _SearchState extends State<Search> {
               _dateTime = await showDateRangePicker(
                   cancelText: 'cancel',
                   context: context,
+                  initialDateRange:
+                      DateTimeRange(start: _startdate, end: _enddate),
                   firstDate: _startdate,
                   lastDate: DateTime(2025));
               setState(() {
@@ -123,7 +125,7 @@ class _SearchState extends State<Search> {
                     fontSize: 17),
               ),
             ),
-          )
+          ),
         ]),
       ),
     );

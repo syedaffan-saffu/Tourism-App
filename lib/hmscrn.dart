@@ -15,7 +15,7 @@ class _HomescreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin<HomeScreen> {
   @override
   bool get wantKeepAlive => true;
-
+  bool favourite = false;
   String image = "assets/images/mount.jpg";
   String image2 = "assets/images/gliding.png";
   String title = "Biafo Glacier Ice Climbing";
@@ -158,7 +158,7 @@ class _HomescreenState extends State<HomeScreen>
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
             SizedBox(
-              height: 520,
+              height: 500,
               child: Padding(
                 padding: const EdgeInsets.only(left: 17.0),
                 child: PageView.builder(
@@ -289,23 +289,28 @@ class _HomescreenState extends State<HomeScreen>
                               ],
                             ),
                             ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    textStyle: const TextStyle(fontSize: 16),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 0.0, horizontal: 10.0),
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 51, 173, 226),
-                                    elevation: 0.0,
-                                    shape: const RoundedRectangleBorder()),
-                                onPressed: () {},
-                                child: const Text(
-                                  'Book Now',
-                                  style: TextStyle(
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 0.0, horizontal: 10.0),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 51, 173, 226),
+                                elevation: 0.0,
+                                shape: const RoundedRectangleBorder(),
+                              ),
+                              onPressed: () {},
+                              child: Text(
+                                'Book Now',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15,
-                                      height: 0.0),
-                                )),
+                                      height: 1.4,
+                                    ),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -363,7 +368,23 @@ class _HomescreenState extends State<HomeScreen>
                             description: description,
                             price: price,
                             rating: rating,
-                            tags: Image.asset('assets/icons/wishlist.png'),
+                            tags: SizedBox(
+                                height: 40,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  icon: favourite
+                                      ? Image.asset('assets/icons/wishlist.png')
+                                      : Image.asset(
+                                          'assets/icons/wished.png',
+                                          fit: BoxFit.fill,
+                                        ),
+                                  onPressed: () {
+                                    print(favourite);
+                                    setState(() {
+                                      favourite = !favourite;
+                                    });
+                                  },
+                                )),
                             locorating: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -394,20 +415,25 @@ class _HomescreenState extends State<HomeScreen>
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.only(right: 5),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 9),
-                                        decoration: BoxDecoration(
-                                          // shape: BoxShape.circle,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          color: Color.fromARGB(
+                                      child: TextButton(
+                                        style: TextButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0, vertical: 0.0),
+                                          foregroundColor: const Color.fromARGB(
+                                              213, 255, 255, 255),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0)),
+                                          backgroundColor: Color.fromARGB(
                                               150 + (index * 50), 7, 141, 252),
                                         ),
+                                        onPressed: () {},
                                         child: Text(
                                           locs_s[index],
                                           style: const TextStyle(
-                                              color: Colors.white, height: 2.0),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                          ),
                                         ),
                                       ),
                                     );
@@ -448,53 +474,56 @@ class _HomescreenState extends State<HomeScreen>
 ///////////////////////////////////////////////////////////////////////////////////////////////
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  SizedBox(
-                    height: 340,
-                    width: double.infinity,
-                    child: Image.asset(
-                      'assets/images/upcoming.jpg',
-                      fit: BoxFit.fill,
+              child: InkWell(
+                onTap: () {},
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomStart,
+                  children: [
+                    SizedBox(
+                      height: 340,
+                      width: double.infinity,
+                      child: Image.asset(
+                        'assets/images/upcoming.jpg',
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 340,
-                    width: double.infinity,
-                    child: Image.asset(
-                      'assets/images/linegrad.png',
-                      fit: BoxFit.fill,
+                    SizedBox(
+                      height: 340,
+                      width: double.infinity,
+                      child: Image.asset(
+                        'assets/images/linegrad.png',
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(25),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Up Coming Trip',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 105, 184, 249),
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Text(
-                          'BIAFO GLACIER ICE CLIMBING',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900,
-                              fontFamily: 'Signika',
-                              fontSize: 30,
-                              height: 1.3),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                    const Padding(
+                      padding: EdgeInsets.all(25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Up Coming Trip',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 105, 184, 249),
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          Text(
+                            'BIAFO GLACIER ICE CLIMBING',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontFamily: 'Signika',
+                                fontSize: 30,
+                                height: 1.3),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
 //////////////////////////////////////////////////////////////////////////////////////////////////////
