@@ -10,12 +10,14 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  DateTimeRange? _dateTime;
+  static final DateFormat _dateFormat = DateFormat('dd-MM-yy');
   TextEditingController locController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   final FocusNode datefocusNode = FocusNode();
-  String startdate = "";
-  String enddate = "";
-  List<String> suggestions = [
+  static DateTime _startdate = DateTime.now().add(const Duration(days: 9));
+  DateTime _enddate = _startdate.add(const Duration(days: 7));
+  static final List<String> suggestions = [
     'Hindu Kush Range',
     'Himalayas',
     'Baltoro Glacier',
@@ -27,6 +29,8 @@ class _SearchState extends State<Search> {
     'Rock Climbing',
     'Ice Climbing'
   ];
+  List<Color> buttonColors =
+      List.filled(suggestions.length, const Color.fromARGB(255, 231, 241, 246));
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +62,18 @@ class _SearchState extends State<Search> {
           sbh(12),
           TextField(
             onTap: () async {
-              DateTimeRange? dateTime = await showDateRangePicker(
-                  barrierDismissible: false,
+              _dateTime = await showDateRangePicker(
+                  cancelText: 'cancel',
                   context: context,
-                  firstDate: DateTime.now(),
+                  firstDate: _startdate,
                   lastDate: DateTime(2025));
               setState(() {
-                if (dateTime != null) {
-                  startdate = dateTime.start.toString().split(' 00').first;
+                if (_dateTime != null) {
+                  _startdate = _dateTime!.start;
+                  _enddate = _dateTime!.end;
 
-                  enddate = dateTime.end.toString().split(' 00').first;
-                  dateController.text = '$startdate  to  $enddate';
+                  dateController.text =
+                      '${_dateFormat.format(_startdate)}  to  ${_dateFormat.format(_enddate)}';
                 } else {
                   dateController.text = '';
                 }
@@ -95,7 +100,8 @@ class _SearchState extends State<Search> {
             spacing: 10.0,
             runSpacing: 10.0,
             children: suggestions.map((suggestion) {
-              return buildSuggestionButton(suggestion);
+              return buildSuggestionButton(
+                  suggestion, suggestions.indexOf(suggestion));
             }).toList(),
           ),
           sbh(15),
@@ -123,7 +129,7 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget buildSuggestionButton(String suggestion) {
+  Widget buildSuggestionButton(String suggestion, int index) {
     return SizedBox(
       height: 30,
       child: TextButton(
@@ -132,10 +138,16 @@ class _SearchState extends State<Search> {
             foregroundColor: const Color.fromARGB(213, 255, 255, 255),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
-            backgroundColor: const Color.fromARGB(255, 231, 241, 246)),
+            backgroundColor: buttonColors[index]),
         onPressed: () {
           setState(() {
             locController.text = suggestion;
+            _enddate = _startdate.add(const Duration(days: 7));
+            dateController.text =
+                "${_dateFormat.format(_startdate)} to ${_dateFormat.format(_enddate)}";
+            buttonColors = List.filled(
+                suggestions.length, const Color.fromARGB(255, 231, 241, 246));
+            buttonColors[index] = const Color.fromARGB(255, 106, 205, 255);
           });
         },
         child: Text(

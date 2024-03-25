@@ -53,7 +53,8 @@ class _HomescreenState extends State<HomeScreen>
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 50.0, left: 25.0),
+                padding:
+                    const EdgeInsets.only(top: 50.0, left: 25.0, right: 25.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -62,10 +63,10 @@ class _HomescreenState extends State<HomeScreen>
                       child: Image.asset('assets/images/logo.png'),
                     ),
                     sbh(35),
-                    const Center(
+                    Center(
                       child: Column(
                         children: [
-                          Text(
+                          const Text(
                             "DISCOVER A BEAUTIFUL",
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -74,22 +75,48 @@ class _HomescreenState extends State<HomeScreen>
                                 color: Colors.white,
                                 fontFamily: 'Signika'),
                           ),
-                          Text(
+                          const Text(
                             "PLACE WITH US",
                             textAlign: TextAlign.center,
                             style: TextStyle(
+                                height: 1.2,
                                 fontSize: 27,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
                                 fontFamily: 'Signika'),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30),
-                            child: Text(
-                              description,
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.white),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 10),
+                            child: Column(
+                              children: [
+                                const Text(
+                                  description,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 12.5, color: Colors.white),
+                                ),
+                                sbh(8),
+                                TextButton(
+                                  style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15.0, vertical: 0.0),
+                                      foregroundColor: const Color.fromARGB(
+                                          213, 255, 255, 255),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0)),
+                                      backgroundColor: const Color(0xfff7a81a)),
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Explore More',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -134,9 +161,9 @@ class _HomescreenState extends State<HomeScreen>
               height: 520,
               child: Padding(
                 padding: const EdgeInsets.only(left: 17.0),
-                child: ListView.builder(
+                child: PageView.builder(
+                  controller: PageController(viewportFraction: 0.94),
                   clipBehavior: Clip.none,
-                  scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -322,7 +349,8 @@ class _HomescreenState extends State<HomeScreen>
                 height: 520,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 17),
-                  child: ListView.builder(
+                  child: PageView.builder(
+                      controller: PageController(viewportFraction: 0.94),
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
@@ -502,7 +530,8 @@ class _HomescreenState extends State<HomeScreen>
                 height: 400,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 17),
-                  child: ListView.builder(
+                  child: PageView.builder(
+                      controller: PageController(viewportFraction: 0.94),
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,

@@ -201,7 +201,7 @@ Card avatarcard(
                           Row(
                             children: [
                               const SizedBox(
-                                width: 120,
+                                width: 118,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

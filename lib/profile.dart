@@ -19,7 +19,6 @@ class Profile extends StatelessWidget {
             'Profile',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
-          SizedBox(),
           const Divider(),
           sbh(18),
           ProfileComp.profiletile('Profile Edit', () {
