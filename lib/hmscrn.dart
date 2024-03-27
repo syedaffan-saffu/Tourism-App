@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/adv_places.dart';
+import 'package:trekkers_pk/main.dart';
 import 'package:trekkers_pk/reusabs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -168,150 +169,156 @@ class _HomescreenState extends State<HomeScreen>
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: CardView(
-                        img: image,
-                        title: title,
-                        locorating: Row(
-                          children: [
-                            const Icon(Icons.location_on, color: Colors.blue),
-                            Text(location)
-                          ],
-                        ),
-                        description: description,
-                        price: price,
-                        rating: rating,
-                        stay: stay,
-                        iconsrow: Row(
-                          children: [
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: SvgPicture.asset(iconlist[0])),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: SvgPicture.asset(iconlist[1])),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: SvgPicture.asset(iconlist[2])),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: SvgPicture.asset(iconlist[3])),
-                          ],
-                        ),
-                        tags: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: 55,
-                              height: 23,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 6.0),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
+                      child: InkWell(
+                        onTap: () {
+                          mynavigatorKey.currentState!.push(MaterialPageRoute(
+                              builder: (context) => const Advplace()));
+                        },
+                        child: CardView(
+                          img: image,
+                          title: title,
+                          locorating: Row(
+                            children: [
+                              const Icon(Icons.location_on, color: Colors.blue),
+                              Text(location)
+                            ],
+                          ),
+                          description: description,
+                          price: price,
+                          rating: rating,
+                          stay: stay,
+                          iconsrow: Row(
+                            children: [
+                              const SizedBox(
+                                width: 20,
                               ),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: Color.fromARGB(255, 255, 208, 40),
-                                    size: 15,
-                                  ),
-                                  Text(
-                                    rating,
-                                    style: const TextStyle(
-                                      height: 1.0,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: SvgPicture.asset(iconlist[0])),
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: SvgPicture.asset(iconlist[1])),
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: SvgPicture.asset(iconlist[2])),
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: SvgPicture.asset(iconlist[3])),
+                            ],
+                          ),
+                          tags: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                width: 55,
+                                height: 23,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 6.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Color.fromARGB(255, 255, 208, 40),
+                                      size: 15,
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      rating,
+                                      style: const TextStyle(
+                                        height: 1.0,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 140,
-                            ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 20, 92, 151)),
-                              height: 45,
-                              width: 40,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                              const SizedBox(
+                                height: 140,
+                              ),
+                              Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 20, 92, 151)),
+                                height: 45,
+                                width: 40,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      stay,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 25,
+                                          height: 1.2),
+                                    ),
+                                    const Text(
+                                      'DAY',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          height: 0.7,
+                                          letterSpacing: 0.0,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          btnrow: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
                                 children: [
                                   Text(
-                                    stay,
+                                    "\$$price",
                                     style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 25,
-                                        height: 1.2),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const Text(
-                                    'DAY',
+                                    "/Person",
                                     style: TextStyle(
-                                        color: Colors.white,
-                                        height: 0.7,
-                                        letterSpacing: 0.0,
-                                        fontSize: 12),
+                                        fontSize: 15,
+                                        color: Color.fromARGB(132, 0, 0, 0)),
                                   ),
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                        btnrow: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  "\$$price",
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 0.0, horizontal: 10.0),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 51, 173, 226),
+                                  elevation: 0.0,
+                                  shape: const RoundedRectangleBorder(),
                                 ),
-                                const Text(
-                                  "/Person",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color.fromARGB(132, 0, 0, 0)),
+                                onPressed: () {},
+                                child: Text(
+                                  'Book Now',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                        height: 1.4,
+                                      ),
                                 ),
-                              ],
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 0.0, horizontal: 10.0),
-                                backgroundColor:
-                                    const Color.fromARGB(255, 51, 173, 226),
-                                elevation: 0.0,
-                                shape: const RoundedRectangleBorder(),
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                'Book Now',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15,
-                                      height: 1.4,
-                                    ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -379,7 +386,6 @@ class _HomescreenState extends State<HomeScreen>
                                           fit: BoxFit.fill,
                                         ),
                                   onPressed: () {
-                                    print(favourite);
                                     setState(() {
                                       favourite = !favourite;
                                     });
