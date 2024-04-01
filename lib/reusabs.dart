@@ -10,26 +10,42 @@ class CustomIcons {
   static const _kFontFam = 'CustomIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData calender =
+  static const IconData binoculars =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData car_icon =
+  static const IconData calender =
       IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData earthicon =
+  static const IconData car_icon =
       IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData profile =
+  static const IconData couple =
       IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData search =
+  static const IconData difficulty =
       IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData plane_icon =
+  static const IconData earthicon =
       IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData home =
       IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData pump_icon =
+  static const IconData hotel =
       IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData sign_icon =
-      IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData location =
+      IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData luggage =
       IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData peoples =
+      IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData persons =
+      IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData plane_icon =
+      IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData profile =
+      IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData pump_icon =
+      IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData search =
+      IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData sign_icon =
+      IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData takeoff =
+      IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
 
 ///////////////////////////////////////////////////////////////////////
