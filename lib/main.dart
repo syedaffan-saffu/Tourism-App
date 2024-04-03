@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/mainpage.dart';
-import 'package:trekkers_pk/profile.dart';
-import 'package:trekkers_pk/search.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,12 +19,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      routes: {
-        '/search': (context) => const Search(),
-        '/location': (context) => const Location(),
-        '/profile': (context) => const Profile(),
-        '/profileedit': (context) => const ProfileEdit(),
-      },
       home: const MainPage(),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'reusabs.dart';
+import '/reusabs/reusabs.dart';
 import 'package:intl/intl.dart';
 
 class Search extends StatefulWidget {

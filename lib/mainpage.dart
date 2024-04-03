@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/reusabs.dart';
-
-import 'hmscrn.dart';
-import 'profile.dart';
-import 'search.dart';
+import 'reusabs/reusabs.dart';
+import 'homescreen/hmscrn.dart';
+import 'profile/profile.dart';
+import 'search/search.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -21,13 +20,6 @@ class _MainPageState extends State<MainPage> {
     2: GlobalKey(),
     3: GlobalKey(),
   };
-
-  // static const List<Widget> _pages = [
-  //   NavigationPage(child: HomeScreen()),
-  //   NavigationPage(child: Search()),
-  //   NavigationPage(child: Location()),
-  //   NavigationPage(child: Profile()),
-  // ];
 
   void _onItemTapped(int index) {
     setState(() {

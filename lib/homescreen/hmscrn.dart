@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/adv_places.dart';
 import 'package:trekkers_pk/main.dart';
-import 'package:trekkers_pk/reusabs.dart';
+import '/reusabs/reusabs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {

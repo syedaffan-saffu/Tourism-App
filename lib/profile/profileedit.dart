@@ -1,43 +1,11 @@
 import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
-import 'reusabs.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      extendBodyBehindAppBar: true,
-      body: Padding(
-        padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 40, bottom: 12),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text(
-            'Profile',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-          const Divider(),
-          sbh(18),
-          ProfileComp.profiletile('Profile Edit', () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const ProfileEdit()));
-          }),
-          sbh(12),
-          ProfileComp.profiletile('Experience', () {}),
-          sbh(12),
-          ProfileComp.profiletile('Professional Sport Activities', () {}),
-          sbh(12),
-          ProfileComp.profiletile('Certificate and License', () {}),
-        ]),
-      ),
-    );
-  }
-}
+import '../reusabs/reusabs.dart';
+import 'profile.dart';
 
 class ProfileEdit extends StatefulWidget {
   const ProfileEdit({super.key});
@@ -58,8 +26,6 @@ class _ProfileEditState extends State<ProfileEdit> {
     'Sindhi',
   ];
   final List<String> items3 = ['beginner', 'Intermediate', 'Native'];
-
-  int _selectedlang = 0;
 
   String? selectedValue1;
   String? selectedlang;
