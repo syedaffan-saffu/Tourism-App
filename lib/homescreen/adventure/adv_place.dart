@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:trekkers_pk/adventure/advtable.dart';
+import 'adv_table.dart';
 import '/reusabs/reusabs.dart';
 
 import '/reusabs/indicator.dart';

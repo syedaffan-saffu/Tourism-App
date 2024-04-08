@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/adventure/adv_places.dart';
+import 'package:trekkers_pk/homescreen/adventure/adv_card.dart';
+import 'adventure/adv_place.dart';
 import 'package:trekkers_pk/main.dart';
 import '/reusabs/reusabs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'guide/guide_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,22 +20,21 @@ class _HomescreenState extends State<HomeScreen>
   @override
   bool get wantKeepAlive => true;
   bool favourite = false;
-  String image = "assets/images/mount.jpg";
-  String image2 = "assets/images/gliding.png";
-  String title = "Biafo Glacier Ice Climbing";
-  String location = " Hindu Kush Range";
+  static const String image = "assets/images/mount.jpg";
+  static const String image2 = "assets/images/gliding.png";
+  static const String title = "Biafo Glacier Ice Climbing";
+  static const String location = " Hindu Kush Range";
   static const String description =
       "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter.";
-  String price = "250";
-  String rating = "4.5";
-  String stay = "10";
-  List<String> iconlist = [
-    'assets/icons/car-icon.svg',
-    "assets/icons/plane-icon.svg",
-    'assets/icons/sign-icon.svg',
-    'assets/icons/pump-icon.svg'
+  static const String price = "250";
+  static const String rating = "4.5";
+  static const String stay = "10";
+  static const List<String> locs_s = [
+    'K-2',
+    'Nanga Parbat',
+    'Gasherbrum',
+    'undefine'
   ];
-  List<String> locs_s = ['K-2', 'Nanga Parbat', 'Gasherbrum', 'undefine'];
 
   @override
   Widget build(BuildContext context) {
@@ -167,161 +169,8 @@ class _HomescreenState extends State<HomeScreen>
                   clipBehavior: Clip.none,
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: InkWell(
-                        onTap: () {
-                          mynavigatorKey.currentState!.push(MaterialPageRoute(
-                              builder: (context) => const Advplace()));
-                        },
-                        child: CardView(
-                          img: image,
-                          title: title,
-                          locorating: Row(
-                            children: [
-                              const Icon(Icons.location_on, color: Colors.blue),
-                              Text(location)
-                            ],
-                          ),
-                          description: description,
-                          price: price,
-                          rating: rating,
-                          stay: stay,
-                          iconsrow: Row(
-                            children: [
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: SvgPicture.asset(iconlist[0])),
-                              const SizedBox(width: 10),
-                              SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: SvgPicture.asset(iconlist[1])),
-                              const SizedBox(width: 10),
-                              SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: SvgPicture.asset(iconlist[2])),
-                              const SizedBox(width: 10),
-                              SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: SvgPicture.asset(iconlist[3])),
-                            ],
-                          ),
-                          tags: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                width: 55,
-                                height: 23,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 6.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.star,
-                                      color: Color.fromARGB(255, 255, 208, 40),
-                                      size: 15,
-                                    ),
-                                    Text(
-                                      rating,
-                                      style: const TextStyle(
-                                        height: 1.0,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 140,
-                              ),
-                              Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 20, 92, 151)),
-                                height: 45,
-                                width: 40,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      stay,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 25,
-                                          height: 1.2),
-                                    ),
-                                    const Text(
-                                      'DAY',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          height: 0.7,
-                                          letterSpacing: 0.0,
-                                          fontSize: 12),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          btnrow: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "\$$price",
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const Text(
-                                    "/Person",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: Color.fromARGB(132, 0, 0, 0)),
-                                  ),
-                                ],
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 0.0, horizontal: 10.0),
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 51, 173, 226),
-                                  elevation: 0.0,
-                                  shape: const RoundedRectangleBorder(),
-                                ),
-                                onPressed: () {},
-                                child: Text(
-                                  'Book Now',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15,
-                                        height: 1.4,
-                                      ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+                    return const Padding(
+                        padding: EdgeInsets.all(4.0), child: AdvCard());
                   },
                 ),
               ),
@@ -355,8 +204,8 @@ class _HomescreenState extends State<HomeScreen>
                 ],
               ),
             ),
-///////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
             SizedBox(
                 height: 520,
                 child: Padding(
@@ -563,6 +412,7 @@ class _HomescreenState extends State<HomeScreen>
 ////////////////////////////////////////////////////////////////////////////////////////////
             SizedBox(
                 height: 400,
+                width: 400,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 17),
                   child: PageView.builder(
@@ -571,38 +421,8 @@ class _HomescreenState extends State<HomeScreen>
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: avatarcard(
-                              'assets/images/rawtrip.png',
-                              'assets/images/avatar.png',
-                              "Purpose of lorum Ipsum",
-                              'Tour Guide',
-                              'Pakistan',
-                              '2023',
-                              'Newyork',
-                              'Available',
-                              70,
-                              80,
-                              50,
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 0.0, horizontal: 10.0),
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 51, 173, 226),
-                                      elevation: 0.0,
-                                      shape: const RoundedRectangleBorder()),
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'View Profile',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15,
-                                        height: 0.0),
-                                  )),
-                            ));
+                        return const Padding(
+                            padding: EdgeInsets.all(4.0), child: GuideCard());
                       }),
                 )),
           ],
