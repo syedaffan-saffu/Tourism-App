@@ -1,10 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/homescreen/adventure/adv_card.dart';
-import 'adventure/adv_place.dart';
-import 'package:trekkers_pk/main.dart';
 import '/reusabs/reusabs.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'guide/guide_card.dart';
 
@@ -20,15 +17,12 @@ class _HomescreenState extends State<HomeScreen>
   @override
   bool get wantKeepAlive => true;
   bool favourite = false;
-  static const String image = "assets/images/mount.jpg";
   static const String image2 = "assets/images/gliding.png";
   static const String title = "Biafo Glacier Ice Climbing";
-  static const String location = " Hindu Kush Range";
   static const String description =
       "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter.";
   static const String price = "250";
   static const String rating = "4.5";
-  static const String stay = "10";
   static const List<String> locs_s = [
     'K-2',
     'Nanga Parbat',

@@ -48,7 +48,7 @@ class CustomIcons {
 ///////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-class CardView extends StatefulWidget {
+class CardView extends StatelessWidget {
   final String img;
   final String title;
   final Row? locorating;
@@ -77,11 +77,6 @@ class CardView extends StatefulWidget {
   });
 
   @override
-  State<CardView> createState() => _CardViewState();
-}
-
-class _CardViewState extends State<CardView> {
-  @override
   Widget build(BuildContext context) {
     return Card(
       shape: const RoundedRectangleBorder(),
@@ -102,21 +97,21 @@ class _CardViewState extends State<CardView> {
                           height: 200,
                           width: double.infinity,
                           child: Image.asset(
-                            widget.img,
+                            img,
                             fit: BoxFit.fill,
                           )),
                       const SizedBox(
                         height: 15,
                       ),
                       SizedBox(
-                        child: widget.iconsrow,
+                        child: iconsrow,
                       ),
                     ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 12, right: 12),
                     child: SizedBox(
-                      child: widget.tags,
+                      child: tags,
                     ),
                   ),
                   const SizedBox(
@@ -133,25 +128,25 @@ class _CardViewState extends State<CardView> {
                   children: [
                     sbh(7),
                     Text(
-                      widget.title,
+                      title,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 19),
                     ),
                     sbh(7),
                     SizedBox(
-                      child: widget.locorating,
+                      child: locorating,
                     ),
                     sbh(7),
-                    SizedBox(child: widget.locs),
+                    SizedBox(child: locs),
                     sbh(7),
                     Text(
-                      widget.description,
+                      description,
                       style:
                           const TextStyle(color: Color.fromARGB(132, 0, 0, 0)),
                     ),
                     sbh(15),
                     SizedBox(
-                      child: widget.btnrow,
+                      child: btnrow,
                     ),
                   ],
                 ),

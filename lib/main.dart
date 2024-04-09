@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '/homescreen/guide/guideprofile.dart';
-import 'package:trekkers_pk/mainpage.dart';
-import 'package:go_router/go_router.dart';
+import '/homescreen/guide/guideprofile/guideprofile.dart';
+import 'mainpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        navigatorKey: mynavigatorKey,
-        title: 'trekkers_pk',
-        theme: ThemeData(
-          fontFamily: 'RedHat',
-          useMaterial3: true,
-        ),
-        home: const GuideProfile() //MainPage(),
-        );
+      navigatorKey: mynavigatorKey,
+      title: 'trekkers_pk',
+      theme: ThemeData(
+        fontFamily: 'RedHat',
+        useMaterial3: true,
+      ),
+      home: const MainPage(),
+    );
   }
 }

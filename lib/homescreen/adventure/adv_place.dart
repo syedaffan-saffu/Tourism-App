@@ -493,29 +493,29 @@ class _AdvplaceState extends State<Advplace> {
         ),
       ),
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      bottomNavigationBar: BottomNavigationBar(
-        selectedLabelStyle: const TextStyle(fontSize: 1.0),
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        showSelectedLabels: false,
-        selectedItemColor: Colors.grey,
-        unselectedItemColor: Colors.grey,
-        onTap: (x) {
-          Navigator.of(context).pop();
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(CustomIcons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CustomIcons.search),
-            label: '',
-          ),
-          BottomNavigationBarItem(icon: Icon(CustomIcons.location), label: ''),
-          BottomNavigationBarItem(icon: Icon(CustomIcons.profile), label: ''),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   selectedLabelStyle: const TextStyle(fontSize: 1.0),
+      //   type: BottomNavigationBarType.fixed,
+      //   currentIndex: _selectedIndex,
+      //   showSelectedLabels: false,
+      //   selectedItemColor: Colors.grey,
+      //   unselectedItemColor: Colors.grey,
+      //   onTap: (x) {
+      //     Navigator.of(context).pop();
+      //   },
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(CustomIcons.home),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(CustomIcons.search),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(icon: Icon(CustomIcons.location), label: ''),
+      //     BottomNavigationBarItem(icon: Icon(CustomIcons.profile), label: ''),
+      //   ],
+      // ),
     );
   }
 

@@ -26,7 +26,8 @@ class AdvCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        mynavigatorKey.currentState!
+        // mynavigatorKey.currentState!
+        Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const Advplace()));
       },
       child: CardView(

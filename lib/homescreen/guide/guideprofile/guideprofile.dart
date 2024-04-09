@@ -1,8 +1,7 @@
-import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
 class GuideProfile extends StatefulWidget {
@@ -14,6 +13,7 @@ class GuideProfile extends StatefulWidget {
 
 class _GuideProfileState extends State<GuideProfile>
     with TickerProviderStateMixin {
+  static const int trips = 20;
   TextStyle heading = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
   late TabController _tabController;
@@ -31,6 +31,11 @@ class _GuideProfileState extends State<GuideProfile>
     'Germany',
     'Chinese',
   ];
+  static const String img = "assets/images/nexttripimg.png";
+  static const String title = "Biafo Glacier Ice Climbing";
+  static const String description =
+      "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter.";
+  static const String price = "250";
 
   @override
   void initState() {
@@ -40,6 +45,7 @@ class _GuideProfileState extends State<GuideProfile>
 
   @override
   Widget build(BuildContext context) {
+    print(description.length);
     return Scaffold(
       appBar: null,
       body: SingleChildScrollView(
@@ -175,8 +181,9 @@ class _GuideProfileState extends State<GuideProfile>
                   ),
                   sbh(20),
                   SizedBox(
-                    height: MediaQuery.sizeOf(context).height,
+                    height: 850, //MediaQuery.sizeOf(context).height * 1.05,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         TabBar(
                             labelPadding: const EdgeInsets.only(right: 30),
@@ -197,71 +204,12 @@ class _GuideProfileState extends State<GuideProfile>
                               Tab(text: 'Clients Review'),
                             ]),
                         sbh(15),
-                        Expanded(
+                        Flexible(
                           child: TabBarView(
                             controller: _tabController,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('GUIDE BIO', style: heading),
-                                  sbh(10),
-                                  const Text(
-                                    bio,
-                                    style: TextStyle(
-                                      color: Color(0xFF848484),
-                                    ),
-                                  ),
-                                  sbh(20),
-                                  Text("LANGUAGES", style: heading),
-                                  sbh(15),
-                                  Wrap(
-                                      spacing: 10,
-                                      runSpacing: 10,
-                                      children: List.generate(
-                                          4,
-                                          (index) =>
-                                              _langtiles(_langs[index]))),
-                                  sbh(30),
-                                  Text("PERSONAL DETAILS", style: heading),
-                                  sbh(15),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.phone,
-                                        color: Color(0xFF48B5E4),
-                                      ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      Text(
-                                        phone,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ],
-                                  ),
-                                  sbh(10),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.email,
-                                        color: Color(0xFF1C954B),
-                                      ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      Text(
-                                        email,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
+                              Gcomponents.aboutus(
+                                  bio, _langs, phone, email, trips),
                               const Center(child: Text('Photos')),
                               const Center(child: Text('Videos')),
                               const Center(child: Text('Clients')),
@@ -271,6 +219,9 @@ class _GuideProfileState extends State<GuideProfile>
                       ],
                     ),
                   ),
+                  Center(
+                      child: Gcomponents.nexttripcard(
+                          img, title, description, price))
                 ],
               ),
             )
@@ -284,35 +235,5 @@ class _GuideProfileState extends State<GuideProfile>
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
-
-  Widget _langtiles(String language) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      width: 80 + (language.length * 4.5),
-      decoration: BoxDecoration(
-          border: Border.all(
-              width: 1.5,
-              color: const Color(0xFF0561AB),
-              style: BorderStyle.solid),
-          borderRadius: const BorderRadius.all(Radius.circular(15))),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.check_circle_rounded,
-            size: 18,
-            color: Color(0xFF0561AB),
-          ),
-          sbw(10),
-          Text(
-            language,
-            style: const TextStyle(
-                color: Color(0xFF514D4D),
-                fontWeight: FontWeight.w600,
-                height: 1.3),
-          ),
-        ],
-      ),
-    );
   }
 }
