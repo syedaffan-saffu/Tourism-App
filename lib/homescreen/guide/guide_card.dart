@@ -325,10 +325,32 @@ Card guidecard(
                 height: 100,
                 width: 100,
                 padding: const EdgeInsets.all(3.0),
-                child: ClipOval(
-                  child: Image.asset(
-                    avatarimg,
-                    fit: BoxFit.fill,
+                child: Badge(
+                  padding: const EdgeInsets.all(6),
+                  alignment: Alignment.bottomRight,
+                  label: const Column(children: [
+                    Text(
+                      'TOP',
+                      style: TextStyle(
+                        fontSize: 10,
+                        height: 0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      'Rated',
+                      style: TextStyle(
+                          fontSize: 7, fontWeight: FontWeight.w600, height: 0),
+                    )
+                  ]),
+                  smallSize: 30,
+                  largeSize: 35,
+                  backgroundColor: const Color(0xFF0561AB),
+                  child: ClipOval(
+                    child: Image.asset(
+                      avatarimg,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),

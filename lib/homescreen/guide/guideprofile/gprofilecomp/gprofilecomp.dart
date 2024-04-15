@@ -1,154 +1,59 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-import '../../../reusabs/reusabs.dart';
+import '/../reusabs/reusabs.dart';
 
 class Gcomponents {
   static TextStyle heading = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
 
-  static Widget aboutus(
-      String bio, List<String> langs, String phone, String email, int trips) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('GUIDE BIO', style: heading),
-        sbh(10),
-        Text(
-          bio,
-          style: const TextStyle(
-            color: Color(0xFF848484),
-          ),
-        ),
-        sbh(20),
-        Text("LANGUAGES", style: heading),
-        sbh(15),
-        Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: List.generate(4, (index) => _langtiles(langs[index]))),
-        sbh(30),
-        Text("PERSONAL DETAILS", style: heading),
-        sbh(15),
-        Row(
+  static Widget skillstile(String skill, int percent) {
+    List<Color> colors = [
+      const Color(0xFF0561AB),
+      const Color(0xFF393939),
+      const Color(0xFF48B5E4),
+      const Color(0xFFF7A81A),
+      const Color(0xFF1C954B)
+    ];
+    return IntrinsicWidth(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+            color: const Color(0xFFF3F3F3),
+            border: Border.all(
+                width: 1.5,
+                color: const Color(0xFFE8E8E8),
+                style: BorderStyle.solid),
+            borderRadius: const BorderRadius.all(Radius.circular(15))),
+        child: Row(
           children: [
-            const Icon(
-              Icons.phone,
-              color: Color(0xFF48B5E4),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
             Text(
-              phone,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              skill,
+              style: const TextStyle(
+                  color: Color(0xff000000),
+                  fontWeight: FontWeight.w700,
+                  height: 1.3),
             ),
-          ],
-        ),
-        sbh(10),
-        Row(
-          children: [
-            const Icon(
-              Icons.email,
-              color: Color(0xFF1C954B),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Text(
-              email,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        sbh(20),
-        Row(
-          children: [
-            Text("RECENT TRIPS ", style: heading),
+            sbw(7),
             Container(
-              padding: const EdgeInsets.all(4),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xFF48B5E4),
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: colors[Random().nextInt(colors.length)],
               ),
+              height: 20,
               child: Text(
-                trips.toString(),
+                '${percent.toString()}%',
                 style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
+                    fontSize: 11,
+                    height: 1.0,
+                    fontWeight: FontWeight.w600),
               ),
             )
           ],
         ),
-        sbh(10),
-        Column(
-            children: List.generate(
-                3,
-                (index) => _recenttrips('BIAFO GLACIER ICE CLIMBING', "23-2-24",
-                    "assets/images/tripthumb.png")))
-      ],
-    );
-  }
-
-  static Widget _recenttrips(
-    String tripname,
-    String date,
-    String image,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: ListTile(
-        tileColor: const Color(0xFFEEF8FF),
-        onTap: () {},
-        leading: Image.asset(image),
-        title: Text(
-          tripname,
-          style: const TextStyle(
-              fontWeight: FontWeight.w700, fontFamily: "Signika", fontSize: 16),
-        ),
-        subtitle: Row(
-          children: [
-            const Icon(
-              Icons.calendar_today,
-              size: 16,
-            ),
-            sbw(10),
-            Text(
-              date,
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  static Widget _langtiles(String language) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      width: 80 + (language.length * 4.5),
-      decoration: BoxDecoration(
-          border: Border.all(
-              width: 1.5,
-              color: const Color(0xFF0561AB),
-              style: BorderStyle.solid),
-          borderRadius: const BorderRadius.all(Radius.circular(15))),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.check_circle_rounded,
-            size: 18,
-            color: Color(0xFF0561AB),
-          ),
-          sbw(10),
-          Text(
-            language,
-            style: const TextStyle(
-                color: Color(0xFF514D4D),
-                fontWeight: FontWeight.w600,
-                height: 1.3),
-          ),
-        ],
       ),
     );
   }
@@ -271,7 +176,9 @@ class Gcomponents {
                                   backgroundColor:
                                       const Color.fromARGB(255, 51, 173, 226),
                                   elevation: 0.0,
-                                  shape: const RoundedRectangleBorder()),
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12)))),
                               onPressed: () {},
                               child: const Text(
                                 'Book Now',

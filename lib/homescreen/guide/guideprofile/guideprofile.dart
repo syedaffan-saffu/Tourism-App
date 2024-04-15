@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp.dart';
+import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp/aboutus.dart';
+import '../guideprofile/gprofilecomp/gprofilecomp.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
 class GuideProfile extends StatefulWidget {
@@ -36,7 +37,26 @@ class _GuideProfileState extends State<GuideProfile>
   static const String description =
       "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter.";
   static const String price = "250";
-
+  static const List<String> skills = [
+    'Mountaineering',
+    'Climbing',
+    'Klettersteig or climbing',
+    'Ski touring',
+    'Snowshoeing',
+    'Hiking Hillwalking',
+    'Trekking',
+    'Mountain biking (partly)',
+  ];
+  static const List<int> skillsperc = [
+    80,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+  ];
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
@@ -45,7 +65,6 @@ class _GuideProfileState extends State<GuideProfile>
 
   @override
   Widget build(BuildContext context) {
-    print(description.length);
     return Scaffold(
       appBar: null,
       body: SingleChildScrollView(
@@ -181,12 +200,14 @@ class _GuideProfileState extends State<GuideProfile>
                   ),
                   sbh(20),
                   SizedBox(
-                    height: 850, //MediaQuery.sizeOf(context).height * 1.05,
+                    height: 800,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         TabBar(
-                            labelPadding: const EdgeInsets.only(right: 30),
+                            labelPadding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
                             tabAlignment: TabAlignment.center,
                             indicatorColor: const Color(0xFF0561AB),
                             unselectedLabelStyle: const TextStyle(
@@ -204,13 +225,12 @@ class _GuideProfileState extends State<GuideProfile>
                               Tab(text: 'Clients Review'),
                             ]),
                         sbh(15),
-                        Flexible(
+                        Expanded(
                           child: TabBarView(
                             controller: _tabController,
                             children: [
-                              Gcomponents.aboutus(
-                                  bio, _langs, phone, email, trips),
-                              const Center(child: Text('Photos')),
+                              AboutUs.aboutus(bio, _langs, phone, email, trips),
+                              AboutUs.photos(),
                               const Center(child: Text('Videos')),
                               const Center(child: Text('Clients')),
                             ],
@@ -221,7 +241,20 @@ class _GuideProfileState extends State<GuideProfile>
                   ),
                   Center(
                       child: Gcomponents.nexttripcard(
-                          img, title, description, price))
+                          img, title, description, price)),
+                  sbh(20),
+                  Text(
+                    "Skills",
+                    style: heading,
+                  ),
+                  sbh(12),
+                  Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: List.generate(
+                          skills.length,
+                          (index) => Gcomponents.skillstile(
+                              skills[index], skillsperc[index]))),
                 ],
               ),
             )
