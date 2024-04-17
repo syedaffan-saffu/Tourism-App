@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp/aboutus.dart';
+import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp/videos.dart';
 import '../guideprofile/gprofilecomp/gprofilecomp.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
@@ -12,12 +13,16 @@ class GuideProfile extends StatefulWidget {
   State<GuideProfile> createState() => _GuideProfileState();
 }
 
+GlobalKey<ScaffoldState> guideprofile = GlobalKey<ScaffoldState>();
+
 class _GuideProfileState extends State<GuideProfile>
     with TickerProviderStateMixin {
+  int _selectedtab = 0;
   static const int trips = 20;
   TextStyle heading = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
   late TabController _tabController;
+  final PageController _pageController = PageController();
   static const String name = 'Robert Lewandowski';
   static const String about =
       'The purpose of lorem ipsum is to create a natural looking block of text.';
@@ -59,13 +64,19 @@ class _GuideProfileState extends State<GuideProfile>
   ];
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
     super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+    // _tabController.addListener(() {
+    //   setState(() {
+    //     _selectedtab = _tabController.index;
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: guideprofile,
       appBar: null,
       body: SingleChildScrollView(
         child: Column(
@@ -155,7 +166,8 @@ class _GuideProfileState extends State<GuideProfile>
               ]),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              padding:
+                  const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -200,11 +212,26 @@ class _GuideProfileState extends State<GuideProfile>
                   ),
                   sbh(20),
                   SizedBox(
-                    height: 800,
+                    height: _selectedtab == 0
+                        ? sizebox(800)
+                        : _selectedtab == 1
+                            ? sizebox(780)
+                            : _selectedtab == 2
+                                ? sizebox(850)
+                                : 800,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         TabBar(
+                            onTap: (index) {
+                              setState(() {
+                                _selectedtab = index;
+                                _pageController.animateToPage(_selectedtab,
+                                    duration:
+                                        (const Duration(milliseconds: 200)),
+                                    curve: Curves.easeInOut);
+                              });
+                            },
                             labelPadding: const EdgeInsets.symmetric(
                               horizontal: 15,
                             ),
@@ -226,12 +253,18 @@ class _GuideProfileState extends State<GuideProfile>
                             ]),
                         sbh(15),
                         Expanded(
-                          child: TabBarView(
-                            controller: _tabController,
+                          child: PageView(
+                            onPageChanged: (index) {
+                              setState(() {
+                                _selectedtab = index;
+                                _tabController.animateTo(_selectedtab);
+                              });
+                            },
+                            controller: _pageController,
                             children: [
                               AboutUs.aboutus(bio, _langs, phone, email, trips),
                               AboutUs.photos(),
-                              const Center(child: Text('Videos')),
+                              const Videos(),
                               const Center(child: Text('Clients')),
                             ],
                           ),
@@ -262,6 +295,11 @@ class _GuideProfileState extends State<GuideProfile>
         ),
       ),
     );
+  }
+
+  double sizebox(double size) {
+    const Duration(seconds: 3);
+    return size;
   }
 
   @override

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: const MainPage(),
+      home: const GuideProfile(),
     );
   }
 }

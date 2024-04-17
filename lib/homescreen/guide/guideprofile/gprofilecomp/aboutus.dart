@@ -160,6 +160,23 @@ class AboutUs {
   }
 
   static Widget photos() {
+    const List<String> photos = [
+      'assets/images/gimg1.png',
+      'assets/images/gimg2.png',
+      'assets/images/gimg3.png',
+      'assets/images/gimg4.png',
+    ];
+    SizedBox picframe(String photo) {
+      return SizedBox(
+        height: 140,
+        width: 175,
+        child: Image.asset(
+          photo,
+          fit: BoxFit.fill,
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -170,62 +187,85 @@ class AboutUs {
         sbh(12),
         const Text(description),
         sbh(20),
-        ColorFiltered(
-            colorFilter:
-                const ColorFilter.mode(Color(0x71161616), BlendMode.darken),
-            child: SizedBox(
-              height: 200,
-              width: double.maxFinite,
-              child: Image.asset(
-                'assets/images/gimg.jpeg',
-                fit: BoxFit.fill,
-              ),
-            )),
+        SizedBox(
+          height: 200,
+          child: Stack(
+            children: [
+              ColorFiltered(
+                  colorFilter: const ColorFilter.mode(
+                      Color(0x71161616), BlendMode.darken),
+                  child: SizedBox(
+                    height: 200,
+                    width: double.maxFinite,
+                    child: Image.asset(
+                      'assets/images/gimg.jpeg',
+                      fit: BoxFit.fill,
+                    ),
+                  )),
+              Center(
+                child: SizedBox(
+                  width: 200,
+                  child: Text(
+                    tripname,
+                    textAlign: TextAlign.center,
+                    style: heading.copyWith(color: Colors.white),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
         sbh(10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              height: 140,
-              width: 175,
-              child: Image.asset(
-                'assets/images/gimg1.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-            SizedBox(
-              height: 140,
-              width: 175,
-              child: Image.asset(
-                'assets/images/gimg2.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-          ],
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children:
+              List.generate(photos.length, (index) => picframe(photos[index])),
         ),
-        sbh(12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              height: 140,
-              width: 175,
-              child: Image.asset(
-                'assets/images/gimg3.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-            SizedBox(
-              height: 140,
-              width: 175,
-              child: Image.asset(
-                'assets/images/gimg4.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-          ],
-        ),
-        TextButton(onPressed: () {}, child: Text("See More"))
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     SizedBox(
+        //       height: 140,
+        //       width: 175,
+        //       child: Image.asset(
+        //         'assets/images/gimg1.png',
+        //         fit: BoxFit.fill,
+        //       ),
+        //     ),
+        //     SizedBox(
+        //       height: 140,
+        //       width: 175,
+        //       child: Image.asset(
+        //         'assets/images/gimg2.png',
+        //         fit: BoxFit.fill,
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        // sbh(12),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     SizedBox(
+        //       height: 140,
+        //       width: 175,
+        //       child: Image.asset(
+        //         'assets/images/gimg3.png',
+        //         fit: BoxFit.fill,
+        //       ),
+        //     ),
+        //     SizedBox(
+        //       height: 140,
+        //       width: 175,
+        //       child: Image.asset(
+        //         'assets/images/gimg4.png',
+        //         fit: BoxFit.fill,
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        TextButton(onPressed: () {}, child: const Text("See More"))
       ],
     );
   }

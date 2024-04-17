@@ -64,7 +64,7 @@ class Gcomponents {
       shape: const RoundedRectangleBorder(),
       color: const Color.fromARGB(255, 255, 255, 255),
       child: SizedBox(
-        width: 330,
+        width: double.maxFinite,
         child: Column(
 
             // mainAxisSize: MainAxisSize.min,
