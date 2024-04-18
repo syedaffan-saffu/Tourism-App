@@ -1,10 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp/aboutus.dart';
-import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp/videos.dart';
+import 'gprofilecomp/aboutus.dart';
+import 'gprofilecomp/clients/clientsrev.dart';
+import 'gprofilecomp/videos.dart';
 import '../guideprofile/gprofilecomp/gprofilecomp.dart';
-import 'package:trekkers_pk/reusabs/reusabs.dart';
+import '../../../reusabs/reusabs.dart';
 
 class GuideProfile extends StatefulWidget {
   const GuideProfile({super.key});
@@ -84,7 +86,7 @@ class _GuideProfileState extends State<GuideProfile>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 190,
+              height: 195,
               width: double.infinity,
               child: Stack(children: [
                 Column(
@@ -100,23 +102,24 @@ class _GuideProfileState extends State<GuideProfile>
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, right: 20),
-                      child: SizedBox(
-                        height: 40,
-                        width: 45,
-                        child: Badge(
-                          backgroundColor: const Color(0xFFF7A81A),
-                          alignment: Alignment.topRight,
-                          padding: EdgeInsets.zero,
-                          smallSize: 15,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(
-                              'assets/icons/message.svg',
-                              fit: BoxFit.fill,
-                            ),
-                            style:
-                                IconButton.styleFrom(padding: EdgeInsets.zero),
+                      child: Badge(
+                        label: const SizedBox(
+                          height: 10,
+                          width: 8,
+                        ),
+                        backgroundColor: const Color(0xFFF7A81A),
+                        alignment: Alignment.topRight,
+                        offset: const Offset(-2, 2),
+                        smallSize: 15,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: SvgPicture.asset(
+                            'assets/icons/message.svg',
+                            height: 40,
+                            fit: BoxFit.fill,
                           ),
+                          style: IconButton.styleFrom(
+                              padding: const EdgeInsets.all(5)),
                         ),
                       ),
                     )
@@ -126,17 +129,20 @@ class _GuideProfileState extends State<GuideProfile>
                   bottom: 0,
                   left: 20,
                   child: Badge(
+                    offset: const Offset(8, 4),
                     padding: const EdgeInsets.all(6.5),
                     label: const Column(children: [
                       Text(
-                        'Level',
+                        'LEVEL',
+                        softWrap: false,
                         style: TextStyle(
-                            fontSize: 8,
+                            fontSize: 7,
                             height: 0,
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
                         'ONE',
+                        softWrap: false,
                         style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
@@ -218,7 +224,7 @@ class _GuideProfileState extends State<GuideProfile>
                             ? sizebox(780)
                             : _selectedtab == 2
                                 ? sizebox(850)
-                                : 800,
+                                : 820,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -265,7 +271,7 @@ class _GuideProfileState extends State<GuideProfile>
                               AboutUs.aboutus(bio, _langs, phone, email, trips),
                               AboutUs.photos(),
                               const Videos(),
-                              const Center(child: Text('Clients')),
+                              const CLientsReview(),
                             ],
                           ),
                         ),
