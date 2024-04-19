@@ -1,22 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp/clients/clientscomp.dart';
-import 'package:trekkers_pk/reusabs/reusabs.dart';
 
-class CLientsReview extends StatelessWidget {
-  const CLientsReview({super.key});
-  static TextStyle heading = const TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
-  static TextStyle bodystyle = const TextStyle(
-      color: Color(0xFF5D6366), fontSize: 18, fontWeight: FontWeight.w600);
-  static const String name = "Anna Diskens";
-  static const String email = "anna.diskens32@gmail.com";
-  static const String review =
-      "For someone who had never done a group tour before, it worked out very well! If you love nature, good food and a bit of culture, Ireland is highly recommended!";
-  static final DateTime _dateTime = DateTime.now();
-  static String date = _dateTime.toString();
-  static const double rating = 3.0;
-  static bool _liked = false;
+class CLientsReviews extends StatelessWidget {
+  const CLientsReviews({super.key});
 
   @override
   Widget build(BuildContext context) {

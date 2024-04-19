@@ -98,6 +98,10 @@ flutter:
     - family: CustomIcons
       fonts:
         - asset: assets/fonts/CustomIcons.ttf
+
+    - family: HeartIcons
+      fonts:
+        - asset: assets/fonts/HeartIcons.ttf
         
     - family: RedHat
       fonts:

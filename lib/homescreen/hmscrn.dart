@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:trekkers_pk/homescreen/adventure/adv_card.dart';
 import '/reusabs/reusabs.dart';
 
+import 'activities/activities.dart';
 import 'guide/guide_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -218,22 +219,7 @@ class _HomescreenState extends State<HomeScreen>
                             description: description,
                             price: price,
                             rating: rating,
-                            tags: SizedBox(
-                                height: 40,
-                                child: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  icon: favourite
-                                      ? Image.asset('assets/icons/wishlist.png')
-                                      : Image.asset(
-                                          'assets/icons/wished.png',
-                                          fit: BoxFit.fill,
-                                        ),
-                                  onPressed: () {
-                                    setState(() {
-                                      favourite = !favourite;
-                                    });
-                                  },
-                                )),
+                            tags: const Tag(),
                             locorating: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [

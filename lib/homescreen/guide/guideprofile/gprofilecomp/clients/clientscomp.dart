@@ -8,7 +8,7 @@ class ClientsReview extends StatelessWidget {
   const ClientsReview({super.key});
 
   static TextStyle heading = const TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
+      fontWeight: FontWeight.bold, fontSize: 16, fontFamily: "Signika");
   static TextStyle bodystyle = const TextStyle(
       color: Color(0xFF5D6366), fontSize: 18, fontWeight: FontWeight.w600);
   static const String name = "Anna Diskens";
@@ -44,8 +44,10 @@ class ClientsReview extends StatelessWidget {
                   children: [
                     Text(
                       name,
-                      style:
-                          heading.copyWith(fontFamily: "RedHat", height: 1.2),
+                      style: heading.copyWith(
+                        fontFamily: "RedHat",
+                        height: 1.2,
+                      ),
                     ),
                     const Text(
                       email,
@@ -66,6 +68,7 @@ class ClientsReview extends StatelessWidget {
                           date.split(" ").first,
                           style: const TextStyle(
                               color: Color(0xFF827F7F),
+                              fontSize: 14,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -77,7 +80,7 @@ class ClientsReview extends StatelessWidget {
             sbh(5),
             Text(
               review,
-              style: bodystyle.copyWith(fontSize: 16, height: 1.4),
+              style: bodystyle.copyWith(fontSize: 15, height: 1.4),
             ),
             sbh(10),
             Row(

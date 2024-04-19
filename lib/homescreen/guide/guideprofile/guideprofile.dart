@@ -112,6 +112,9 @@ class _GuideProfileState extends State<GuideProfile>
                         offset: const Offset(-2, 2),
                         smallSize: 15,
                         child: IconButton(
+                          highlightColor: Colors.transparent,
+                          hoverColor: const Color(0x00FFFFFF),
+                          enableFeedback: false,
                           onPressed: () {},
                           icon: SvgPicture.asset(
                             'assets/icons/message.svg',
@@ -177,12 +180,9 @@ class _GuideProfileState extends State<GuideProfile>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     name,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        fontFamily: 'Signika'),
+                    style: heading,
                   ),
                   const Text(
                     about,
@@ -202,7 +202,7 @@ class _GuideProfileState extends State<GuideProfile>
                       Text(
                         "$guide years old",
                         style: TextStyle(
-                            color: Color(0xFF5D6366),
+                            color: Color(0xFF8B8B8B),
                             fontWeight: FontWeight.w600),
                       )
                     ],
@@ -229,6 +229,17 @@ class _GuideProfileState extends State<GuideProfile>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         TabBar(
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors
+                                    .transparent; // Set overlay color to transparent when pressed
+                              }
+                              // Otherwise, return null to use default behavior
+                              return const Color(0xFFFFFFFF);
+                            }),
+                            enableFeedback: false,
                             onTap: (index) {
                               setState(() {
                                 _selectedtab = index;
@@ -271,7 +282,7 @@ class _GuideProfileState extends State<GuideProfile>
                               AboutUs.aboutus(bio, _langs, phone, email, trips),
                               AboutUs.photos(),
                               const Videos(),
-                              const CLientsReview(),
+                              const CLientsReviews(),
                             ],
                           ),
                         ),
