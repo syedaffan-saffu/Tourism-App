@@ -99,6 +99,10 @@ flutter:
       fonts:
         - asset: assets/fonts/CustomIcons.ttf
 
+    - family: Planeicon
+      fonts:
+        - asset: assets/fonts/Planeicon.ttf
+
     - family: HeartIcons
       fonts:
         - asset: assets/fonts/HeartIcons.ttf

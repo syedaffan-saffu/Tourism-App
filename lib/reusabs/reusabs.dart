@@ -45,6 +45,16 @@ class CustomIcons {
       IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
 
+class Planeicon {
+  Planeicon._();
+
+  static const _kFontFam = 'Planeicon';
+  static const String? _kFontPkg = null;
+
+  static const IconData tripplane2 =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+}
+
 class HeartIcons {
   HeartIcons._();
 

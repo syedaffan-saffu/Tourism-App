@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/search/s_tours/tours.dart';
 import '/reusabs/reusabs.dart';
 import 'package:intl/intl.dart';
 
@@ -110,7 +111,10 @@ class _SearchState extends State<Search> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const Tours()));
+              },
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0.0),
                   backgroundColor: const Color.fromARGB(255, 255, 171, 4),
