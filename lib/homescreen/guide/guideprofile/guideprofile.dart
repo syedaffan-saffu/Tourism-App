@@ -19,6 +19,7 @@ GlobalKey<ScaffoldState> guideprofile = GlobalKey<ScaffoldState>();
 
 class _GuideProfileState extends State<GuideProfile>
     with TickerProviderStateMixin {
+  late ScrollController _scrollController;
   int _selectedtab = 0;
   static const int trips = 20;
   TextStyle heading = const TextStyle(
@@ -39,6 +40,13 @@ class _GuideProfileState extends State<GuideProfile>
     'Germany',
     'Chinese',
   ];
+  final List<double> _sectionOffsets = [
+    0,
+    700,
+    1200,
+    1900,
+  ]; // Adjust these offsets according to your content
+
   static const String img = "assets/images/nexttripimg.png";
   static const String title = "Biafo Glacier Ice Climbing";
   static const String description =
@@ -64,10 +72,26 @@ class _GuideProfileState extends State<GuideProfile>
     50,
     50,
   ];
+
+  void _scrollListener() {
+    final double offset = _scrollController.offset;
+    for (int i = 0; i < _sectionOffsets.length; i++) {
+      if (offset >= _sectionOffsets[i] &&
+          (i == _sectionOffsets.length - 1 ||
+              offset < _sectionOffsets[i + 1])) {
+        _tabController.animateTo(i);
+        break;
+      }
+    }
+  }
+
   @override
   void initState() {
-    super.initState();
     _tabController = TabController(length: 4, vsync: this);
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+
     // _tabController.addListener(() {
     //   setState(() {
     //     _selectedtab = _tabController.index;
@@ -218,76 +242,142 @@ class _GuideProfileState extends State<GuideProfile>
                   ),
                   sbh(20),
                   SizedBox(
-                    height: _selectedtab == 0
-                        ? sizebox(800)
-                        : _selectedtab == 1
-                            ? sizebox(780)
-                            : _selectedtab == 2
-                                ? sizebox(850)
-                                : 820,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TabBar(
-                            overlayColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                                    (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.pressed)) {
-                                return Colors
-                                    .transparent; // Set overlay color to transparent when pressed
-                              }
-                              // Otherwise, return null to use default behavior
-                              return const Color(0xFFFFFFFF);
-                            }),
-                            enableFeedback: false,
-                            onTap: (index) {
-                              setState(() {
-                                _selectedtab = index;
-                                _pageController.animateToPage(_selectedtab,
-                                    duration:
-                                        (const Duration(milliseconds: 200)),
-                                    curve: Curves.easeInOut);
-                              });
-                            },
-                            labelPadding: const EdgeInsets.symmetric(
-                              horizontal: 15,
+                    height: 900,
+                    // _selectedtab == 0
+                    // ? sizebox(800)
+                    // : _selectedtab == 1
+                    //     ? sizebox(780)
+                    //     : _selectedtab == 2
+                    //         ? sizebox(850)
+                    //         : 820,
+                    child: NestedScrollView(
+                        headerSliverBuilder: (context, innerBoxIsScrolled) {
+                          return [
+                            SliverPersistentHeader(
+                              floating: true,
+                              delegate: _SliverAppBarDelegate(
+                                TabBar(
+                                    overlayColor:
+                                        MaterialStateProperty.resolveWith<
+                                            Color>((Set<MaterialState> states) {
+                                      if (states
+                                          .contains(MaterialState.pressed)) {
+                                        return Colors
+                                            .transparent; // Set overlay color to transparent when pressed
+                                      }
+                                      // Otherwise, return null to use default behavior
+                                      return const Color(0xFFFFFFFF);
+                                    }),
+                                    enableFeedback: false,
+                                    onTap: (index) {
+                                      _scrollController.animateTo(
+                                        _sectionOffsets[index],
+                                        duration:
+                                            const Duration(milliseconds: 100),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    },
+                                    labelPadding: const EdgeInsets.symmetric(
+                                      horizontal: 15,
+                                    ),
+                                    tabAlignment: TabAlignment.center,
+                                    indicatorColor: const Color(0xFF0561AB),
+                                    unselectedLabelStyle: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "RedHat"),
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "RedHat"),
+                                    controller: _tabController,
+                                    tabs: const [
+                                      Tab(text: 'About Us'),
+                                      Tab(text: 'Photos'),
+                                      Tab(text: 'Videos'),
+                                      Tab(text: 'Clients Review'),
+                                    ]),
+                              ),
+                              pinned: true,
                             ),
-                            tabAlignment: TabAlignment.center,
-                            indicatorColor: const Color(0xFF0561AB),
-                            unselectedLabelStyle: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "RedHat"),
-                            labelStyle: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "RedHat"),
-                            controller: _tabController,
-                            tabs: const [
-                              Tab(text: 'About Us'),
-                              Tab(text: 'Photos'),
-                              Tab(text: 'Videos'),
-                              Tab(text: 'Clients Review'),
-                            ]),
-                        sbh(15),
-                        Expanded(
-                          child: PageView(
-                            onPageChanged: (index) {
-                              setState(() {
-                                _selectedtab = index;
-                                _tabController.animateTo(_selectedtab);
-                              });
-                            },
-                            controller: _pageController,
-                            children: [
+                          ];
+                        },
+                        body: CustomScrollView(
+                          controller: _scrollController,
+                          slivers: [
+                            SliverList(
+                                delegate: SliverChildListDelegate([
                               AboutUs.aboutus(bio, _langs, phone, email, trips),
                               AboutUs.photos(),
                               const Videos(),
                               const CLientsReviews(),
-                            ],
-                          ),
+                            ]))
+                          ],
+                        )
+                        //  Column(
+                        //   mainAxisSize: MainAxisSize.min,
+                        //   children: [
+                        //     TabBar(
+                        //         overlayColor:
+                        //             MaterialStateProperty.resolveWith<Color>(
+                        //                 (Set<MaterialState> states) {
+                        //           if (states.contains(MaterialState.pressed)) {
+                        //             return Colors
+                        //                 .transparent; // Set overlay color to transparent when pressed
+                        //           }
+                        //           // Otherwise, return null to use default behavior
+                        //           return const Color(0xFFFFFFFF);
+                        //         }),
+                        //         enableFeedback: false,
+                        //         onTap: (index) {
+                        //           setState(() {
+                        //             _selectedtab = index;
+                        //             _pageController.animateToPage(_selectedtab,
+                        //                 duration:
+                        //                     (const Duration(milliseconds: 200)),
+                        //                 curve: Curves.easeInOut);
+                        //           });
+                        //         },
+                        //         labelPadding: const EdgeInsets.symmetric(
+                        //           horizontal: 15,
+                        //         ),
+                        //         tabAlignment: TabAlignment.center,
+                        //         indicatorColor: const Color(0xFF0561AB),
+                        //         unselectedLabelStyle: const TextStyle(
+                        //             fontWeight: FontWeight.w500,
+                        //             fontFamily: "RedHat"),
+                        //         labelStyle: const TextStyle(
+                        //             color: Colors.black,
+                        //             fontWeight: FontWeight.bold,
+                        //             fontFamily: "RedHat"),
+                        //         controller: _tabController,
+                        //         tabs: const [
+                        //           Tab(text: 'About Us'),
+                        //           Tab(text: 'Photos'),
+                        //           Tab(text: 'Videos'),
+                        //           Tab(text: 'Clients Review'),
+                        //         ]),
+                        //     sbh(15),
+                        //     Expanded(
+                        //       child: PageView(
+                        //         onPageChanged: (index) {
+                        //           setState(() {
+                        //             _selectedtab = index;
+                        //             _tabController.animateTo(_selectedtab);
+                        //           });
+                        //         },
+                        //         controller: _pageController,
+                        //         children: [
+                        //           AboutUs.aboutus(
+                        //               bio, _langs, phone, email, trips),
+                        //           AboutUs.photos(),
+                        //           const Videos(),
+                        //           const CLientsReviews(),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         ),
-                      ],
-                    ),
                   ),
                   Center(
                       child: Gcomponents.nexttripcard(
@@ -323,5 +413,31 @@ class _GuideProfileState extends State<GuideProfile>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final TabBar _tabBar;
+
+  _SliverAppBarDelegate(this._tabBar);
+
+  @override
+  double get minExtent => _tabBar.preferredSize.height;
+
+  @override
+  double get maxExtent => _tabBar.preferredSize.height;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Colors.white,
+      child: _tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }

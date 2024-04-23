@@ -158,7 +158,7 @@ class _HomescreenState extends State<HomeScreen>
             SizedBox(
               height: 500,
               child: Padding(
-                padding: const EdgeInsets.only(left: 17.0),
+                padding: const EdgeInsets.only(right: 17),
                 child: PageView.builder(
                   controller: PageController(viewportFraction: 0.94),
                   clipBehavior: Clip.none,

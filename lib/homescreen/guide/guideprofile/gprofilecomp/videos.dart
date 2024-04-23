@@ -4,6 +4,10 @@ import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofilecomp/aboutus.d
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+late YoutubePlayerController _ytcontroller1;
+late YoutubePlayerController _ytcontroller2;
+late YoutubePlayerController _ytcontroller3;
+
 class Videos extends StatefulWidget {
   const Videos({super.key});
 
@@ -17,19 +21,18 @@ class _VideosState extends State<Videos> {
     "https://www.youtube.com/watch?v=IUN664s7N-c",
     "https://www.youtube.com/watch?v=cHBqwj0Ed_I"
   ];
-  late YoutubePlayerController _ytcontroller1;
-  late YoutubePlayerController _ytcontroller2;
-  late YoutubePlayerController _ytcontroller3;
-  bool _ready1 = false;
-  bool _ready2 = false;
-  bool _ready3 = false;
+
+  String thumbnail = '';
   @override
   void initState() {
-    final videoID = YoutubePlayer.convertUrlToId(videourls.first);
+    final videoID1 = YoutubePlayer.convertUrlToId(videourls.first);
     final videoID2 = YoutubePlayer.convertUrlToId(videourls[1]);
     final videoID3 = YoutubePlayer.convertUrlToId(videourls[2]);
+    thumbnail = YoutubePlayer.getThumbnail(
+      videoId: videoID1!,
+    );
     _ytcontroller1 = YoutubePlayerController(
-        initialVideoId: videoID!,
+        initialVideoId: videoID1,
         flags: const YoutubePlayerFlags(
           autoPlay: false,
           disableDragSeek: true,
@@ -59,99 +62,75 @@ class _VideosState extends State<Videos> {
         ),
       ),
       sbh(15),
-      YTPlayer(
-          ytcontroller: _ytcontroller1,
-          ready: _ready1,
-          onReady: () {
-            setState(() {
-              _ready1 = true;
-            });
-          },
-          onPressed: () {
-            setState(() {
-              _ytcontroller1.play();
-              _ready1 = false;
-            });
-          }),
-      sbh(15),
-      YTPlayer(
-          ytcontroller: _ytcontroller2,
-          ready: _ready2,
-          onReady: () {
-            setState(() {
-              _ready2 = true;
-            });
-          },
-          onPressed: () {
-            setState(() {
-              _ytcontroller2.play();
-              _ready2 = false;
-            });
-          }),
-      sbh(15),
-      YTPlayer(
-          ytcontroller: _ytcontroller3,
-          ready: _ready3,
-          onReady: () {
-            setState(() {
-              _ready3 = true;
-            });
-          },
-          onPressed: () {
-            setState(() {
-              _ytcontroller3.play();
-              _ready3 = false;
-            });
-          })
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          Image.network(
+            thumbnail,
+          ),
+          Container(
+            height: 205,
+            width: double.maxFinite,
+            color: const Color(0x4F000000),
+            child: Center(
+                child: IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                "assets/icons/yticon.svg",
+                height: 60,
+                fit: BoxFit.fill,
+              ),
+            )),
+          ),
+        ],
+      ),
     ]);
+  }
+
+  Widget thumbnails() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Image.network(
+          thumbnail,
+        ),
+        Container(
+          height: 205,
+          width: double.maxFinite,
+          color: const Color(0x4F000000),
+          child: Center(
+              child: IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              "assets/icons/yticon.svg",
+              height: 60,
+              fit: BoxFit.fill,
+            ),
+          )),
+        ),
+      ],
+    );
   }
 }
 
 class YTPlayer extends StatelessWidget {
   final YoutubePlayerController ytcontroller;
-  final bool ready;
-  final void Function() onReady;
-  final void Function() onPressed;
+
   const YTPlayer({
     super.key,
     required this.ytcontroller,
-    required this.ready,
-    required this.onReady,
-    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.center,
-      children: [
-        YoutubePlayer(
-          onReady: onReady,
-          controller: ytcontroller,
-          showVideoProgressIndicator: true,
-          bottomActions: [
-            CurrentPosition(),
-            ProgressBar(
-              isExpanded: true,
-            )
-          ],
-        ),
-        ready
-            ? Container(
-                height: 205,
-                width: double.maxFinite,
-                color: const Color(0x4F000000),
-                child: Center(
-                    child: IconButton(
-                  onPressed: onPressed,
-                  icon: SvgPicture.asset(
-                    "assets/icons/yticon.svg",
-                    height: 60,
-                    fit: BoxFit.fill,
-                  ),
-                )),
-              )
-            : const SizedBox(),
+    return YoutubePlayer(
+      controller: ytcontroller,
+      showVideoProgressIndicator: true,
+      bottomActions: [
+        CurrentPosition(),
+        ProgressBar(
+          isExpanded: true,
+        )
       ],
     );
   }
