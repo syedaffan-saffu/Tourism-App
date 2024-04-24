@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'gprofilecomp/aboutus.dart';
-import 'gprofilecomp/clients/clientsrev.dart';
-import 'gprofilecomp/videos.dart';
-import '../guideprofile/gprofilecomp/gprofilecomp.dart';
+import 'gprofile_elements/aboutus.dart';
+import 'gprofile_elements/clients/clientsrev.dart';
+import 'gprofile_elements/videos/thumbnails.dart';
+import 'gprofile_elements/gprofilecomp.dart';
 import '../../../reusabs/reusabs.dart';
 
 class GuidesProfile extends StatefulWidget {
@@ -24,7 +24,6 @@ class _GuidesProfileState extends State<GuidesProfile>
   TextStyle heading = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
   late TabController _tabController;
-  final PageController _pageController = PageController();
   static const String name = 'Robert Lewandowski';
   static const String about =
       'The purpose of lorem ipsum is to create a natural looking block of text.';
@@ -40,10 +39,10 @@ class _GuidesProfileState extends State<GuidesProfile>
     'Chinese',
   ];
   final List<double> _sectionOffsets = [
-    160,
-    900,
-    1650,
-    2400,
+    250,
+    1000,
+    1700,
+    2500,
   ];
 
   static const String img = "assets/images/nexttripimg.png";
@@ -90,12 +89,6 @@ class _GuidesProfileState extends State<GuidesProfile>
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
     super.initState();
-
-    // _tabController.addListener(() {
-    //   setState(() {
-    //     _selectedtab = _tabController.index;
-    //   });
-    // });
   }
 
   @override
@@ -150,7 +143,7 @@ class _GuidesProfileState extends State<GuidesProfile>
                     Tab(text: 'Clients Review'),
                   ]),
               flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.parallax,
+                collapseMode: CollapseMode.pin,
                 expandedTitleScale: 1.5,
                 background: SizedBox(
                   height: 295,
@@ -311,7 +304,7 @@ class _GuidesProfileState extends State<GuidesProfile>
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: SizedBox(
                   height: 800,
-                  child: Videos(),
+                  child: Thumbnails(),
                 ),
               ),
               // const Videos(),
@@ -333,9 +326,10 @@ class _GuidesProfileState extends State<GuidesProfile>
                   style: heading,
                 ),
               ),
-              sbh(12),
+
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: Wrap(
                     spacing: 10,
                     runSpacing: 10,

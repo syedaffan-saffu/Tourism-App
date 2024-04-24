@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:trekkers_pk/homescreen/guide/guideprofile/guideprofile.dart';
+
 import 'reusabs/reusabs.dart';
 import 'homescreen/hmscrn.dart';
 import 'profile/profile.dart';

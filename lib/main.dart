@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/guide_profile.dart';
 import 'package:trekkers_pk/search/s_tours/tours.dart';
-import '/homescreen/guide/guideprofile/guideprofile.dart';
+
 import 'mainpage.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: const MainPage(),
+      home: const Tours(),
     );
   }
 }
