@@ -96,6 +96,10 @@ flutter:
         - asset: assets/fonts/Signica/SignikaNegative-Bold.ttf
           weight: 900
 
+    - family: TripsnTours
+      fonts: 
+        - asset: assets/fonts/TripsnTours.ttf
+
     - family: CustomIcons
       fonts:
         - asset: assets/fonts/CustomIcons.ttf

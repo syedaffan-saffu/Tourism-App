@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
+import 'package:trekkers_pk/search/s_tours/tours_comp/tripsntours/tripsntours.dart';
 
 import 'tours_comp/likedislike.dart';
 import 'tours_comp/tour_othercomps.dart';
@@ -21,6 +23,19 @@ class Tours extends StatelessWidget {
       fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
   static TextStyle bodystyle = const TextStyle(
       color: Color(0xFF4E4E4E), fontSize: 15, fontWeight: FontWeight.w500);
+
+  static const List<String> lastrow = ['FOOD', 'STAY', 'SHOPPING'];
+  static const List<String> iconsxsvg = [
+    'assets/icons/food.svg',
+    'assets/icons/stay.svg',
+    'assets/icons/shop.svg'
+  ];
+
+  static const List<IconData> icons2 = [
+    TripsnTours.food,
+    TripsnTours.stay,
+    TripsnTours.shop
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +79,7 @@ class Tours extends StatelessWidget {
                 desc,
                 style: bodystyle,
               ),
-              sbh(5),
+              sbh(20),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -104,7 +119,47 @@ class Tours extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              sbh(20),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.6,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 50),
+                  child: PageView.builder(
+                      clipBehavior: Clip.none,
+                      controller: PageController(viewportFraction: 0.99),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return const TnTCard();
+                      }),
+                ),
+              ),
+              sbh(20),
+              Column(
+                  children: List.generate(
+                3,
+                (index) => Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                    children: [
+                      const Divider(),
+                      Row(children: [
+                        SvgPicture.asset(
+                          iconsxsvg[index],
+                          height: 30,
+                        ),
+                        sbw(20),
+                        Text(
+                          lastrow[index],
+                          style: heading,
+                        )
+                      ]),
+                    ],
+                  ),
+                ),
+              )),
+              Divider()
             ]),
           )
         ]),

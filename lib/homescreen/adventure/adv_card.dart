@@ -21,6 +21,12 @@ class AdvCard extends StatelessWidget {
     'Gasherbrum',
     'undefine'
   ];
+  static const List<IconData> icons = [
+    CustomIcons.car_icon,
+    CustomIcons.pump_icon,
+    CustomIcons.sign_icon,
+    CustomIcons.plane_icon,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,43 +49,10 @@ class AdvCard extends StatelessWidget {
         price: price,
         rating: rating,
         stay: stay,
-        iconsrow: const Row(
-          children: [
-            SizedBox(
-              width: 20,
-            ),
-            SizedBox(
-                height: 25,
-                width: 25,
-                child: Icon(
-                  CustomIcons.car_icon,
-                  color: Color(0xFFF6AA21),
-                )),
-            SizedBox(width: 10),
-            SizedBox(
-                height: 25,
-                width: 25,
-                child: Icon(
-                  CustomIcons.pump_icon,
-                  color: Color(0xFFF6AA21),
-                )),
-            SizedBox(width: 10),
-            SizedBox(
-                height: 25,
-                width: 25,
-                child: Icon(
-                  CustomIcons.sign_icon,
-                  color: Color(0xFFF6AA21),
-                )),
-            SizedBox(width: 10),
-            SizedBox(
-                height: 25,
-                width: 25,
-                child: Icon(
-                  CustomIcons.plane_icon,
-                  color: Color(0xFFF6AA21),
-                )),
-          ],
+        iconsrow: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Row(
+              children: List.generate(4, (index) => iconsRow(icons[index]))),
         ),
         tags: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -181,5 +154,15 @@ class AdvCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget iconsRow(IconData icon) {
+    return SizedBox(
+        height: 25,
+        width: 25,
+        child: Icon(
+          icon,
+          color: const Color(0xFFF6AA21),
+        ));
   }
 }

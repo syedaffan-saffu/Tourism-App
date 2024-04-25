@@ -55,6 +55,20 @@ class Planeicon {
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
 
+class TripsnTours {
+  TripsnTours._();
+
+  static const _kFontFam = 'TripsnTours';
+  static const String? _kFontPkg = null;
+
+  static const IconData shop =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData stay =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData food =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+}
+
 class HeartIcons {
   HeartIcons._();
 
@@ -79,7 +93,7 @@ class CardView extends StatelessWidget {
   final String? stay;
   final String rating;
   final Widget? tags;
-  final Row? iconsrow;
+  final Widget? iconsrow;
   final Widget? locs;
   final Row? btnrow;
 
