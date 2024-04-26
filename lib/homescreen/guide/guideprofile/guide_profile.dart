@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:trekkers_pk/main.dart';
 import 'gprofile_elements/aboutus.dart';
 import 'gprofile_elements/clients/clientsrev.dart';
 import 'gprofile_elements/videos/thumbnails.dart';
@@ -14,12 +15,10 @@ class GuidesProfile extends StatefulWidget {
   State<GuidesProfile> createState() => _GuidesProfileState();
 }
 
-GlobalKey<ScaffoldState> _guideprofile = GlobalKey<ScaffoldState>();
-
 class _GuidesProfileState extends State<GuidesProfile>
     with TickerProviderStateMixin {
   late ScrollController _scrollController;
-
+  GlobalKey<ScaffoldState> guideprofilekey = GlobalKey<ScaffoldState>();
   static const int trips = 20;
   TextStyle heading = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
@@ -94,7 +93,7 @@ class _GuidesProfileState extends State<GuidesProfile>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _guideprofile,
+        key: guideprofilekey,
         appBar: null,
         body: CustomScrollView(
           controller: _scrollController,
@@ -300,11 +299,13 @@ class _GuidesProfileState extends State<GuidesProfile>
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: AboutUs.photos(),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: SizedBox(
                   height: 800,
-                  child: Thumbnails(),
+                  child: Thumbnails(
+                    skey: mynavigatorKey,
+                  ),
                 ),
               ),
               // const Videos(),

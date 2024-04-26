@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/search/s_tours/tours_comp/tripsntours/tripsntours.dart';
+
+import '../../../reusabs/reusabs.dart';
 
 double _screenWidth(BuildContext context) {
   return MediaQuery.of(context).size.width;
@@ -10,6 +13,111 @@ const List<String> _images = [
   "assets/images/tour3.png",
   "assets/images/tour4.png"
 ];
+
+class Accordion extends StatefulWidget {
+  const Accordion({super.key});
+
+  @override
+  State<Accordion> createState() => _AccordionState();
+}
+
+class _AccordionState extends State<Accordion> {
+  static const List<String> _lastrow = [
+    'TOURS AND TRIPS',
+    'FOOD',
+    'STAY',
+    'SHOPPING'
+  ];
+  static const List<IconData> _icons = [
+    Planeicon.tripplane2,
+    TripsnTours.food,
+    TripsnTours.stay,
+    TripsnTours.shop
+  ];
+  List<Widget> widgets(BuildContext tcontext) {
+    return [
+      SizedBox(
+        height: MediaQuery.sizeOf(tcontext).height * 0.6,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 50),
+          child: PageView.builder(
+              clipBehavior: Clip.none,
+              controller: PageController(viewportFraction: 0.99),
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              itemBuilder: (tcontext, index) {
+                return const TnTCard();
+              }),
+        ),
+      ),
+      const SizedBox(
+        height: 100,
+        child: Text('food'),
+      ),
+      const SizedBox(
+        height: 100,
+        child: Text('Stay'),
+      ),
+      const SizedBox(
+        height: 100,
+        child: Text('Shop'),
+      ),
+    ];
+  }
+
+  bool expandedPanel = false;
+  final TextStyle heading = const TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionPanelList(
+        elevation: 0,
+        expandedHeaderPadding: const EdgeInsets.all(0),
+        expansionCallback: (panelIndex, isExpanded) {
+          setState(() {
+            expandedPanel = !expandedPanel;
+          });
+        },
+        children: List.generate(
+          4,
+          (index) => ExpansionPanel(
+              canTapOnHeader: true,
+              isExpanded: expandedPanel,
+              headerBuilder: (context, isOpen) {
+                return Container(
+                  padding: isOpen
+                      ? const EdgeInsets.symmetric(horizontal: 20)
+                      : const EdgeInsets.all(0),
+                  color: isOpen
+                      ? const Color(0xFF0561AB)
+                      : const Color(0xFFFFFFFF),
+                  width: double.maxFinite,
+                  height: 50,
+                  child: Row(
+                    children: [
+                      Icon(
+                        _icons[index],
+                        size: 28,
+                        color: isOpen
+                            ? const Color(0xFFFFFFFF)
+                            : const Color(0xFF000000),
+                      ),
+                      sbw(15),
+                      Text(
+                        _lastrow[index],
+                        style: heading.copyWith(
+                            color: isOpen
+                                ? const Color(0xFFFFFFFF)
+                                : const Color(0xFF000000)),
+                      )
+                    ],
+                  ),
+                );
+              },
+              body: widgets(context)[index]),
+        ));
+  }
+}
 
 class ImageRows {
   static Widget fstrow(BuildContext context) {
@@ -52,16 +160,14 @@ class ImageRows {
           child: Stack(
             alignment: AlignmentDirectional.center,
             children: [
-              ColorFiltered(
-                colorFilter:
-                    const ColorFilter.mode(Color(0x90090909), BlendMode.darken),
-                child: SizedBox(
-                  height: 140,
-                  width: (MediaQuery.of(context).size.width / 2) - 3,
-                  child: Image.asset(
-                    _images[3],
-                    fit: BoxFit.fill,
-                  ),
+              SizedBox(
+                height: 140,
+                width: (MediaQuery.of(context).size.width / 2) - 3,
+                child: Image.asset(
+                  _images[3],
+                  fit: BoxFit.fill,
+                  colorBlendMode: BlendMode.darken,
+                  color: const Color(0x6F000000),
                 ),
               ),
               const Text(

@@ -131,7 +131,7 @@ class _HomescreenState extends State<HomeScreen>
             ///
             Padding(
               padding: const EdgeInsets.only(
-                  left: 27, top: 20, bottom: 2, right: 10),
+                  left: 20, top: 20, bottom: 2, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -177,7 +177,7 @@ class _HomescreenState extends State<HomeScreen>
 
             Padding(
               padding: const EdgeInsets.only(
-                  left: 27, top: 20, bottom: 2, right: 10),
+                  left: 20, top: 20, bottom: 2, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -204,7 +204,7 @@ class _HomescreenState extends State<HomeScreen>
             SizedBox(
                 height: 520,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 17),
+                  padding: const EdgeInsets.only(right: 17),
                   child: PageView.builder(
                       controller: PageController(viewportFraction: 0.94),
                       clipBehavior: Clip.none,
@@ -365,7 +365,7 @@ class _HomescreenState extends State<HomeScreen>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
             Padding(
               padding: const EdgeInsets.only(
-                  left: 27, top: 20, bottom: 2, right: 10),
+                  left: 20, top: 20, bottom: 2, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -394,7 +394,7 @@ class _HomescreenState extends State<HomeScreen>
                 height: 400,
                 width: 400,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 17),
+                  padding: const EdgeInsets.only(right: 17),
                   child: PageView.builder(
                       controller: PageController(viewportFraction: 0.94),
                       clipBehavior: Clip.none,

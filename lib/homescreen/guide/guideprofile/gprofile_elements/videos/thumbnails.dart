@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofile_elements/aboutus.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofile_elements/videos/videos.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
@@ -8,7 +9,8 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 final GlobalKey _columnkey = GlobalKey();
 
 class Thumbnails extends StatelessWidget {
-  const Thumbnails({super.key});
+  final GlobalKey<NavigatorState> skey;
+  const Thumbnails({super.key, required this.skey});
 
   final List<String> urls = const [
     "https://www.youtube.com/watch?v=mkjwxmcdb0E",
@@ -18,21 +20,24 @@ class Thumbnails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(key: _columnkey, children: [
-      const Text(
-        AboutUs.description,
-        style: TextStyle(
-          color: Color(0xFF848484),
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height,
+      child: Column(key: _columnkey, children: [
+        const Text(
+          AboutUs.description,
+          style: TextStyle(
+            color: Color(0xFF848484),
+          ),
         ),
-      ),
-      sbh(15),
-      Column(
-        children: List.generate(
-            3,
-            (index) => bthumbnails(
-                thumbsURL()[index]!, context, converturlstoID(urls)[index]!)),
-      ),
-    ]);
+        sbh(15),
+        Column(
+          children: List.generate(
+              3,
+              (index) => bthumbnails(thumbsURL()[index]!, context,
+                  converturlstoID(urls)[index]!, skey)),
+        ),
+      ]),
+    );
   }
 
   List<String?> converturlstoID(List<String> urls) {
@@ -55,13 +60,15 @@ class Thumbnails extends StatelessWidget {
     return thumbnails;
   }
 
-  Widget bthumbnails(String thumbnail, BuildContext context, String videoid) {
+  Widget bthumbnails(String thumbnail, BuildContext context, String videoid,
+      GlobalKey<NavigatorState> key) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Stack(
         alignment: Alignment.center,
         children: [
           SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.25,
             width: double.infinity,
             child: Image.network(
               thumbnail,
@@ -73,8 +80,10 @@ class Thumbnails extends StatelessWidget {
           Center(
               child: IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
+              key.currentState!.push(MaterialPageRoute(
                   builder: (context) => YTPlayer(videoid: videoid)));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) => YTPlayer(videoid: videoid)));
             },
             icon: SvgPicture.asset(
               "assets/icons/yticon.svg",

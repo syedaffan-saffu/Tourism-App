@@ -121,6 +121,10 @@ class Tours extends StatelessWidget {
                 ),
               ),
               sbh(20),
+              // SizedBox(
+              //   height: 400,
+              //   child: Text('dummy card'),
+              // )
               SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.6,
                 child: Padding(
@@ -145,9 +149,13 @@ class Tours extends StatelessWidget {
                     children: [
                       const Divider(),
                       Row(children: [
-                        SvgPicture.asset(
-                          iconsxsvg[index],
+                        SizedBox(
                           height: 30,
+                          width: 30,
+                          child: SvgPicture.asset(
+                            iconsxsvg[index],
+                            fit: BoxFit.contain,
+                          ),
                         ),
                         sbw(20),
                         Text(
@@ -159,7 +167,8 @@ class Tours extends StatelessWidget {
                   ),
                 ),
               )),
-              Divider()
+              const Divider(),
+              const Accordion(),
             ]),
           )
         ]),
