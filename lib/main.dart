@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/guide_profile.dart';
+import 'profile/profile.dart';
 import 'package:trekkers_pk/search/s_tours/tours.dart';
 
 import 'mainpage.dart';
@@ -18,10 +19,14 @@ class MyApp extends StatelessWidget {
       navigatorKey: mynavigatorKey,
       title: 'trekkers_pk',
       theme: ThemeData(
+        primaryColor: const Color(0xFF000000),
+        textSelectionTheme:
+            const TextSelectionThemeData(cursorColor: Color(0xFF000000)),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: const MainPage(),
+      home: const Profile(),
     );
   }
 }

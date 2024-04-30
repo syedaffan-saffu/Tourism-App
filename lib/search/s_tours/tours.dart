@@ -100,74 +100,42 @@ class Tours extends StatelessWidget {
                 ],
               ),
               sbh(30),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                color: const Color(0xFF0561AB),
-                width: double.maxFinite,
-                height: 50,
-                child: Row(
-                  children: [
-                    const Icon(
-                      Planeicon.tripplane2,
-                      size: 28,
-                      color: Color(0xFFFFFFFF),
-                    ),
-                    sbw(15),
-                    Text(
-                      "TOURS AND TRIPS",
-                      style: heading.copyWith(color: const Color(0xFFFFFFFF)),
-                    )
-                  ],
-                ),
-              ),
-              sbh(20),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20),
+              //   color: const Color(0xFF0561AB),
+              //   width: double.maxFinite,
+              //   height: 50,
+              //   child: Row(
+              //     children: [
+              //       const Icon(
+              //         Planeicon.tripplane2,
+              //         size: 28,
+              //         color: Color(0xFFFFFFFF),
+              //       ),
+              //       sbw(15),
+              //       Text(
+              //         "TOURS AND TRIPS",
+              //         style: heading.copyWith(color: const Color(0xFFFFFFFF)),
+              //       )
+              //     ],
+              //   ),
+              // ),
+              // sbh(20),
               // SizedBox(
-              //   height: 400,
-              //   child: Text('dummy card'),
-              // )
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.6,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 50),
-                  child: PageView.builder(
-                      clipBehavior: Clip.none,
-                      controller: PageController(viewportFraction: 0.99),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return const TnTCard();
-                      }),
-                ),
-              ),
-              sbh(20),
-              Column(
-                  children: List.generate(
-                3,
-                (index) => Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Column(
-                    children: [
-                      const Divider(),
-                      Row(children: [
-                        SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: SvgPicture.asset(
-                            iconsxsvg[index],
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        sbw(20),
-                        Text(
-                          lastrow[index],
-                          style: heading,
-                        )
-                      ]),
-                    ],
-                  ),
-                ),
-              )),
-              const Divider(),
+              //   height: MediaQuery.sizeOf(context).height * 0.6,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(right: 50),
+              //     child: PageView.builder(
+              //         clipBehavior: Clip.none,
+              //         controller: PageController(viewportFraction: 0.99),
+              //         scrollDirection: Axis.horizontal,
+              //         itemCount: 5,
+              //         itemBuilder: (context, index) {
+              //           return const TnTCard();
+              //         }),
+              //   ),
+              // ),
+              // sbh(20),
               const Accordion(),
             ]),
           )

@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import '/reusabs/reusabs.dart';
-import 'profileedit.dart';
+import 'profile_edit/profileedit.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -9,28 +9,20 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
-      extendBodyBehindAppBar: true,
+      appBar: ProfileComps.appBar("Profile"),
       body: Padding(
-        padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 40, bottom: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text(
-            'Profile',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-          const Divider(),
-          sbh(18),
-          ProfileComp.profiletile('Profile Edit', () {
+          ProfileComps.profiletile('Profile Edit', () {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const ProfileEdit()));
           }),
           sbh(12),
-          ProfileComp.profiletile('Experience', () {}),
+          ProfileComps.profiletile('Experience', () {}),
           sbh(12),
-          ProfileComp.profiletile('Professional Sport Activities', () {}),
+          ProfileComps.profiletile('Professional Sport Activities', () {}),
           sbh(12),
-          ProfileComp.profiletile('Certificate and License', () {}),
+          ProfileComps.profiletile('Certificate and License', () {}),
         ]),
       ),
     );
@@ -39,7 +31,7 @@ class Profile extends StatelessWidget {
 
 ////////////////////////////////////////////////////////////////////////
 
-class ProfileComp {
+class ProfileComps {
   static ListTile profiletile(String title, void Function() ontap) {
     return ListTile(
       onTap: ontap,
@@ -73,43 +65,35 @@ class ProfileComp {
     );
   }
 
-  static DropdownButton2 dropdownbtn(List<String> items, String hint,
-      String? selectedValue, void Function() setstate, Color decColor) {
-    return DropdownButton2<String>(
-      isExpanded: true,
-      hint: const Text('Gender'),
-      items: items
-          .map((String item) => DropdownMenuItem<String>(
-                enabled: true,
-                value: item,
-                child: Text(
-                  item,
-                  style: const TextStyle(
-                    fontSize: 17,
-                  ),
-                  overflow: TextOverflow.ellipsis,
+  static AppBar appBar(String title) {
+    return AppBar(
+      shadowColor: Colors.black,
+      elevation: 0.5,
+      titleSpacing: 10,
+      actions: null,
+      automaticallyImplyLeading: false,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+              height: 35,
+              width: 35,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: EdgeInsets.zero,
+                    elevation: 0.0),
+                child: Image.asset(
+                  'assets/icons/nexticon.png',
+                  fit: BoxFit.fill,
                 ),
               ))
-          .toList(),
-      value: selectedValue,
-      onChanged: (String? value) {
-        setstate;
-      },
-      buttonStyleData: ButtonStyleData(
-        height: 50,
-        padding: const EdgeInsets.only(left: 0, right: 10),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(
-              color: Colors.black26,
-            ),
-            color: decColor),
-        elevation: 0,
-      ),
-      dropdownStyleData: const DropdownStyleData(elevation: 0),
-      menuItemStyleData: const MenuItemStyleData(
-        height: 40,
-        padding: EdgeInsets.only(left: 14, right: 14),
+        ],
       ),
     );
   }

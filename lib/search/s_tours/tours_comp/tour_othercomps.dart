@@ -70,7 +70,7 @@ class _AccordionState extends State<Accordion> {
       fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
   @override
   Widget build(BuildContext context) {
-    return ExpansionPanelList(
+    return ExpansionPanelList.radio(
         elevation: 0,
         expandedHeaderPadding: const EdgeInsets.all(0),
         expansionCallback: (panelIndex, isExpanded) {
@@ -80,9 +80,9 @@ class _AccordionState extends State<Accordion> {
         },
         children: List.generate(
           4,
-          (index) => ExpansionPanel(
+          (index) => ExpansionPanelRadio(
+              value: index,
               canTapOnHeader: true,
-              isExpanded: expandedPanel,
               headerBuilder: (context, isOpen) {
                 return Container(
                   padding: isOpen
@@ -95,12 +95,15 @@ class _AccordionState extends State<Accordion> {
                   height: 50,
                   child: Row(
                     children: [
-                      Icon(
-                        _icons[index],
-                        size: 28,
-                        color: isOpen
-                            ? const Color(0xFFFFFFFF)
-                            : const Color(0xFF000000),
+                      SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Icon(
+                          _icons[index],
+                          color: isOpen
+                              ? const Color(0xFFFFFFFF)
+                              : const Color(0xFF000000),
+                        ),
                       ),
                       sbw(15),
                       Text(
@@ -114,7 +117,10 @@ class _AccordionState extends State<Accordion> {
                   ),
                 );
               },
-              body: widgets(context)[index]),
+              body: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: widgets(context)[index],
+              )),
         ));
   }
 }
