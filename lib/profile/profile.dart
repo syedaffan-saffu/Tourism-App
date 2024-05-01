@@ -1,4 +1,3 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import '/reusabs/reusabs.dart';
 import 'profile_edit/profileedit.dart';
@@ -30,6 +29,12 @@ class Profile extends StatelessWidget {
 }
 
 ////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+///
+///
+///
+///
 
 class ProfileComps {
   static ListTile profiletile(String title, void Function() ontap) {
@@ -98,45 +103,32 @@ class ProfileComps {
     );
   }
 
-  // Container(
-  //   decoration: const BoxDecoration(
-  //     color: Colors.white,
-  //     shape: BoxShape.circle,
-  //   ),
-  //   height: 100,
-  //   width: 100,
-  //   padding: const EdgeInsets.all(3.0),
-  //   child: ClipOval(
-  //     child: InkWell(
-  //       onTap: () {
-  //         imagepicker();
-  //       },
-  //       child: isuploaded
-  //           ? Image.file(
-  //               profimagefile!,
-  //               fit: BoxFit.fill,
-  //             )
-  //           : Container(
-  //               decoration:
-  //                   const BoxDecoration(color: Colors.grey),
-  //             ),
-  //     ),
-  //   ),
-  // ),
+  static const TextStyle heading =
+      TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
 
-//////////////////////////////////////////////////////////////////////////////////////
+  static const TextStyle hintstyle = TextStyle(
+      color: Color(0xFFA1A1A1), fontSize: 12, fontStyle: FontStyle.italic);
 
-  // const DropdownMenu(
-
-  //     inputDecorationTheme: InputDecorationTheme(
-  //         enabledBorder: OutlineInputBorder(
-  //             borderSide: BorderSide(color: Colors.grey)),
-  //         isDense: true,
-  //         constraints: BoxConstraints(maxHeight: 50)),
-  //     width: 360,
-  //     hintText: 'Gender',
-  //     dropdownMenuEntries: [
-  //       DropdownMenuEntry(value: 1, label: 'Male'),
-  //       DropdownMenuEntry(value: 2, label: 'Female')
-  //     ]),
+  static ElevatedButton submitButton(
+      {required String text,
+      Color? color,
+      required void Function() onpressed,
+      bool sub = false}) {
+    return ElevatedButton(
+      onPressed: onpressed,
+      style: ElevatedButton.styleFrom(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          fixedSize: const Size.fromWidth(double.maxFinite),
+          backgroundColor: color ?? const Color(0xFF36A9E1)),
+      child: Text(
+        text,
+        style: TextStyle(
+            height: 3.0,
+            fontSize: sub ? 16 : 17,
+            color: Colors.white,
+            fontWeight: FontWeight.w700),
+      ),
+    );
+  }
 }

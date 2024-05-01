@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:trekkers_pk/profile/experiece.dart';
-import 'package:trekkers_pk/profile/profile_comps.dart';
 import 'package:trekkers_pk/profile/profile_edit/edit_components.dart';
 
 import '../../reusabs/reusabs.dart';
@@ -44,7 +42,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   final ImagePicker picker = ImagePicker();
   File? profimagefile;
 
-  Future imagepicker() async {
+  Future _imagepicker() async {
     final XFile? imageraw = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       profimagefile = File(imageraw!.path);
@@ -66,18 +64,18 @@ class _ProfileEditState extends State<ProfileEdit> {
               width: 300,
               child: Text(
                 'Let’s start with adding your personal details and a profile picture.',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: ProfileComps.heading,
               ),
             ),
             const Text(
               'You can also edit these details later.',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: ProfileComps.heading,
             ),
             sbh(18),
             Row(
               children: [
                 InkWell(
-                  onTap: imagepicker,
+                  onTap: _imagepicker,
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey[300],
@@ -164,31 +162,18 @@ class _ProfileEditState extends State<ProfileEdit> {
                             selectedprof = value;
                           });
                         }),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (selectedlang != null && selectedprof != null) {
-                          setState(() {
-                            languages.add(selectedlang!);
-                            languageLevels.add(selectedprof!);
-                          });
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0))),
-                          fixedSize: const Size.fromWidth(double.maxFinite),
-                          backgroundColor:
-                              const Color.fromARGB(255, 13, 74, 164)),
-                      child: const Text(
-                        'Add',
-                        style: TextStyle(
-                            fontSize: 16,
-                            height: 3.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
+                    ProfileComps.submitButton(
+                        sub: true,
+                        text: "Add",
+                        onpressed: () {
+                          if (selectedlang != null && selectedprof != null) {
+                            setState(() {
+                              languages.add(selectedlang!);
+                              languageLevels.add(selectedprof!);
+                            });
+                          }
+                        },
+                        color: const Color(0xFF0561AB))
                   ]),
             ),
             sbh(10),
@@ -210,25 +195,13 @@ class _ProfileEditState extends State<ProfileEdit> {
                   }),
             ),
             sbh(12),
-            ElevatedButton(
-              onPressed: () {
+            ProfileComps.submitButton(
+              text: "Next",
+              onpressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Experience()));
               },
-              style: ElevatedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                  fixedSize: const Size.fromWidth(double.maxFinite),
-                  backgroundColor: const Color.fromARGB(255, 43, 181, 255)),
-              child: const Text(
-                'Next',
-                style: TextStyle(
-                    height: 3.0,
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
+            )
           ]),
         ),
       ),

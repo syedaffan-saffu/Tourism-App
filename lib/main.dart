@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: const Profile(),
+      home: const MainPage(),
     );
   }
 }

@@ -22,7 +22,7 @@ class TnTCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.sizeOf(context).width * 0.8,
+      width: contextwidth(context) * 0.8,
       child: Badge(
         smallSize: 20,
         largeSize: 25,
@@ -53,7 +53,7 @@ class TnTCard extends StatelessWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.25,
+              height: contextheight(context) * 0.25,
               width: double.infinity,
               child: Image.asset(
                 'assets/images/tripntours.png',

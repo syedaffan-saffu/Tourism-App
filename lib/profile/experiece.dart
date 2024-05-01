@@ -1,9 +1,7 @@
-import 'dart:ui';
-
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/profile/p_s_activities.dart';
 import 'package:trekkers_pk/profile/profile_comps.dart';
+import 'package:trekkers_pk/profile/profile_edit/edit_components.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 import 'profile.dart';
 
@@ -24,10 +22,6 @@ class _ExperienceState extends State<Experience> {
   ];
   static const String fchoice =
       "Have you taken any part or led any expeditions?";
-  TextStyle heading =
-      const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
-  TextStyle hintstyle = const TextStyle(
-      color: Color(0xFFA1A1A1), fontSize: 12, fontStyle: FontStyle.italic);
   bool ischecked1 = false;
   bool ischecked2 = false;
   static const String ifyes =
@@ -52,12 +46,12 @@ class _ExperienceState extends State<Experience> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 fchoice,
-                style: heading,
+                style: ProfileComps.heading,
               ),
               SizedBox(
-                width: MediaQuery.sizeOf(context).width * 0.3,
+                width: contextwidth(context) * 0.3,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -82,9 +76,9 @@ class _ExperienceState extends State<Experience> {
                   ],
                 ),
               ),
-              Text(
+              const Text(
                 ifyes,
-                style: heading,
+                style: ProfileComps.heading,
               ),
               const Text(
                 hint,
@@ -94,97 +88,36 @@ class _ExperienceState extends State<Experience> {
                     fontStyle: FontStyle.italic),
               ),
               sbh(15),
-              DropdownButtonHideUnderline(
-                child: DropdownButton2<String>(
-                  isExpanded: true,
-                  hint: const Text('Locations'),
-                  items: items1
-                      .map((String item) => DropdownMenuItem<String>(
-                            enabled: true,
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 17,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ))
-                      .toList(),
-                  value: selectedValue1,
-                  onChanged: (String? value) {
-                    setState(() {
-                      selectedValue1 = value;
-                    });
-                  },
-                  buttonStyleData: ButtonStyleData(
-                    height: 50,
-                    padding: const EdgeInsets.only(left: 0, right: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 212, 212, 212),
-                        ),
-                        color: Colors.grey[100]),
-                    elevation: 0,
-                  ),
-                  dropdownStyleData: const DropdownStyleData(elevation: 0),
-                  menuItemStyleData: const MenuItemStyleData(
-                    height: 40,
-                    padding: EdgeInsets.only(left: 14, right: 14),
-                  ),
-                ),
+              DropDown(
+                title: "Locations",
+                items: items1,
+                value: selectedValue1,
+                onpressed: (String? value) {
+                  setState(() {
+                    selectedValue1 = value;
+                  });
+                },
               ),
               sbh(15),
-              DropdownButtonHideUnderline(
-                child: DropdownButton2<String>(
-                  isExpanded: true,
-                  hint: const Text('Sublocations'),
-                  items: items2
-                      .map((String item) => DropdownMenuItem<String>(
-                            enabled: true,
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 17,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ))
-                      .toList(),
-                  value: selectedValue2,
-                  onChanged: (String? value) {
-                    setState(() {
-                      selectedValue2 = value;
-                    });
-                  },
-                  buttonStyleData: ButtonStyleData(
-                    height: 50,
-                    padding: const EdgeInsets.only(left: 0, right: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 212, 212, 212),
-                        ),
-                        color: Colors.grey[100]),
-                    elevation: 0,
-                  ),
-                  dropdownStyleData: const DropdownStyleData(elevation: 0),
-                  menuItemStyleData: const MenuItemStyleData(
-                    height: 40,
-                    padding: EdgeInsets.only(left: 14, right: 14),
-                  ),
-                ),
+              DropDown(
+                title: "Sublocations",
+                items: items2,
+                value: selectedValue2,
+                onpressed: (String? value) {
+                  setState(() {
+                    selectedValue2 = value;
+                  });
+                },
               ),
               sbh(20),
-              Text(
+              const Text(
                 exp,
-                style: heading,
+                style: ProfileComps.heading,
               ),
               Text(
                 ifyes2,
-                style: hintstyle.copyWith(fontStyle: FontStyle.normal),
+                style: ProfileComps.hintstyle
+                    .copyWith(fontStyle: FontStyle.normal),
               ),
               sbh(20),
               const TextField(
@@ -197,25 +130,13 @@ class _ExperienceState extends State<Experience> {
                 maxLines: 5,
               ),
               sbh(10),
-              ElevatedButton(
-                onPressed: () {
+              ProfileComps.submitButton(
+                text: "Next",
+                onpressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const SportsAct()));
                 },
-                style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    fixedSize: const Size.fromWidth(double.maxFinite),
-                    backgroundColor: const Color.fromARGB(255, 43, 181, 255)),
-                child: const Text(
-                  'Next',
-                  style: TextStyle(
-                      height: 3.0,
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
+              )
             ],
           ),
         ),

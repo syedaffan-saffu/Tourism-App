@@ -1,6 +1,7 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/profile/cert_license.dart';
 import 'package:trekkers_pk/profile/profile.dart';
+import 'package:trekkers_pk/profile/profile_edit/edit_components.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
 import 'profile_comps.dart';
@@ -16,8 +17,6 @@ class _SportsActState extends State<SportsAct> {
   TextEditingController _datefieldcont = TextEditingController(text: "Year");
   List<String> institutes =
       List.generate(7, (index) => "Dummy Institute $index");
-  TextStyle heading =
-      const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
   static const String plzselect =
       "Please select the professional sports activities that you are good at. These activities will display in your profile and help you shine with your true calling.";
   static const String skillrate =
@@ -47,8 +46,7 @@ class _SportsActState extends State<SportsAct> {
   static const String when =
       "When did you first start pursuing mountaineering?";
   static const String hint1 = "(Select the options from the list provided).";
-  TextStyle hintstyle = const TextStyle(
-      color: Color(0xFFA1A1A1), fontSize: 12, fontStyle: FontStyle.italic);
+
   String? selectedValue2;
   String? selectedValue3;
   Set<String> selectedExercises = {};
@@ -58,17 +56,6 @@ class _SportsActState extends State<SportsAct> {
   static const String ifnamenot =
       "If the name of the institute is not in the options, write it below";
   static const String isexpert = "Are you expert enough to train others?";
-
-  Size contextsize(BuildContext context) {
-    return MediaQuery.sizeOf(context);
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +67,9 @@ class _SportsActState extends State<SportsAct> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 plzselect,
-                style: heading,
+                style: ProfileComps.heading,
               ),
               sbh(20),
               Wrap(
@@ -104,7 +91,7 @@ class _SportsActState extends State<SportsAct> {
                       children: [
                         Text(
                           exercise,
-                          style: heading,
+                          style: ProfileComps.heading,
                         ),
                         const SizedBox(width: 10),
                         CircleAvatar(
@@ -133,56 +120,25 @@ class _SportsActState extends State<SportsAct> {
                 }).toList(),
               ),
               sbh(20),
-              Text(
+              const Text(
                 skillrate,
-                style: heading,
+                style: ProfileComps.heading,
               ),
               sbh(15),
-              DropdownButtonHideUnderline(
-                child: DropdownButton2<String>(
-                  isExpanded: true,
-                  hint: const Text('Level'),
-                  items: items2
-                      .map((String item) => DropdownMenuItem<String>(
-                            enabled: true,
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 17,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ))
-                      .toList(),
-                  value: selectedValue2,
-                  onChanged: (String? value) {
-                    setState(() {
-                      selectedValue2 = value;
-                    });
-                  },
-                  buttonStyleData: ButtonStyleData(
-                    height: 50,
-                    padding: const EdgeInsets.only(left: 0, right: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 212, 212, 212),
-                        ),
-                        color: Colors.grey[100]),
-                    elevation: 0,
-                  ),
-                  dropdownStyleData: const DropdownStyleData(elevation: 0),
-                  menuItemStyleData: const MenuItemStyleData(
-                    height: 40,
-                    padding: EdgeInsets.only(left: 14, right: 14),
-                  ),
-                ),
+              DropDown(
+                title: "Level",
+                items: items2,
+                value: selectedValue2,
+                onpressed: (String? value) {
+                  setState(() {
+                    selectedValue2 = value;
+                  });
+                },
               ),
               sbh(15),
-              Text(
+              const Text(
                 when,
-                style: heading,
+                style: ProfileComps.heading,
               ),
               TextField(
                 controller: _datefieldcont,
@@ -213,55 +169,24 @@ class _SportsActState extends State<SportsAct> {
               //       }),
               // ),
               sbh(20),
-              Text(
+              const Text(
                 haveyou,
-                style: heading,
+                style: ProfileComps.heading,
               ),
-              Text(
+              const Text(
                 hint1,
-                style: hintstyle,
+                style: ProfileComps.hintstyle,
               ),
               sbh(15),
-              DropdownButtonHideUnderline(
-                child: DropdownButton2<String>(
-                  isExpanded: true,
-                  hint: const Text('Institute'),
-                  items: institutes
-                      .map((String item) => DropdownMenuItem<String>(
-                            enabled: true,
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 17,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ))
-                      .toList(),
-                  value: selectedValue3,
-                  onChanged: (String? value) {
-                    setState(() {
-                      selectedValue3 = value;
-                    });
-                  },
-                  buttonStyleData: ButtonStyleData(
-                    height: 50,
-                    padding: const EdgeInsets.only(left: 0, right: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 212, 212, 212),
-                        ),
-                        color: Colors.grey[100]),
-                    elevation: 0,
-                  ),
-                  dropdownStyleData: const DropdownStyleData(elevation: 0),
-                  menuItemStyleData: const MenuItemStyleData(
-                    height: 40,
-                    padding: EdgeInsets.only(left: 14, right: 14),
-                  ),
-                ),
+              DropDown(
+                title: "Institute",
+                items: institutes,
+                value: selectedValue3,
+                onpressed: (String? value) {
+                  setState(() {
+                    selectedValue3 = value;
+                  });
+                },
               ),
               sbh(15),
               TextField(
@@ -269,27 +194,27 @@ class _SportsActState extends State<SportsAct> {
               sbh(15),
               Text(
                 ifnamenot,
-                style: hintstyle.copyWith(fontSize: 14),
+                style: ProfileComps.hintstyle.copyWith(fontSize: 14),
               ),
               sbh(15),
               SizedBox(
-                width: contextsize(context).width * 0.75,
+                width: contextwidth(context) * 0.75,
                 child: TextField(
                     decoration: ProfileComps.profileinputdec('Other')),
               ),
               sbh(15),
               SizedBox(
-                width: contextsize(context).width * 0.75,
+                width: contextwidth(context) * 0.75,
                 child: TextField(
                     decoration: ProfileComps.profileinputdec('Training Name')),
               ),
               sbh(15),
-              Text(
+              const Text(
                 isexpert,
-                style: heading,
+                style: ProfileComps.heading,
               ),
               SizedBox(
-                width: MediaQuery.sizeOf(context).width * 0.3,
+                width: contextwidth(context) * 0.3,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -314,29 +239,19 @@ class _SportsActState extends State<SportsAct> {
                   ],
                 ),
               ),
-              Text(
+              const Text(
                 ifyes,
-                style: heading,
+                style: ProfileComps.heading,
               ),
               sbh(10),
               TextField(decoration: ProfileComps.profileinputdec('...')),
               sbh(25),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    fixedSize: const Size.fromWidth(double.maxFinite),
-                    backgroundColor: const Color.fromARGB(255, 43, 181, 255)),
-                child: const Text(
-                  'Next',
-                  style: TextStyle(
-                      height: 3.0,
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
+              ProfileComps.submitButton(
+                  text: "Next",
+                  onpressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const CertandLicense()));
+                  })
             ],
           ),
         ),

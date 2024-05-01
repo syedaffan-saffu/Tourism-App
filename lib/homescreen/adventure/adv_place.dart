@@ -296,7 +296,7 @@ class _AdvplaceState extends State<Advplace> {
                     child: Row(
                       children: [
                         Container(
-                          width: MediaQuery.sizeOf(context).width - 65,
+                          width: contextwidth(context) - 65,
                           padding: const EdgeInsets.all(8.0),
                           color: const Color(0xFF0561AB),
                           child: Row(

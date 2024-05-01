@@ -21,7 +21,7 @@ class Thumbnails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height,
+      height: contextheight(context),
       child: Column(key: _columnkey, children: [
         const Text(
           AboutUs.description,
@@ -68,7 +68,7 @@ class Thumbnails extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.25,
+            height: contextwidth(context) * 0.25,
             width: double.infinity,
             child: Image.network(
               thumbnail,

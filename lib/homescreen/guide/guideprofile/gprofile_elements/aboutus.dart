@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'gprofilecomp.dart';
 
 import '../../../../reusabs/reusabs.dart';
 
@@ -7,8 +8,7 @@ class AboutUs {
 
   static const String description =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-  static TextStyle heading = const TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
+
   static const String gimgname = "Gul Lasht Zom Ice Climbing";
 
   static Widget aboutus(
@@ -16,7 +16,7 @@ class AboutUs {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('GUIDE BIO', style: heading),
+        Text('GUIDE BIO', style: Gcomponents.heading),
         sbh(10),
         Text(
           bio,
@@ -25,14 +25,14 @@ class AboutUs {
           ),
         ),
         sbh(20),
-        Text("LANGUAGES", style: heading),
+        Text("LANGUAGES", style: Gcomponents.heading),
         sbh(15),
         Wrap(
             spacing: 10,
             runSpacing: 10,
             children: List.generate(4, (index) => _langtiles(langs[index]))),
         sbh(30),
-        Text("PERSONAL DETAILS", style: heading),
+        Text("PERSONAL DETAILS", style: Gcomponents.heading),
         sbh(15),
         Row(
           children: [
@@ -68,7 +68,7 @@ class AboutUs {
         sbh(20),
         Row(
           children: [
-            Text("RECENT TRIPS ", style: heading),
+            Text("RECENT TRIPS ", style: Gcomponents.heading),
             Container(
               padding: const EdgeInsets.all(4),
               decoration: const BoxDecoration(
@@ -182,7 +182,7 @@ class AboutUs {
       children: [
         Text(
           tripname,
-          style: heading,
+          style: Gcomponents.heading,
         ),
         sbh(12),
         const Text(description),
@@ -208,7 +208,7 @@ class AboutUs {
                   child: Text(
                     tripname,
                     textAlign: TextAlign.center,
-                    style: heading.copyWith(color: Colors.white),
+                    style: Gcomponents.heading.copyWith(color: Colors.white),
                   ),
                 ),
               )

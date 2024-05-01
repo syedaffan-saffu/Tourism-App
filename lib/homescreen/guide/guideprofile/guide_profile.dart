@@ -20,8 +20,6 @@ class _GuidesProfileState extends State<GuidesProfile>
   late ScrollController _scrollController;
   GlobalKey<ScaffoldState> guideprofilekey = GlobalKey<ScaffoldState>();
   static const int trips = 20;
-  TextStyle heading = const TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Signika");
   late TabController _tabController;
   static const String name = 'Robert Lewandowski';
   static const String about =
@@ -249,7 +247,7 @@ class _GuidesProfileState extends State<GuidesProfile>
                               children: [
                                 Text(
                                   name,
-                                  style: heading,
+                                  style: Gcomponents.heading,
                                 ),
                                 const Text(
                                   about,
@@ -324,7 +322,7 @@ class _GuidesProfileState extends State<GuidesProfile>
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
                   "Skills",
-                  style: heading,
+                  style: Gcomponents.heading,
                 ),
               ),
 
