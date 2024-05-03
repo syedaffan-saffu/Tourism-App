@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
-import '../../main.dart';
 import 'adv_place.dart';
 
 class AdvCard extends StatelessWidget {

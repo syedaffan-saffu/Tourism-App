@@ -16,11 +16,13 @@ class ProfileEdit extends StatefulWidget {
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
+  TextEditingController name = TextEditingController();
+  TextEditingController phone = TextEditingController();
   final List<String> items1 = [
     'Male',
     'Female',
   ];
-  static final List<String> items2 = [
+  List<String> items2 = [
     'Urdu',
     'English',
     'Pashto',
@@ -28,11 +30,11 @@ class _ProfileEditState extends State<ProfileEdit> {
   ];
   static final List<String> items3 = ['beginner', 'Intermediate', 'Native'];
 
-  final List<List<String>> items23 = [items2, items3];
+  List<String> selectedLanguages = [];
 
-  String? selectedValue1;
-  static String? selectedlang;
-  static String? selectedprof;
+  String? selectedgender;
+  String? selectedlang;
+  String? selectedprof;
 
   List<String> languages = [];
   List<String> languageLevels = [];
@@ -48,6 +50,22 @@ class _ProfileEditState extends State<ProfileEdit> {
       profimagefile = File(imageraw!.path);
       _isuploaded = true;
     });
+  }
+
+  void _validation() {
+    if (!_isuploaded ||
+        selectedgender == null ||
+        selectedlang == null ||
+        selectedprof == null ||
+        name.text.isEmpty ||
+        phone.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Not all fields are filled!'),
+      ));
+    } else {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const Experience()));
+    }
   }
 
   @override
@@ -91,9 +109,16 @@ class _ProfileEditState extends State<ProfileEdit> {
               ],
             ),
             sbh(20),
-            TextField(decoration: ProfileComps.profileinputdec('Full Name')),
+            TextField(
+              decoration: ProfileComps.profileinputdec('Full Name'),
+              controller: name,
+            ),
             sbh(12),
-            TextField(decoration: ProfileComps.profileinputdec('Phone Number')),
+            TextField(
+              decoration: ProfileComps.profileinputdec('Phone Number'),
+              controller: phone,
+              keyboardType: TextInputType.phone,
+            ),
             sbh(12),
             DropdownButtonHideUnderline(
               child: DropdownButton2<String>(
@@ -112,10 +137,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                           ),
                         ))
                     .toList(),
-                value: selectedValue1,
+                value: selectedgender,
                 onChanged: (String? value) {
                   setState(() {
-                    selectedValue1 = value;
+                    selectedgender = value;
                   });
                 },
                 buttonStyleData: ButtonStyleData(
@@ -170,6 +195,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                             setState(() {
                               languages.add(selectedlang!);
                               languageLevels.add(selectedprof!);
+                              items2.remove(selectedlang);
+                              selectedlang = null;
+                              selectedprof = null;
                             });
                           }
                         },
@@ -197,10 +225,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             sbh(12),
             ProfileComps.submitButton(
               text: "Next",
-              onpressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Experience()));
-              },
+              onpressed: _validation,
             )
           ]),
         ),

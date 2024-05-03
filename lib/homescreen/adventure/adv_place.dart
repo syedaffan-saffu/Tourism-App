@@ -56,8 +56,6 @@ class _AdvplaceState extends State<Advplace> {
     CustomIcons.difficulty: 'Normal Difficulty',
   };
 
-  int _selectedIndex = 0;
-
   // final List<IconData> icons = [
   //   Icons.home,
   //   Icons.work,
