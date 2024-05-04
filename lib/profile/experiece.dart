@@ -13,8 +13,9 @@ class Experience extends StatefulWidget {
 }
 
 class _ExperienceState extends State<Experience> {
-  static const List<String> items1 = ["K-2", "Biafo", "Skardu", "Naran"];
-  static const List<String> items2 = [
+  final TextEditingController _tellus = TextEditingController();
+  static const List<String> _items1 = ["K-2", "Biafo", "Skardu", "Naran"];
+  static const List<String> _items2 = [
     "Base Camp",
     "BaseCamp 1 6500m",
     "BaseCamp 2 7690m",
@@ -22,10 +23,10 @@ class _ExperienceState extends State<Experience> {
   ];
   static const String fchoice =
       "Have you taken any part or led any expeditions?";
-  bool ischecked1 = false;
-  bool ischecked2 = false;
+  bool _ischeckedyes = false;
+  bool _ischeckedno = false;
   static const String ifyes =
-      "If yes, have you been or led tours to these destinations?";
+      "Have you been or led tours to these destinations?";
   static const String hint =
       "(Please select the places and specify the exact location you have been to.)";
 
@@ -33,8 +34,29 @@ class _ExperienceState extends State<Experience> {
       "Do you have any achievements from your travels or journeys?";
   static const String ifyes2 =
       "If yes, please tell us if you have won any title, made any record, or achieved any notable accomplishments.";
-  String? selectedValue1;
-  String? selectedValue2;
+  String? locates;
+  String? sublocates;
+
+  void _validateexp() {
+    if (_ischeckedyes) {
+      if (locates == null || sublocates == null || _tellus.text.isEmpty) {
+        print(
+            " $_ischeckedyes ${locates == null} ${sublocates == null}  ${_tellus.text.isEmpty}");
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Not All Fiels are Valid!")));
+      } else {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const SportsAct()));
+      }
+    } else if (_ischeckedno) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const SportsAct()));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Not All Fiels are Valid!")));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,59 +78,65 @@ class _ExperienceState extends State<Experience> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CheckBox(
-                        ischecked: ischecked1,
+                        ischecked: _ischeckedyes,
                         onpressed: (nvalue) {
                           setState(() {
-                            ischecked1 = nvalue!;
-                            ischecked2 = false;
+                            _ischeckedyes = nvalue!;
+                            _ischeckedno = false;
                           });
                         }),
                     const Text("Yes"),
                     CheckBox(
-                        ischecked: ischecked2,
+                        ischecked: _ischeckedno,
                         onpressed: (nvalue) {
                           setState(() {
-                            ischecked2 = nvalue!;
-                            ischecked1 = false;
+                            _ischeckedno = nvalue!;
+                            _ischeckedyes = false;
                           });
                         }),
                     const Text("No"),
                   ],
                 ),
               ),
-              const Text(
-                ifyes,
-                style: ProfileComps.heading,
-              ),
-              const Text(
-                hint,
-                style: TextStyle(
-                    color: Color(0xFFA1A1A1),
-                    fontSize: 12,
-                    fontStyle: FontStyle.italic),
-              ),
-              sbh(15),
-              DropDown(
-                title: "Locations",
-                items: items1,
-                value: selectedValue1,
-                onpressed: (String? value) {
-                  setState(() {
-                    selectedValue1 = value;
-                  });
-                },
-              ),
-              sbh(15),
-              DropDown(
-                title: "Sublocations",
-                items: items2,
-                value: selectedValue2,
-                onpressed: (String? value) {
-                  setState(() {
-                    selectedValue2 = value;
-                  });
-                },
-              ),
+              _ischeckedyes
+                  ? Column(
+                      children: [
+                        const Text(
+                          ifyes,
+                          style: ProfileComps.heading,
+                        ),
+                        const Text(
+                          hint,
+                          style: TextStyle(
+                              color: Color(0xFFA1A1A1),
+                              fontSize: 12,
+                              fontStyle: FontStyle.italic),
+                        ),
+                        sbh(15),
+                        DropDown(
+                          title: "Locations",
+                          items: _items1,
+                          value: locates,
+                          onpressed: (String? value) {
+                            setState(() {
+                              locates = value;
+                            });
+                          },
+                        ),
+                        sbh(15),
+                        DropDown(
+                          title: "Sublocations",
+                          items: _items2,
+                          value: sublocates,
+                          onpressed: (String? value) {
+                            setState(() {
+                              sublocates = value;
+                            });
+                          },
+                        ),
+                      ],
+                    )
+                  : const SizedBox(),
               sbh(20),
               const Text(
                 exp,
@@ -120,8 +148,10 @@ class _ExperienceState extends State<Experience> {
                     .copyWith(fontStyle: FontStyle.normal),
               ),
               sbh(20),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _tellus,
+                enabled: _ischeckedyes,
+                decoration: const InputDecoration(
                     filled: true,
                     fillColor: Color(0xFFF1F1F1),
                     enabledBorder: OutlineInputBorder(
@@ -132,10 +162,7 @@ class _ExperienceState extends State<Experience> {
               sbh(10),
               ProfileComps.submitButton(
                 text: "Next",
-                onpressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SportsAct()));
-                },
+                onpressed: _validateexp,
               )
             ],
           ),

@@ -30,8 +30,6 @@ class _ProfileEditState extends State<ProfileEdit> {
   ];
   static final List<String> items3 = ['beginner', 'Intermediate', 'Native'];
 
-  List<String> selectedLanguages = [];
-
   String? selectedgender;
   String? selectedlang;
   String? selectedprof;
@@ -55,10 +53,9 @@ class _ProfileEditState extends State<ProfileEdit> {
   void _validation() {
     if (!_isuploaded ||
         selectedgender == null ||
-        selectedlang == null ||
-        selectedprof == null ||
         name.text.isEmpty ||
-        phone.text.isEmpty) {
+        phone.text.isEmpty ||
+        languages.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Not all fields are filled!'),
       ));

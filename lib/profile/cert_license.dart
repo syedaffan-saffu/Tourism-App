@@ -18,14 +18,15 @@ class _CertandLicenseState extends State<CertandLicense> {
   bool _isuploaded1 = false;
   bool _isuploaded2 = false;
   bool _isuploaded3 = false;
+  bool _checkedeither = false;
   final ImagePicker picker = ImagePicker();
   File? license;
   File? credit;
   List<File>? _images;
   static const String _almost =
       "You’re almost finished with your profile. Add your certificates and licenses to showcase your skills and expertise.";
-  bool? ischecked1 = false;
-  bool? ischecked2 = false;
+  bool _ischeckedyes = false;
+  bool _ischeckedno = false;
 
   Future _imagepicker1() async {
     final XFile? imageraw = await picker.pickImage(source: ImageSource.gallery);
@@ -69,6 +70,16 @@ class _CertandLicenseState extends State<CertandLicense> {
     }
   }
 
+  void _validation() {
+    if (!_checkedeither || !_isuploaded1 || !_isuploaded2 || !_isuploaded3) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Not all fields are filled!'),
+      ));
+    } else {
+      () {};
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,21 +102,27 @@ class _CertandLicenseState extends State<CertandLicense> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CheckBox(
-                          ischecked: ischecked1,
+                          ischecked: _ischeckedyes,
                           onpressed: (nvalue) {
                             setState(() {
-                              ischecked1 = nvalue!;
-                              ischecked2 = false;
+                              _ischeckedyes = nvalue!;
+                              _ischeckedno = false;
                             });
+                            _ischeckedyes
+                                ? _checkedeither = true
+                                : _checkedeither = false;
                           }),
                       const Text("Yes"),
                       CheckBox(
-                          ischecked: ischecked2,
+                          ischecked: _ischeckedno,
                           onpressed: (nvalue) {
                             setState(() {
-                              ischecked2 = nvalue!;
-                              ischecked1 = false;
+                              _ischeckedno = nvalue!;
+                              _ischeckedyes = false;
                             });
+                            _ischeckedno
+                                ? _checkedeither = true
+                                : _checkedeither = false;
                           }),
                       const Text("No"),
                     ],
@@ -117,86 +134,16 @@ class _CertandLicenseState extends State<CertandLicense> {
                   style: ProfileComps.heading,
                 ),
                 sbh(10),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: const Color(0xFFF1F1F1),
-                  ),
-                  height: 50,
-                  padding: const EdgeInsets.all(5.0),
-                  width: double.maxFinite,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: _imagepicker1,
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF0561AB),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5))),
-                        child: Text(
-                          _isuploaded1 ? "Change" : "Upload",
-                          style: const TextStyle(color: Color(0xFFFFFFFF)),
-                        ),
-                      ),
-                      _isuploaded1
-                          ? Row(
-                              children: [
-                                const Text("Uploaded"),
-                                sbw(10),
-                                const Icon(
-                                  Icons.check_box,
-                                  color: Color(0xFF66CC00),
-                                )
-                              ],
-                            )
-                          : const SizedBox()
-                    ],
-                  ),
-                ),
+                ProfileComps2.licandcert(
+                    isuploaded: _isuploaded1, onpresssed: _imagepicker1),
                 sbh(20),
                 const Text(
                   "Do you have credibility from any reputable organization for tour conducts?",
                   style: ProfileComps.heading,
                 ),
                 sbh(10),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: const Color(0xFFF1F1F1),
-                  ),
-                  height: 50,
-                  padding: const EdgeInsets.all(5.0),
-                  width: double.maxFinite,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: _imagepicker2,
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF0561AB),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5))),
-                        child: Text(
-                          _isuploaded2 ? "Change" : "Upload",
-                          style: const TextStyle(color: Color(0xFFFFFFFF)),
-                        ),
-                      ),
-                      _isuploaded2
-                          ? Row(
-                              children: [
-                                const Text("Uploaded"),
-                                sbw(10),
-                                const Icon(
-                                  Icons.check_box,
-                                  color: Color(0xFF66CC00),
-                                )
-                              ],
-                            )
-                          : const SizedBox()
-                    ],
-                  ),
-                ),
+                ProfileComps2.licandcert(
+                    isuploaded: _isuploaded2, onpresssed: _imagepicker2),
                 sbh(15),
                 Text(
                   "Testimonials of Successful Tours(Add Pictures)",
@@ -236,7 +183,7 @@ class _CertandLicenseState extends State<CertandLicense> {
                             )),
                 ),
                 sbh(20),
-                ProfileComps.submitButton(text: "Next", onpressed: () {})
+                ProfileComps.submitButton(text: "Next", onpressed: _validation)
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/profile/experiece.dart';
 import 'package:trekkers_pk/profile/profile_edit/profileedit.dart';
 import 'profile/profile.dart';
 import 'mainpage.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: const ProfileEdit(),
+      home: const MainPage(),
     );
   }
 }

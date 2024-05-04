@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/profile/cert_license.dart';
+import 'package:trekkers_pk/profile/experiece.dart';
+import 'package:trekkers_pk/profile/p_s_activities.dart';
 import '/reusabs/reusabs.dart';
 import 'profile_edit/profileedit.dart';
 
@@ -17,11 +20,20 @@ class Profile extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const ProfileEdit()));
           }),
           sbh(12),
-          ProfileComps.profiletile('Experience', () {}),
+          ProfileComps.profiletile('Experience', () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const Experience()));
+          }),
           sbh(12),
-          ProfileComps.profiletile('Professional Sport Activities', () {}),
+          ProfileComps.profiletile('Professional Sport Activities', () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SportsAct()));
+          }),
           sbh(12),
-          ProfileComps.profiletile('Certificate and License', () {}),
+          ProfileComps.profiletile('Certificate and License', () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const CertandLicense()));
+          }),
         ]),
       ),
     );

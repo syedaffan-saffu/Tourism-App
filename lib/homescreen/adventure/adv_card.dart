@@ -14,7 +14,7 @@ class AdvCard extends StatelessWidget {
   static const String price = "250";
   static const String rating = "4.5";
   static const String stay = "10";
-  static const List<String> locs_s = [
+  static const List<String> sublocs = [
     'K-2',
     'Nanga Parbat',
     'Gasherbrum',
