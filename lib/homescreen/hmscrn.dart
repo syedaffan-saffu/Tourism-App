@@ -205,9 +205,10 @@ class _HomescreenState extends State<HomeScreen>
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return const Padding(
-                          padding: EdgeInsets.all(4.0),
+                        return Padding(
+                          padding: const EdgeInsets.all(4.0),
                           child: ActivitiesCard(
+                            index: index,
                             img: image2,
                             description: description,
                             price: price,
