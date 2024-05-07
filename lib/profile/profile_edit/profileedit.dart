@@ -16,8 +16,8 @@ class ProfileEdit extends StatefulWidget {
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
-  TextEditingController name = TextEditingController();
-  TextEditingController phone = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
   final List<String> items1 = [
     'Male',
     'Female',
@@ -39,13 +39,16 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   // GlobalKey<NavigatorState> navigatorkey = GlobalKey<NavigatorState>();
   bool _isuploaded = false;
-  final ImagePicker picker = ImagePicker();
-  File? profimagefile;
+  final ImagePicker _picker = ImagePicker();
+  File? _profimagefile;
+  bool _nameisempty = false;
+  bool _phoneisempty = false;
 
   Future _imagepicker() async {
-    final XFile? imageraw = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? imageraw =
+        await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
-      profimagefile = File(imageraw!.path);
+      _profimagefile = File(imageraw!.path);
       _isuploaded = true;
     });
   }
@@ -53,11 +56,25 @@ class _ProfileEditState extends State<ProfileEdit> {
   void _validation() {
     if (!_isuploaded ||
         selectedgender == null ||
-        name.text.isEmpty ||
-        phone.text.isEmpty ||
+        _name.text.isEmpty ||
+        _phone.text.isEmpty ||
         languages.isEmpty) {
+      if (_name.text.isEmpty) {
+        setState(() {
+          _nameisempty = true;
+        });
+      }
+      if (_phone.text.isEmpty) {
+        setState(() {
+          _phoneisempty = true;
+        });
+      }
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Not all fields are filled!'),
+        duration: Duration(seconds: 1),
+        content: Text(
+          'Not all fields are Selected or Filled!',
+        ),
       ));
     } else {
       Navigator.of(context)
@@ -75,9 +92,9 @@ class _ProfileEditState extends State<ProfileEdit> {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const SizedBox(
-              width: 300,
-              child: Text(
+            SizedBox(
+              width: contextwidth(context) * 0.75,
+              child: const Text(
                 'Let’s start with adding your personal details and a profile picture.',
                 style: ProfileComps.heading,
               ),
@@ -95,7 +112,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                     radius: 50,
                     backgroundColor: Colors.grey[300],
                     foregroundImage:
-                        _isuploaded ? FileImage(profimagefile!) : null,
+                        _isuploaded ? FileImage(_profimagefile!) : null,
                   ),
                 ),
                 sbw(20),
@@ -107,14 +124,26 @@ class _ProfileEditState extends State<ProfileEdit> {
             ),
             sbh(20),
             TextField(
-              decoration: ProfileComps.profileinputdec('Full Name'),
-              controller: name,
+              onChanged: (value) {
+                setState(() {
+                  _nameisempty = false;
+                });
+              },
+              decoration:
+                  ProfileComps.profileinputdec('Full Name', _nameisempty),
+              controller: _name,
             ),
             sbh(12),
             TextField(
-              decoration: ProfileComps.profileinputdec('Phone Number'),
-              controller: phone,
+              onChanged: (value) {
+                setState(() {
+                  _phoneisempty = false;
+                });
+              },
+              controller: _phone,
               keyboardType: TextInputType.phone,
+              decoration:
+                  ProfileComps.profileinputdec('Phone Number', _phoneisempty),
             ),
             sbh(12),
             DropdownButtonHideUnderline(
@@ -151,7 +180,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                       color: Colors.grey[100]),
                   elevation: 0,
                 ),
-                dropdownStyleData: const DropdownStyleData(elevation: 0),
+                dropdownStyleData: const DropdownStyleData(
+                  elevation: 0,
+                ),
                 menuItemStyleData: const MenuItemStyleData(
                   height: 40,
                   padding: EdgeInsets.only(left: 14, right: 14),
@@ -213,6 +244,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                         child: EditComps.langTile(
                             languages, languageLevels, index, () {
                           setState(() {
+                            items2.add(languages.elementAt(index));
                             languages.removeAt(index);
                             languageLevels.removeAt(index);
                           });

@@ -17,7 +17,7 @@ class _HomescreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin<HomeScreen> {
   @override
   bool get wantKeepAlive => true;
-  bool favourite = false;
+  List<bool> _favourite = [false, false, false, false, false];
   static const String image2 = "assets/images/gliding.png";
   static const String title = "Biafo Glacier Ice Climbing";
   static const String description =
@@ -209,6 +209,18 @@ class _HomescreenState extends State<HomeScreen>
                           padding: const EdgeInsets.all(4.0),
                           child: ActivitiesCard(
                             index: index,
+                            onwished: () {
+                              setState(() {
+                                _favourite[index] = !_favourite[index];
+                              });
+                              _favourite[index]
+                                  ? ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          duration: Duration(seconds: 1),
+                                          content: Text("Added to Wishlist")))
+                                  : null;
+                            },
+                            favourite: _favourite,
                             img: image2,
                             description: description,
                             price: price,

@@ -300,7 +300,7 @@ class _GuidesProfileState extends State<GuidesProfile>
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: SizedBox(
-                  height: 800,
+                  height: contextheight(context),
                   child: Thumbnails(
                     skey: mynavigatorKey,
                   ),

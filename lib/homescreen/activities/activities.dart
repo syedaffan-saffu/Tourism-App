@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
 class ActivitiesCard extends StatelessWidget {
   final int index;
+  final List<bool> favourite;
+  final void Function() onwished;
   final String img;
   final String title;
   final String price;
@@ -12,6 +13,8 @@ class ActivitiesCard extends StatelessWidget {
   const ActivitiesCard(
       {super.key,
       required this.index,
+      required this.favourite,
+      required this.onwished,
       required this.img,
       required this.title,
       required this.description,
@@ -35,9 +38,9 @@ class ActivitiesCard extends StatelessWidget {
       rating: rating,
       tags: Tag(
         index: index,
+        favourite: favourite,
+        onTap: onwished,
       ),
-
-      ///here
       locorating: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Container(
           decoration: const BoxDecoration(
@@ -117,17 +120,23 @@ class ActivitiesCard extends StatelessWidget {
 
 class Tag extends StatelessWidget {
   final int index;
-  const Tag({super.key, required this.index});
+  final List<bool> favourite;
+  final void Function() onTap;
+  const Tag(
+      {super.key,
+      required this.index,
+      required this.favourite,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final wishlistState = Provider.of<WishlistState>(context);
     return Container(
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color:
-                  wishlistState.isFavorited(index) ? Colors.red : Colors.white,
+              color: favourite[index]
+                  ? const Color(0xFFFF0000)
+                  : const Color(0xFFFFFFFF),
               width: 2,
             )),
         height: 40,
@@ -136,31 +145,10 @@ class Tag extends StatelessWidget {
           enableFeedback: false,
           padding: EdgeInsets.zero,
           style: IconButton.styleFrom(padding: EdgeInsets.zero),
-          icon: wishlistState.isFavorited(index)
-              ? const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                )
-              : const Icon(
-                  Icons.favorite_border,
-                  color: Colors.white,
-                ),
-          onPressed: () {
-            wishlistState.toggleFavorite(index);
-          },
+          icon: favourite[index]
+              ? const Icon(HeartIcons.heart, color: Color(0xFFFF0000))
+              : const Icon(HeartIcons.heart_empty, color: Color(0xFFFFFFFF)),
+          onPressed: onTap,
         ));
-  }
-}
-
-class WishlistState with ChangeNotifier {
-  Map<int, bool> _wishlistStates = {};
-
-  bool isFavorited(int cardIndex) {
-    return _wishlistStates[cardIndex] ?? false;
-  }
-
-  void toggleFavorite(int cardIndex) {
-    _wishlistStates[cardIndex] = !_wishlistStates[cardIndex]!;
-    notifyListeners();
   }
 }

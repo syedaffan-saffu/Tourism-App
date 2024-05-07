@@ -142,7 +142,7 @@ class _SportsActState extends State<SportsAct> {
               ),
               TextField(
                 controller: _datefieldcont,
-                decoration: ProfileComps.profileinputdec('...'),
+                decoration: ProfileComps.profileinputdec('...', false),
                 onTap: () async {
                   _selecteddate = await showDatePicker(
                       initialDatePickerMode: DatePickerMode.year,
@@ -190,7 +190,8 @@ class _SportsActState extends State<SportsAct> {
               ),
               sbh(15),
               TextField(
-                  decoration: ProfileComps.profileinputdec('Course Name')),
+                  decoration:
+                      ProfileComps.profileinputdec('Course Name', false)),
               sbh(15),
               Text(
                 ifnamenot,
@@ -200,13 +201,14 @@ class _SportsActState extends State<SportsAct> {
               SizedBox(
                 width: contextwidth(context) * 0.75,
                 child: TextField(
-                    decoration: ProfileComps.profileinputdec('Other')),
+                    decoration: ProfileComps.profileinputdec('Other', false)),
               ),
               sbh(15),
               SizedBox(
                 width: contextwidth(context) * 0.75,
                 child: TextField(
-                    decoration: ProfileComps.profileinputdec('Training Name')),
+                    decoration:
+                        ProfileComps.profileinputdec('Training Name', false)),
               ),
               sbh(15),
               const Text(
@@ -244,7 +246,7 @@ class _SportsActState extends State<SportsAct> {
                 style: ProfileComps.heading,
               ),
               sbh(10),
-              TextField(decoration: ProfileComps.profileinputdec('...')),
+              TextField(decoration: ProfileComps.profileinputdec('...', false)),
               sbh(25),
               ProfileComps.submitButton(
                   text: "Next",

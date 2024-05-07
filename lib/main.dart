@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:trekkers_pk/profile/experiece.dart';
 import 'package:trekkers_pk/profile/profile_edit/profileedit.dart';
-import 'homescreen/activities/activities.dart';
 import 'profile/profile.dart';
 import 'mainpage.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => WishlistState()),
-  ], child: const MyApp()));
+  runApp(const MyApp());
 }
 
 final GlobalKey<NavigatorState> mynavigatorKey = GlobalKey<NavigatorState>();

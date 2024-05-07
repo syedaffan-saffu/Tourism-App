@@ -70,16 +70,30 @@ class ProfileComps {
     );
   }
 
-  static InputDecoration profileinputdec(String hint) {
+  static InputDecoration profileinputdec(String hint, bool isempty) {
     return InputDecoration(
       fillColor: const Color.fromARGB(255, 247, 247, 247),
       filled: true,
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       hintText: hint,
+      errorText: isempty ? "Field is Empty" : null,
+      // error: isempty ? const Text("Field is Empty") : const SizedBox(),
       enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Color.fromARGB(255, 203, 203, 203))),
+      errorBorder: isempty ? errorborder() : enabledborder(),
+      focusedErrorBorder: isempty ? errorborder() : enabledborder(),
     );
+  }
+
+  static InputBorder enabledborder() {
+    return const OutlineInputBorder(
+        borderSide: BorderSide(color: Color.fromARGB(255, 203, 203, 203)));
+  }
+
+  static InputBorder errorborder() {
+    return const OutlineInputBorder(
+        borderSide: BorderSide(color: Color(0xFFFF0000)));
   }
 
   static AppBar appBar(String title) {

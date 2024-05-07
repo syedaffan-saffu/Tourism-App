@@ -51,7 +51,12 @@ class AdvCard extends StatelessWidget {
         iconsrow: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Row(
-              children: List.generate(4, (index) => iconsRow(icons[index]))),
+              children: List.generate(
+                  4,
+                  (index) => Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: iconsRow(icons[index]),
+                      ))),
         ),
         tags: Column(
           crossAxisAlignment: CrossAxisAlignment.end,

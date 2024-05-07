@@ -68,7 +68,7 @@ class Thumbnails extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           SizedBox(
-            height: contextwidth(context) * 0.25,
+            height: contextheight(context) * 0.25,
             width: double.infinity,
             child: Image.network(
               thumbnail,
