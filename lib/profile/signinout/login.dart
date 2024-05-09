@@ -13,7 +13,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ProfileComps.appBar("Login"),
-      body: Column(children: [
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         const Center(child: Text("Login Or Register to Proceed")),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

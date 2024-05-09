@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/main.dart';
+import 'package:trekkers_pk/profile/signinout/login.dart';
 import 'package:trekkers_pk/search/s_tours/tours.dart';
 import '/reusabs/reusabs.dart';
 import 'package:intl/intl.dart';
 
 class Search extends StatefulWidget {
-  const Search({super.key});
+  final bool isregistered;
+  const Search({super.key, required this.isregistered});
 
   @override
   State<Search> createState() => _SearchState();
@@ -112,8 +115,11 @@ class _SearchState extends State<Search> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Tours()));
+                widget.isregistered
+                    ? Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Tours()))
+                    : mynavigatorKey.currentState!.push(
+                        MaterialPageRoute(builder: (context) => const Login()));
               },
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0.0),

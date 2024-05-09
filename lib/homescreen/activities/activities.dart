@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/main.dart';
 import 'package:trekkers_pk/profile/signinout/login.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
@@ -107,7 +108,7 @@ class ActivitiesCard extends StatelessWidget {
               onPressed: () {
                 isregistered
                     ? () {}
-                    : Navigator.of(context).push(
+                    : mynavigatorKey.currentState!.push(
                         MaterialPageRoute(builder: (context) => const Login()));
               },
               child: const Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/homescreen/adventure/adv_card.dart';
+import 'package:trekkers_pk/main.dart';
 import 'package:trekkers_pk/profile/signinout/login.dart';
 import '/reusabs/reusabs.dart';
 
@@ -104,7 +105,7 @@ class _HomescreenState extends State<HomeScreen>
                                   onPressed: () {
                                     _isregistered
                                         ? () {}
-                                        : Navigator.of(context).push(
+                                        : mynavigatorKey.currentState!.push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     const Login()));
