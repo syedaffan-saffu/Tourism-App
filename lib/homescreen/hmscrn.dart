@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/homescreen/adventure/adv_card.dart';
+import 'package:trekkers_pk/profile/signinout/login.dart';
 import '/reusabs/reusabs.dart';
 
 import 'activities/activities.dart';
@@ -17,6 +18,7 @@ class _HomescreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin<HomeScreen> {
   @override
   bool get wantKeepAlive => true;
+  bool _isregistered = false;
   List<bool> _favourite = [false, false, false, false, false];
   static const String image2 = "assets/images/gliding.png";
   static const String title = "Biafo Glacier Ice Climbing";
@@ -99,7 +101,14 @@ class _HomescreenState extends State<HomeScreen>
                                           borderRadius:
                                               BorderRadius.circular(20.0)),
                                       backgroundColor: const Color(0xfff7a81a)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _isregistered
+                                        ? () {}
+                                        : Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const Login()));
+                                  },
                                   child: const Text(
                                     'Explore More',
                                     style: TextStyle(
@@ -158,8 +167,11 @@ class _HomescreenState extends State<HomeScreen>
                   clipBehavior: Clip.none,
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return const Padding(
-                        padding: EdgeInsets.all(4.0), child: AdvCard());
+                    return Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: AdvCard(
+                          isregistered: _isregistered,
+                        ));
                   },
                 ),
               ),
@@ -208,6 +220,7 @@ class _HomescreenState extends State<HomeScreen>
                         return Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: ActivitiesCard(
+                            isregistered: _isregistered,
                             index: index,
                             onwished: () {
                               setState(() {

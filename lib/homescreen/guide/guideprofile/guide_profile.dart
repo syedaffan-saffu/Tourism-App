@@ -175,9 +175,7 @@ class _GuidesProfileState extends State<GuidesProfile>
                                   highlightColor: Colors.transparent,
                                   hoverColor: const Color(0x00FFFFFF),
                                   enableFeedback: false,
-                                  onPressed: () {
-                                    print("pressed");
-                                  },
+                                  onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/message.svg',
                                     height: 40,

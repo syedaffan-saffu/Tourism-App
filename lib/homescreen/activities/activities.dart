@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/profile/signinout/login.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
 class ActivitiesCard extends StatelessWidget {
+  final bool isregistered;
   final int index;
   final List<bool> favourite;
   final void Function() onwished;
@@ -12,6 +14,7 @@ class ActivitiesCard extends StatelessWidget {
   final String rating;
   const ActivitiesCard(
       {super.key,
+      required this.isregistered,
       required this.index,
       required this.favourite,
       required this.onwished,
@@ -101,7 +104,12 @@ class ActivitiesCard extends StatelessWidget {
                   backgroundColor: const Color.fromARGB(255, 51, 173, 226),
                   elevation: 0.0,
                   shape: const RoundedRectangleBorder()),
-              onPressed: () {},
+              onPressed: () {
+                isregistered
+                    ? () {}
+                    : Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Login()));
+              },
               child: const Text(
                 'Read More',
                 style: TextStyle(

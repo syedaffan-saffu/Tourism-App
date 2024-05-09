@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
+import '../../profile/signinout/login.dart';
 import 'adv_place.dart';
 
 class AdvCard extends StatelessWidget {
-  const AdvCard({super.key});
+  final bool isregistered;
+  const AdvCard({super.key, required this.isregistered});
 
   static const String image = "assets/images/mount.jpg";
   static const String image2 = "assets/images/gliding.png";
@@ -143,7 +145,12 @@ class AdvCard extends StatelessWidget {
                 elevation: 0.0,
                 shape: const RoundedRectangleBorder(),
               ),
-              onPressed: () {},
+              onPressed: () {
+                isregistered
+                    ? () {}
+                    : Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Login()));
+              },
               child: Text(
                 'Book Now',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
