@@ -12,7 +12,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final bool _isregistered = false;
+  static const bool _isregistered = false;
   int _selectedIndex = 0;
 
   Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[1],
-              child: Search(
+              child: const Search(
                 isregistered: _isregistered,
               ),
             ),

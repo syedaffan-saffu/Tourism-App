@@ -153,7 +153,7 @@ class ImageRows {
       children: [
         SizedBox(
           height: 140,
-          width: (MediaQuery.of(context).size.width / 2) - 3,
+          width: (contextwidth(context) / 2) - 3,
           child: Image.asset(
             _images[2],
             fit: BoxFit.fill,
