@@ -111,6 +111,25 @@ class _RecommsState extends State<Recomms> {
                             radius: _currentpage == index ? 7 : 5,
                           ),
                         )),
+              ),
+              sbh(15),
+              Row(
+                children: [
+                  Text(
+                    "Trips",
+                    style: _heading.copyWith(
+                      color: const Color(0xFF000000),
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'See More',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Color.fromARGB(255, 21, 119, 200)),
+                      )),
+                ],
               )
             ],
           ),
