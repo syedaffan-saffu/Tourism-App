@@ -111,6 +111,10 @@ flutter:
     - family: HeartIcons
       fonts:
         - asset: assets/fonts/HeartIcons.ttf
+    
+    - family: Check_circ
+      fonts: 
+        - asset: assets/fonts/Check_circ.ttf
         
     - family: RedHat
       fonts:
@@ -122,6 +126,13 @@ flutter:
           weight: 500
         - asset: assets/fonts/RedHat/RedHatDisplay-Bold.ttf
           weight: 900
+
+    - family: Orbitron
+      fonts:
+        - asset: assets/fonts/Orbitron/Orbitron-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Orbitron/Orbitron-Bold.ttf
+          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
