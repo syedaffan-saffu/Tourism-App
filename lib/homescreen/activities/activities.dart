@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/main.dart';
-import 'package:trekkers_pk/profile/signinout/login.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
+
+import '../../profile/signinout/SignUp/signup.dart';
 
 class ActivitiesCard extends StatelessWidget {
   final bool isregistered;
@@ -108,8 +109,8 @@ class ActivitiesCard extends StatelessWidget {
               onPressed: () {
                 isregistered
                     ? () {}
-                    : mynavigatorKey.currentState!.push(
-                        MaterialPageRoute(builder: (context) => const Login()));
+                    : mynavigatorKey.currentState!.push(MaterialPageRoute(
+                        builder: (context) => const SignUp()));
               },
               child: const Text(
                 'Read More',

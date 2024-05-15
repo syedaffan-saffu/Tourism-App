@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofile_elements/aboutus.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofile_elements/videos/videos.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';

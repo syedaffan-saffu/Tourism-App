@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/profile/profile.dart';
-import 'package:trekkers_pk/reusabs/reusabs.dart';
+import '../../reusabs/reusabs.dart';
 
 class Recomms extends StatefulWidget {
   const Recomms({super.key});

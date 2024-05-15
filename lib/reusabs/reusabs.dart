@@ -47,6 +47,20 @@ class CustomIcons {
       IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
 
+class Social {
+  Social._();
+
+  static const _kFontFam = 'Social';
+  static const String? _kFontPkg = null;
+
+  static const IconData facebook =
+      IconData(0xf09a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData apple =
+      IconData(0xf179, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData google =
+      IconData(0xf1a0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+}
+
 class Planeicon {
   Planeicon._();
 
@@ -85,7 +99,37 @@ class HeartIcons {
 
 ///////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
+///
+///
+class Validity {
+  static bool isEmailValid(String email) {
+    // Regular expression for a simple email validation
+    final RegExp emailRegex =
+        RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    return emailRegex.hasMatch(email);
+  }
 
+  static bool isPassValid(String pass) {
+    return pass.length > 7;
+  }
+
+  static bool isCnfPassValid(String pass, String cnfpass) {
+    return cnfpass == pass && isPassValid(pass);
+  }
+
+  static bool isfieldEmpty(String field) {
+    return field.isEmpty;
+  }
+
+  static bool isPhoneValid(String phone) {
+    return phone.length == 11;
+  }
+}
+
+/////////////////////////////////////
+///
+///
+//.....................
 class CardView extends StatelessWidget {
   final String img;
   final String title;

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/homescreen/hmscrn.dart';
 import 'package:trekkers_pk/homescreen/recomms/recomms.dart';
 import 'package:trekkers_pk/profile/experiece.dart';
 import 'package:trekkers_pk/profile/profile_edit/profileedit.dart';
-import 'package:trekkers_pk/profile/signinout/login.dart';
+import 'package:trekkers_pk/profile/signinout/Login/login.dart';
 import 'profile/profile.dart';
 import 'mainpage.dart';
+import 'profile/signinout/SignUp/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: const Login(),
+      home: const HomeScreen(),
     );
   }
 }

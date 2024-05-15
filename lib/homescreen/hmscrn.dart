@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/homescreen/adventure/adv_card.dart';
-import 'package:trekkers_pk/main.dart';
-import 'package:trekkers_pk/profile/signinout/login.dart';
+import 'package:trekkers_pk/profile/profile.dart';
+import 'adventure/adv_card.dart';
+import '../main.dart';
+import '../profile/signinout/SignUp/signup.dart';
 import '/reusabs/reusabs.dart';
-
 import 'activities/activities.dart';
 import 'guide/guide_card.dart';
 
@@ -19,7 +19,7 @@ class _HomescreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin<HomeScreen> {
   @override
   bool get wantKeepAlive => true;
-  bool _isregistered = false;
+  bool _isregistered = true;
   List<bool> _favourite = [false, false, false, false, false];
   static const String image2 = "assets/images/gliding.png";
   static const String title = "Biafo Glacier Ice Climbing";
@@ -32,32 +32,65 @@ class _HomescreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Stack(children: [
-      SingleChildScrollView(
+    return Scaffold(
+      appBar: _isregistered
+          ? AppBar(
+              leadingWidth: contextwidth(context) * 0.25,
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 20, bottom: 10),
+                child: Image.asset(
+                  "assets/images/logon.png",
+                  fit: BoxFit.fill,
+                ),
+              ),
+              backgroundColor: const Color(0xFFFFFFFF),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: TapRegion(
+                    onTapInside: (event) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const Profile()));
+                    },
+                    child: const Badge(
+                      offset: Offset(3, 3),
+                      backgroundColor: Color(0xFFF7A81A),
+                      label: Icon(
+                        Icons.menu,
+                        size: 9,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      alignment: Alignment.bottomRight,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/avatar.png"),
+                        backgroundColor: Color(0xFFAAFFAA),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
+          : null,
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(children: [
               SizedBox(
-                height: 370,
+                height: contextheight(context) * 0.33,
                 width: double.infinity,
                 child: Image.asset(
                   'assets/images/backlogo.png',
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.only(top: 50.0, left: 25.0, right: 25.0),
+                    const EdgeInsets.only(top: 30.0, left: 25.0, right: 25.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 40,
-                      child: Image.asset('assets/images/logo.png'),
-                    ),
-                    sbh(35),
                     Center(
                       child: Column(
                         children: [
@@ -76,7 +109,7 @@ class _HomescreenState extends State<HomeScreen>
                             style: TextStyle(
                                 height: 1.2,
                                 fontSize: 27,
-                                fontWeight: FontWeight.w300,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.white,
                                 fontFamily: 'Signika'),
                           ),
@@ -92,29 +125,32 @@ class _HomescreenState extends State<HomeScreen>
                                       fontSize: 12.5, color: Colors.white),
                                 ),
                                 sbh(8),
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15.0, vertical: 0.0),
-                                      foregroundColor: const Color.fromARGB(
-                                          213, 255, 255, 255),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0)),
-                                      backgroundColor: const Color(0xfff7a81a)),
-                                  onPressed: () {
-                                    _isregistered
-                                        ? () {}
-                                        : mynavigatorKey.currentState!.push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Login()));
-                                  },
-                                  child: const Text(
-                                    'Explore More',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16,
+                                SizedBox(
+                                  height: 30,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18.0, vertical: 0.0),
+                                        foregroundColor: const Color.fromARGB(
+                                            213, 255, 255, 255),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0)),
+                                        backgroundColor:
+                                            const Color(0xfff7a81a)),
+                                    onPressed: () {
+                                      _isregistered
+                                          ? () {}
+                                          : mynavigatorKey.currentState!.push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const SignUp()));
+                                    },
+                                    child: const Text(
+                                      'Explore More',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 13),
                                     ),
                                   ),
                                 ),
@@ -129,8 +165,8 @@ class _HomescreenState extends State<HomeScreen>
               )
             ]),
 
-//////////////////////////////////////////Adventure Section//////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////             ///
+            //////////////////////////////////////////Adventure Section//////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////             ///
             /////////////////////////////////////////////////////////////////////////////             ///
             ///
             Padding(
@@ -157,8 +193,8 @@ class _HomescreenState extends State<HomeScreen>
                 ],
               ),
             ),
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////
             SizedBox(
               height: 500,
               child: Padding(
@@ -178,9 +214,9 @@ class _HomescreenState extends State<HomeScreen>
               ),
             ),
 
-///////////////////////////////////////////////////// Activities Section //////////////////////////
-/////////////////////////////////////////////////////////////////////////////////              ///
-////////////////////////////////////////////////////////////////////////////////              ///
+            ///////////////////////////////////////////////////// Activities Section //////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////              ///
+            ////////////////////////////////////////////////////////////////////////////////              ///
 
             Padding(
               padding: const EdgeInsets.only(
@@ -206,8 +242,8 @@ class _HomescreenState extends State<HomeScreen>
                 ],
               ),
             ),
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////
             SizedBox(
                 height: 520,
                 child: Padding(
@@ -244,8 +280,8 @@ class _HomescreenState extends State<HomeScreen>
                         );
                       }),
                 )),
-/////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: InkWell(
@@ -300,8 +336,8 @@ class _HomescreenState extends State<HomeScreen>
                 ),
               ),
             ),
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////
             Padding(
               padding: const EdgeInsets.only(
                   left: 20, top: 20, bottom: 2, right: 10),
@@ -326,9 +362,9 @@ class _HomescreenState extends State<HomeScreen>
                 ],
               ),
             ),
-///////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////
             SizedBox(
                 height: 400,
                 width: 400,
@@ -347,25 +383,7 @@ class _HomescreenState extends State<HomeScreen>
           ],
         ),
       ),
-
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////2nd Stack//////////////////////////////////////////////
-      Positioned(
-        top: 40,
-        right: 15,
-        child: FloatingActionButton(
-          elevation: 0.0,
-          backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-          foregroundColor: const Color.fromARGB(0, 0, 0, 0),
-          onPressed: () {},
-          child: PopupMenuButton(
-            itemBuilder: (context) => [],
-            iconColor: Colors.white,
-            iconSize: 40,
-          ),
-        ),
-      ),
-    ]);
+    );
   }
 
   @override

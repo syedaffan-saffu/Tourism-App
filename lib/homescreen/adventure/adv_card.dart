@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/main.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
-import '../../profile/signinout/login.dart';
+import '../../profile/signinout/SignUp/signup.dart';
 import 'adv_place.dart';
 
 class AdvCard extends StatelessWidget {
@@ -149,8 +149,8 @@ class AdvCard extends StatelessWidget {
               onPressed: () {
                 isregistered
                     ? () {}
-                    : mynavigatorKey.currentState!.push(
-                        MaterialPageRoute(builder: (context) => const Login()));
+                    : mynavigatorKey.currentState!.push(MaterialPageRoute(
+                        builder: (context) => const SignUp()));
               },
               child: Text(
                 'Book Now',

@@ -99,7 +99,9 @@ flutter:
     - family: TripsnTours
       fonts: 
         - asset: assets/fonts/TripsnTours.ttf
-
+    - family: Social
+      fonts: 
+        - asset: assets/fonts/Social.ttf
     - family: CustomIcons
       fonts:
         - asset: assets/fonts/CustomIcons.ttf

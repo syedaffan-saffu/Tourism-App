@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/main.dart';
-import 'package:trekkers_pk/profile/signinout/login.dart';
 import 'package:trekkers_pk/search/s_tours/tours.dart';
+import '../profile/signinout/SignUp/signup.dart';
 import '/reusabs/reusabs.dart';
 import 'package:intl/intl.dart';
 
@@ -118,8 +118,8 @@ class _SearchState extends State<Search> {
                 widget.isregistered
                     ? Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const Tours()))
-                    : mynavigatorKey.currentState!.push(
-                        MaterialPageRoute(builder: (context) => const Login()));
+                    : mynavigatorKey.currentState!.push(MaterialPageRoute(
+                        builder: (context) => const SignUp()));
               },
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0.0),
