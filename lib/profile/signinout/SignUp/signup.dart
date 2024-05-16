@@ -16,10 +16,12 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final List<TextEditingController> _controllers =
       List.generate(4, (index) => TextEditingController());
+
   bool _isemailvalid = false;
   bool _ispassvalid = false;
   bool _iscnfrmpassvalid = false;
   bool _isphonevalid = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

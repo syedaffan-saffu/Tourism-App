@@ -4,23 +4,23 @@ import 'homescreen/hmscrn.dart';
 import 'profile/profile.dart';
 import 'search/search.dart';
 
+Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
+  0: GlobalKey(),
+  1: GlobalKey(),
+  2: GlobalKey(),
+  3: GlobalKey(),
+};
+
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({super.key, required this.isregistered});
+  final bool isregistered;
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  static const bool _isregistered = false;
   int _selectedIndex = 0;
-
-  Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
-    0: GlobalKey(),
-    1: GlobalKey(),
-    2: GlobalKey(),
-    3: GlobalKey(),
-  };
 
   void _onItemTapped(int index) {
     setState(() {
@@ -33,18 +33,22 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: null,
       body: NavigatorPopHandler(
-        onPop: () => navigatorKeys[_selectedIndex]!.currentState!.pop(),
+        onPop: () {
+          navigatorKeys[_selectedIndex]!.currentState!.pop();
+        },
         child: IndexedStack(
           index: _selectedIndex,
           children: [
             NavigationPage(
               navigatorKey: navigatorKeys[0],
-              child: const HomeScreen(),
+              child: HomeScreen(
+                isregistered: widget.isregistered,
+              ),
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[1],
-              child: const Search(
-                isregistered: _isregistered,
+              child: Search(
+                isregistered: widget.isregistered,
               ),
             ),
             NavigationPage(

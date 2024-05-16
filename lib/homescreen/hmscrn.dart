@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/mainpage.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'adventure/adv_card.dart';
 import '../main.dart';
@@ -9,7 +10,8 @@ import 'activities/activities.dart';
 import 'guide/guide_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final bool isregistered;
+  const HomeScreen({super.key, required this.isregistered});
 
   @override
   State<HomeScreen> createState() => _HomescreenState();
@@ -19,7 +21,7 @@ class _HomescreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin<HomeScreen> {
   @override
   bool get wantKeepAlive => true;
-  bool _isregistered = true;
+
   List<bool> _favourite = [false, false, false, false, false];
   static const String image2 = "assets/images/gliding.png";
   static const String title = "Biafo Glacier Ice Climbing";
@@ -33,7 +35,7 @@ class _HomescreenState extends State<HomeScreen>
     super.build(context);
 
     return Scaffold(
-      appBar: _isregistered
+      appBar: widget.isregistered
           ? AppBar(
               leadingWidth: contextwidth(context) * 0.25,
               leading: Padding(
@@ -49,8 +51,12 @@ class _HomescreenState extends State<HomeScreen>
                   padding: const EdgeInsets.only(right: 15),
                   child: TapRegion(
                     onTapInside: (event) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Profile()));
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return const NavigationPage(
+                          child: Profile(),
+                        );
+                      }));
                     },
                     child: const Badge(
                       offset: Offset(3, 3),
@@ -139,7 +145,7 @@ class _HomescreenState extends State<HomeScreen>
                                         backgroundColor:
                                             const Color(0xfff7a81a)),
                                     onPressed: () {
-                                      _isregistered
+                                      widget.isregistered
                                           ? () {}
                                           : mynavigatorKey.currentState!.push(
                                               MaterialPageRoute(
@@ -207,7 +213,7 @@ class _HomescreenState extends State<HomeScreen>
                     return Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: AdvCard(
-                          isregistered: _isregistered,
+                          isregistered: widget.isregistered,
                         ));
                   },
                 ),
@@ -257,7 +263,7 @@ class _HomescreenState extends State<HomeScreen>
                         return Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: ActivitiesCard(
-                            isregistered: _isregistered,
+                            isregistered: widget.isregistered,
                             index: index,
                             onwished: () {
                               setState(() {

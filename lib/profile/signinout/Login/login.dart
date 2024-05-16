@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:trekkers_pk/homescreen/hmscrn.dart';
+import 'package:trekkers_pk/main.dart';
+import 'package:trekkers_pk/mainpage.dart';
+import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
 import '../../../reusabs/reusabs.dart';
 import '../signinupcomps.dart';
 
@@ -11,10 +15,28 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final List<TextEditingController> _controllers =
-      List.generate(4, (index) => TextEditingController());
+  final TextEditingController _emailcont = TextEditingController();
+  final TextEditingController _passcont = TextEditingController();
+  bool _fieldenable = true;
   bool _isemailvalid = false;
   bool _ispassvalid = false;
+  bool _valid = false;
+  Future _checklogin(String email, String pass) async {
+    final Map creds = {"email": email, "password": pass};
+    final response = await http
+        .post(Uri.parse("https://api.dev.trekkers.pk/login"), body: creds);
+    if (response.statusCode == 200) {
+      setState(() {
+        _valid = true;
+      });
+    } else {
+      setState(() {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Unable to login")));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +86,8 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 48,
               child: TextField(
+                  enabled: _fieldenable,
+                  controller: _emailcont,
                   onChanged: (value) {
                     setState(() {
                       _isemailvalid = Validity.isEmailValid(value);
@@ -78,7 +102,8 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 48,
               child: TextField(
-                controller: _controllers[1],
+                enabled: _fieldenable,
+                controller: _passcont,
                 onChanged: (value) {
                   setState(() {
                     _ispassvalid = Validity.isPassValid(value);
@@ -91,7 +116,19 @@ class _LoginState extends State<Login> {
               ),
             ),
             sbh(20),
-            SignInUpComps.loginbtn("Login", const Color(0xFF0561AB), () {}),
+            SignInUpComps.loginbtn("Login", const Color(0xFF0561AB), () async {
+              _valid = false;
+              _fieldenable = false;
+              print(_emailcont.text);
+              print(_passcont.text);
+              await _checklogin(_emailcont.text, _passcont.text);
+              _valid
+                  ? setState(() {
+                      isregistered = true;
+                    })
+                  : () {};
+              _fieldenable = true;
+            }),
             sbh(30),
             const Text(
               "Social Login",

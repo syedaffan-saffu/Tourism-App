@@ -14,6 +14,8 @@ void main() {
 
 final GlobalKey<NavigatorState> mynavigatorKey = GlobalKey<NavigatorState>();
 
+bool isregistered = false;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: MainPage(isregistered: isregistered),
     );
   }
 }
