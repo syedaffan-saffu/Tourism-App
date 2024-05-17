@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/homescreen/hmscrn.dart';
 import 'package:trekkers_pk/homescreen/recomms/recomms.dart';
 import 'package:trekkers_pk/profile/experiece.dart';
@@ -7,9 +8,16 @@ import 'package:trekkers_pk/profile/signinout/Login/login.dart';
 import 'profile/profile.dart';
 import 'mainpage.dart';
 import 'profile/signinout/SignUp/signup.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ChangeNotifierProvider(create: (_) => IndexProvider()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 final GlobalKey<NavigatorState> mynavigatorKey = GlobalKey<NavigatorState>();
@@ -31,7 +39,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: MainPage(isregistered: isregistered),
+      home: const MainPage(),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/main.dart';
 import 'package:trekkers_pk/search/s_tours/tours.dart';
 import '../profile/signinout/SignUp/signup.dart';
@@ -6,8 +8,9 @@ import '/reusabs/reusabs.dart';
 import 'package:intl/intl.dart';
 
 class Search extends StatefulWidget {
-  final bool isregistered;
-  const Search({super.key, required this.isregistered});
+  const Search({
+    super.key,
+  });
 
   @override
   State<Search> createState() => _SearchState();
@@ -38,6 +41,8 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
+    final authprov = Provider.of<AuthProvider>(context);
+    final indexprovider = Provider.of<IndexProvider>(context);
     return SingleChildScrollView(
       child: Padding(
         padding:
@@ -115,11 +120,10 @@ class _SearchState extends State<Search> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                widget.isregistered
+                authprov.isLoggedIn
                     ? Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const Tours()))
-                    : mynavigatorKey.currentState!.push(MaterialPageRoute(
-                        builder: (context) => const SignUp()));
+                    : indexprovider.changeindex(3);
               },
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0.0),

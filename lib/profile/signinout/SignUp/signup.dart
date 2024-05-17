@@ -136,7 +136,7 @@ class _SignUpState extends State<SignUp> {
                     "Sign Up", const Color(0xFF36A9E1), () {}),
                 sbw(10),
                 SignInUpComps.loginbtn("Login", const Color(0xFF0561AB), () {
-                  mynavigatorKey.currentState!.push(
+                  Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => const Login()));
                 })
               ],
@@ -164,5 +164,11 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    print("sign up disposed");
+    super.dispose();
   }
 }

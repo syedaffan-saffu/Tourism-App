@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/mainpage.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'adventure/adv_card.dart';
@@ -10,8 +12,7 @@ import 'activities/activities.dart';
 import 'guide/guide_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  final bool isregistered;
-  const HomeScreen({super.key, required this.isregistered});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomescreenState();
@@ -21,7 +22,7 @@ class _HomescreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin<HomeScreen> {
   @override
   bool get wantKeepAlive => true;
-
+  bool _isregistered = true;
   List<bool> _favourite = [false, false, false, false, false];
   static const String image2 = "assets/images/gliding.png";
   static const String title = "Biafo Glacier Ice Climbing";
@@ -33,9 +34,11 @@ class _HomescreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final authProvider = Provider.of<AuthProvider>(context);
+    final indexprovider = Provider.of<IndexProvider>(context);
 
     return Scaffold(
-      appBar: widget.isregistered
+      appBar: authProvider.isLoggedIn
           ? AppBar(
               leadingWidth: contextwidth(context) * 0.25,
               leading: Padding(
@@ -51,12 +54,9 @@ class _HomescreenState extends State<HomeScreen>
                   padding: const EdgeInsets.only(right: 15),
                   child: TapRegion(
                     onTapInside: (event) {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const NavigationPage(
-                          child: Profile(),
-                        );
-                      }));
+                      setState(() {
+                        indexprovider.changeindex(3);
+                      });
                     },
                     child: const Badge(
                       offset: Offset(3, 3),
@@ -145,12 +145,13 @@ class _HomescreenState extends State<HomeScreen>
                                         backgroundColor:
                                             const Color(0xfff7a81a)),
                                     onPressed: () {
-                                      widget.isregistered
+                                      authProvider.isLoggedIn
                                           ? () {}
-                                          : mynavigatorKey.currentState!.push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const SignUp()));
+                                          : indexprovider.changeindex(3);
+                                      // : mynavigatorKey.currentState!.push(
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             const SignUp()));
                                     },
                                     child: const Text(
                                       'Explore More',
@@ -213,7 +214,7 @@ class _HomescreenState extends State<HomeScreen>
                     return Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: AdvCard(
-                          isregistered: widget.isregistered,
+                          isregistered: _isregistered,
                         ));
                   },
                 ),
@@ -263,7 +264,7 @@ class _HomescreenState extends State<HomeScreen>
                         return Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: ActivitiesCard(
-                            isregistered: widget.isregistered,
+                            isregistered: authProvider.isLoggedIn,
                             index: index,
                             onwished: () {
                               setState(() {
@@ -291,7 +292,13 @@ class _HomescreenState extends State<HomeScreen>
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  authProvider.isLoggedIn
+                      ? setState(() {
+                          indexprovider.changeindex(3);
+                        })
+                      : null;
+                },
                 child: Stack(
                   alignment: AlignmentDirectional.bottomStart,
                   children: [

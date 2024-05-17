@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/homescreen/hmscrn.dart';
 import 'package:trekkers_pk/main.dart';
 import 'package:trekkers_pk/mainpage.dart';
+import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
 import '../../../reusabs/reusabs.dart';
 import '../signinupcomps.dart';
@@ -17,11 +20,12 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailcont = TextEditingController();
   final TextEditingController _passcont = TextEditingController();
+  NavigatorState nvgstate = NavigatorState();
   bool _fieldenable = true;
   bool _isemailvalid = false;
   bool _ispassvalid = false;
   bool _valid = false;
-  Future _checklogin(String email, String pass) async {
+  Future _checklogin(String email, String pass, BuildContext context) async {
     final Map creds = {"email": email, "password": pass};
     final response = await http
         .post(Uri.parse("https://api.dev.trekkers.pk/login"), body: creds);
@@ -39,6 +43,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final authProv = Provider.of<AuthProvider>(context, listen: false);
+    final indexProv = Provider.of<IndexProvider>(context, listen: false);
     return Scaffold(
       appBar: null,
       body: SingleChildScrollView(
@@ -121,11 +127,15 @@ class _LoginState extends State<Login> {
               _fieldenable = false;
               print(_emailcont.text);
               print(_passcont.text);
-              await _checklogin(_emailcont.text, _passcont.text);
+              await _checklogin(_emailcont.text, _passcont.text, context);
               _valid
-                  ? setState(() {
-                      isregistered = true;
-                    })
+                  ? {
+                      authProv.login(),
+                      if (mounted)
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const Profile())),
+                      indexProv.changeindex(0)
+                    }
                   : () {};
               _fieldenable = true;
             }),

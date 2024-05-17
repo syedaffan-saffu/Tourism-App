@@ -1,55 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
+import 'backend/provider/providers.dart';
 import 'reusabs/reusabs.dart';
 import 'homescreen/hmscrn.dart';
 import 'profile/profile.dart';
 import 'search/search.dart';
 
-Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
-  0: GlobalKey(),
-  1: GlobalKey(),
-  2: GlobalKey(),
-  3: GlobalKey(),
-};
-
 class MainPage extends StatefulWidget {
-  const MainPage({super.key, required this.isregistered});
-  final bool isregistered;
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
+    0: GlobalKey(),
+    1: GlobalKey(),
+    2: GlobalKey(),
+    3: GlobalKey(),
+  };
 
   @override //Waqar
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
       appBar: null,
       body: NavigatorPopHandler(
-        onPop: () {
-          navigatorKeys[_selectedIndex]!.currentState!.pop();
-        },
+        onPop: () =>
+            navigatorKeys[indexprovider.selectedindex]!.currentState!.pop(),
         child: IndexedStack(
-          index: _selectedIndex,
+          index: indexprovider.selectedindex,
           children: [
             NavigationPage(
               navigatorKey: navigatorKeys[0],
-              child: HomeScreen(
-                isregistered: widget.isregistered,
-              ),
+              child: const HomeScreen(),
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[1],
-              child: Search(
-                isregistered: widget.isregistered,
-              ),
+              child: const Search(),
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[2],
@@ -57,7 +48,7 @@ class _MainPageState extends State<MainPage> {
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[3],
-              child: const Profile(),
+              child: authProvider.isLoggedIn ? const Profile() : const SignUp(),
             ),
           ],
         ),
@@ -65,11 +56,15 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         selectedLabelStyle: const TextStyle(fontSize: 1.0),
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
+        currentIndex: indexprovider.selectedindex,
         showSelectedLabels: false,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+        onTap: (index) {
+          setState(() {
+            indexprovider.changeindex(index);
+          });
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(CustomIcons.home),
