@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:trekkers_pk/homescreen/hmscrncomps.dart';
 import 'package:trekkers_pk/main.dart';
+import '../../../backend/provider/providers.dart';
 import 'gprofile_elements/aboutus.dart';
 import 'gprofile_elements/clients/clientsrev.dart';
 import 'gprofile_elements/videos/thumbnails.dart';
@@ -90,9 +93,18 @@ class _GuidesProfileState extends State<GuidesProfile>
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
         key: guideprofilekey,
-        appBar: null,
+        appBar: HmComps.hmappbar(
+            context: context,
+            ontap: (event) {
+              setState(() {
+                indexprovider.changeindex(3);
+              });
+            },
+            img: "assets/images/avatar.png"),
         body: CustomScrollView(
           controller: _scrollController,
           slivers: [

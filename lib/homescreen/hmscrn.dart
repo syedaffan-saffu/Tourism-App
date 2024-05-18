@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
+import 'package:trekkers_pk/homescreen/hmscrncomps.dart';
 import 'package:trekkers_pk/mainpage.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'adventure/adv_card.dart';
@@ -39,43 +40,14 @@ class _HomescreenState extends State<HomeScreen>
 
     return Scaffold(
       appBar: authProvider.isLoggedIn
-          ? AppBar(
-              leadingWidth: contextwidth(context) * 0.25,
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 20, bottom: 10),
-                child: Image.asset(
-                  "assets/images/logon.png",
-                  fit: BoxFit.fill,
-                ),
-              ),
-              backgroundColor: const Color(0xFFFFFFFF),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: TapRegion(
-                    onTapInside: (event) {
-                      setState(() {
-                        indexprovider.changeindex(3);
-                      });
-                    },
-                    child: const Badge(
-                      offset: Offset(3, 3),
-                      backgroundColor: Color(0xFFF7A81A),
-                      label: Icon(
-                        Icons.menu,
-                        size: 9,
-                        color: Color(0xFFFFFFFF),
-                      ),
-                      alignment: Alignment.bottomRight,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage("assets/images/avatar.png"),
-                        backgroundColor: Color(0xFFAAFFAA),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            )
+          ? HmComps.hmappbar(
+              context: context,
+              ontap: (event) {
+                setState(() {
+                  indexprovider.changeindex(3);
+                });
+              },
+              img: "assets/images/avatar.png")
           : null,
       body: SingleChildScrollView(
         child: Column(
