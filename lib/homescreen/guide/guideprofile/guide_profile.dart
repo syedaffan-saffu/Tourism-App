@@ -97,14 +97,16 @@ class _GuidesProfileState extends State<GuidesProfile>
     final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
         key: guideprofilekey,
-        appBar: HmComps.hmappbar(
-            context: context,
-            ontap: (event) {
-              setState(() {
-                indexprovider.changeindex(3);
-              });
-            },
-            img: "assets/images/avatar.png"),
+        appBar: authProvider.isLoggedIn
+            ? HmComps.hmappbar(
+                context: context,
+                ontap: (event) {
+                  setState(() {
+                    indexprovider.changeindex(3);
+                  });
+                },
+                img: "assets/images/avatar.png")
+            : null,
         body: CustomScrollView(
           controller: _scrollController,
           slivers: [
@@ -120,10 +122,9 @@ class _GuidesProfileState extends State<GuidesProfile>
                   overlayColor: MaterialStateProperty.resolveWith<Color>(
                       (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed)) {
-                      return Colors
-                          .transparent; // Set overlay color to transparent when pressed
+                      return Colors.transparent;
                     }
-                    // Otherwise, return null to use default behavior
+
                     return const Color(0xFFFFFFFF);
                   }),
                   onTap: (index) {

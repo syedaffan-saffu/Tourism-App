@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/homescreen/hmscrncomps.dart';
-import 'package:trekkers_pk/mainpage.dart';
-import 'package:trekkers_pk/profile/profile.dart';
 import 'adventure/adv_card.dart';
-import '../main.dart';
-import '../profile/signinout/SignUp/signup.dart';
 import '/reusabs/reusabs.dart';
 import 'activities/activities.dart';
 import 'guide/guide_card.dart';
@@ -23,7 +19,7 @@ class _HomescreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin<HomeScreen> {
   @override
   bool get wantKeepAlive => true;
-  bool _isregistered = true;
+
   List<bool> _favourite = [false, false, false, false, false];
   static const String image2 = "assets/images/gliding.png";
   static const String title = "Biafo Glacier Ice Climbing";
@@ -65,7 +61,7 @@ class _HomescreenState extends State<HomeScreen>
               ),
               Padding(
                 padding:
-                    const EdgeInsets.only(top: 30.0, left: 25.0, right: 25.0),
+                    const EdgeInsets.only(top: 40.0, left: 25.0, right: 25.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -120,10 +116,6 @@ class _HomescreenState extends State<HomeScreen>
                                       authProvider.isLoggedIn
                                           ? () {}
                                           : indexprovider.changeindex(3);
-                                      // : mynavigatorKey.currentState!.push(
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             const SignUp()));
                                     },
                                     child: const Text(
                                       'Explore More',
@@ -186,7 +178,13 @@ class _HomescreenState extends State<HomeScreen>
                     return Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: AdvCard(
-                          isregistered: _isregistered,
+                          onpressed: authProvider.isLoggedIn
+                              ? () {}
+                              : () {
+                                  setState(() {
+                                    indexprovider.changeindex(3);
+                                  });
+                                },
                         ));
                   },
                 ),
@@ -236,7 +234,13 @@ class _HomescreenState extends State<HomeScreen>
                         return Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: ActivitiesCard(
-                            isregistered: authProvider.isLoggedIn,
+                            onpressed: authProvider.isLoggedIn
+                                ? () {}
+                                : () {
+                                    setState(() {
+                                      indexprovider.changeindex(3);
+                                    });
+                                  },
                             index: index,
                             onwished: () {
                               setState(() {

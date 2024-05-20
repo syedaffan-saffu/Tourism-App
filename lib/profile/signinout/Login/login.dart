@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/homescreen/hmscrn.dart';
-import 'package:trekkers_pk/main.dart';
-import 'package:trekkers_pk/mainpage.dart';
 import 'package:trekkers_pk/profile/profile.dart';
-import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
 import '../../../reusabs/reusabs.dart';
 import '../signinupcomps.dart';
 
@@ -18,9 +14,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool _logloading = false;
   final TextEditingController _emailcont = TextEditingController();
   final TextEditingController _passcont = TextEditingController();
-  NavigatorState nvgstate = NavigatorState();
+  bool _tapenabled = true;
   bool _fieldenable = true;
   bool _isemailvalid = false;
   bool _ispassvalid = false;
@@ -35,8 +32,10 @@ class _LoginState extends State<Login> {
       });
     } else {
       setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Unable to login")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Unable to login"),
+          duration: Duration(seconds: 1),
+        ));
       });
     }
   }
@@ -122,22 +121,35 @@ class _LoginState extends State<Login> {
               ),
             ),
             sbh(20),
-            SignInUpComps.loginbtn("Login", const Color(0xFF0561AB), () async {
+            SignInUpComps.loginbtn(
+                _logloading, "Login", const Color(0xFF0561AB), () async {
               _valid = false;
-              _fieldenable = false;
-              print(_emailcont.text);
-              print(_passcont.text);
-              await _checklogin(_emailcont.text, _passcont.text, context);
-              _valid
-                  ? {
-                      authProv.login(),
-                      if (mounted)
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => const Profile())),
-                      indexProv.changeindex(0)
-                    }
-                  : () {};
-              _fieldenable = true;
+              setState(() {
+                _logloading = true;
+                FocusManager.instance.primaryFocus?.unfocus();
+              });
+
+              if (_tapenabled) {
+                _tapenabled = false;
+                await _checklogin(_emailcont.text, _passcont.text, context);
+
+                _valid
+                    ? {
+                        authProv.login(),
+                        if (mounted)
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const Profile())),
+                        indexProv.changeindex(0)
+                      }
+                    : {
+                        _tapenabled = true,
+                        _fieldenable = true,
+                        setState(() {
+                          _logloading = false;
+                        })
+                      };
+              }
             }),
             sbh(30),
             const Text(

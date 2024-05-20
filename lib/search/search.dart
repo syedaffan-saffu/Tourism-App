@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/main.dart';
 import 'package:trekkers_pk/search/s_tours/tours.dart';
-import '../profile/signinout/SignUp/signup.dart';
 import '/reusabs/reusabs.dart';
 import 'package:intl/intl.dart';
 

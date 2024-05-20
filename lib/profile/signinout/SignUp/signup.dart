@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/main.dart';
+import 'package:provider/provider.dart';
+import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/signinout/Login/login.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
+import '../../../backend/provider/providers.dart';
 import '../signinupcomps.dart';
 
 class SignUp extends StatefulWidget {
@@ -14,16 +16,43 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final List<TextEditingController> _controllers =
-      List.generate(4, (index) => TextEditingController());
+  final TextEditingController _namecont = TextEditingController();
+  final TextEditingController _emailcont = TextEditingController();
+  final TextEditingController _passcont = TextEditingController();
+  final TextEditingController _confrmpass = TextEditingController();
+  bool _tapenabled = true;
+  bool _logloading = false;
+
+  Future _checksignup(
+      String name, String email, String pass, BuildContext context) async {
+    final Map creds = {"name": name, "email": email, "password": pass};
+    final response = await http
+        .post(Uri.parse("https://api.dev.trekkers.pk/register"), body: creds);
+    if (response.statusCode == 200) {
+      setState(() {
+        _valid = true;
+      });
+    } else {
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Unable to login"),
+          duration: Duration(seconds: 1),
+        ));
+      });
+    }
+  }
+
+  bool _valid = false;
 
   bool _isemailvalid = false;
   bool _ispassvalid = false;
   bool _iscnfrmpassvalid = false;
-  bool _isphonevalid = false;
+  bool _isnamevalid = false;
 
   @override
   Widget build(BuildContext context) {
+    final authProv = Provider.of<AuthProvider>(context, listen: false);
+    final indexProv = Provider.of<IndexProvider>(context, listen: false);
     return Scaffold(
       appBar: null,
       body: SingleChildScrollView(
@@ -71,6 +100,21 @@ class _SignUpState extends State<SignUp> {
             SizedBox(
               height: 48,
               child: TextField(
+                controller: _namecont,
+                onChanged: (value) {
+                  setState(() {
+                    _isnamevalid = Validity.isNameValid(value);
+                  });
+                },
+                decoration: SignInUpComps.loginfields(
+                    hint: "Name", icon: Icons.person, isvalid: _isnamevalid),
+              ),
+            ),
+            sbh(10),
+            SizedBox(
+              height: 48,
+              child: TextField(
+                  controller: _emailcont,
                   onChanged: (value) {
                     setState(() {
                       _isemailvalid = Validity.isEmailValid(value);
@@ -78,14 +122,14 @@ class _SignUpState extends State<SignUp> {
                   },
                   decoration: SignInUpComps.loginfields(
                       hint: "Email",
-                      icon: Icons.person,
+                      icon: Icons.email,
                       isvalid: _isemailvalid)),
             ),
             sbh(10),
             SizedBox(
               height: 48,
               child: TextField(
-                controller: _controllers[1],
+                controller: _passcont,
                 onChanged: (value) {
                   setState(() {
                     _ispassvalid = Validity.isPassValid(value);
@@ -101,10 +145,11 @@ class _SignUpState extends State<SignUp> {
             SizedBox(
               height: 48,
               child: TextField(
+                controller: _confrmpass,
                 onChanged: (value) {
                   setState(() {
                     _iscnfrmpassvalid =
-                        Validity.isCnfPassValid(_controllers[1].text, value);
+                        Validity.isCnfPassValid(_confrmpass.text, value);
                   });
                 },
                 obscureText: true,
@@ -115,27 +160,44 @@ class _SignUpState extends State<SignUp> {
                     isvalid: _iscnfrmpassvalid),
               ),
             ),
-            sbh(10),
-            SizedBox(
-              height: 48,
-              child: TextField(
-                onChanged: (value) {
-                  setState(() {
-                    _isphonevalid = Validity.isPhoneValid(value);
-                  });
-                },
-                keyboardType: TextInputType.phone,
-                decoration: SignInUpComps.loginfields(
-                    hint: "Phone", icon: Icons.phone, isvalid: _isphonevalid),
-              ),
-            ),
             sbh(20),
             Row(
               children: [
                 SignInUpComps.loginbtn(
-                    "Sign Up", const Color(0xFF36A9E1), () {}),
+                    _logloading, "Sign Up", const Color(0xFF36A9E1), () async {
+                  print(
+                      "${_namecont.text}, ${_emailcont.text}, ${_passcont.text}");
+                  _valid = false;
+                  setState(() {
+                    _logloading = true;
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  });
+
+                  if (_tapenabled) {
+                    _tapenabled = false;
+                    await _checksignup(_namecont.text, _emailcont.text,
+                        _passcont.text, context);
+
+                    _valid
+                        ? {
+                            authProv.login(),
+                            if (mounted)
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => const Profile())),
+                            indexProv.changeindex(0)
+                          }
+                        : {
+                            _tapenabled = true,
+                            setState(() {
+                              _logloading = false;
+                            })
+                          };
+                  }
+                }),
                 sbw(10),
-                SignInUpComps.loginbtn("Login", const Color(0xFF0561AB), () {
+                SignInUpComps.loginbtn(false, "Login", const Color(0xFF0561AB),
+                    () {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => const Login()));
                 })
@@ -168,7 +230,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void dispose() {
-    print("sign up disposed");
     super.dispose();
   }
 }

@@ -29,18 +29,28 @@ class SignInUpComps {
   }
 
   static ElevatedButton loginbtn(
-      String text, Color color, void Function() onpressed) {
+      bool isloading, String text, Color color, void Function() onpressed) {
     return ElevatedButton(
       onPressed: onpressed,
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           backgroundColor: color),
-      child: Text(
-        text,
-        style: const TextStyle(
-            color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15),
-      ),
+      child: isloading
+          ? SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                color: Color(0xFFFFFFFF),
+              ),
+            )
+          : Text(
+              text,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15),
+            ),
     );
   }
 

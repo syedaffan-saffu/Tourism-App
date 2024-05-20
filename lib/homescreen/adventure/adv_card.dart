@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/main.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
-import '../../profile/signinout/SignUp/signup.dart';
 import 'adv_place.dart';
 
 class AdvCard extends StatelessWidget {
-  final bool isregistered;
-  const AdvCard({super.key, required this.isregistered});
-
+  final void Function() onpressed;
+  const AdvCard({super.key, required this.onpressed});
   static const String image = "assets/images/mount.jpg";
   static const String image2 = "assets/images/gliding.png";
   static const String title = "Biafo Glacier Ice Climbing";
@@ -34,7 +31,6 @@ class AdvCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // mynavigatorKey.currentState!
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const Advplace()));
       },
@@ -146,12 +142,7 @@ class AdvCard extends StatelessWidget {
                 elevation: 0.0,
                 shape: const RoundedRectangleBorder(),
               ),
-              onPressed: () {
-                isregistered
-                    ? () {}
-                    : mynavigatorKey.currentState!.push(MaterialPageRoute(
-                        builder: (context) => const SignUp()));
-              },
+              onPressed: onpressed,
               child: Text(
                 'Book Now',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(

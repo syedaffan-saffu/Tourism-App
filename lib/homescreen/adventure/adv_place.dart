@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:provider/provider.dart';
+import '../../backend/provider/providers.dart';
+import '../hmscrncomps.dart';
 import 'adv_table.dart';
 import '/reusabs/reusabs.dart';
 
@@ -56,26 +59,21 @@ class _AdvplaceState extends State<Advplace> {
     CustomIcons.difficulty: 'Normal Difficulty',
   };
 
-  // final List<IconData> icons = [
-  //   Icons.home,
-  //   Icons.work,
-  //   Icons.shopping_cart,
-  //   Icons.favorite,
-  //   Icons.school,
-  // ];
-
-  // final List<String> suggestions = [
-  //   'Home',
-  //   'Work',
-  //   'Shopping',
-  //   'Favorites',
-  //   'School',
-  // ];
-
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
-      appBar: null,
+      appBar: authProvider.isLoggedIn
+          ? HmComps.hmappbar(
+              context: context,
+              ontap: (event) {
+                setState(() {
+                  indexprovider.changeindex(3);
+                });
+              },
+              img: "assets/images/avatar.png")
+          : null,
       body: SingleChildScrollView(
         child: Column(
           children: [

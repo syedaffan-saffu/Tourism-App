@@ -124,6 +124,10 @@ class Validity {
   static bool isPhoneValid(String phone) {
     return phone.length == 11;
   }
+
+  static bool isNameValid(String name) {
+    return name.length > 2;
+  }
 }
 
 /////////////////////////////////////

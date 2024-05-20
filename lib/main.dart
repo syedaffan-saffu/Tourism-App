@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
+import 'package:trekkers_pk/homescreen/adventure/adv_place.dart';
 import 'package:trekkers_pk/homescreen/hmscrn.dart';
 import 'package:trekkers_pk/homescreen/recomms/recomms.dart';
 import 'package:trekkers_pk/profile/experiece.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        "/adv": (context) => const Advplace(),
+      },
       navigatorKey: mynavigatorKey,
       title: 'trekkers_pk',
       theme: ThemeData(
