@@ -30,9 +30,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        "/adv": (context) => const Advplace(),
-      },
       navigatorKey: mynavigatorKey,
       title: 'trekkers_pk',
       theme: ThemeData(

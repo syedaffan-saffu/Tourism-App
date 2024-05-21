@@ -37,7 +37,7 @@ class SignInUpComps {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           backgroundColor: color),
       child: isloading
-          ? SizedBox(
+          ? const SizedBox(
               height: 20,
               width: 20,
               child: CircularProgressIndicator(

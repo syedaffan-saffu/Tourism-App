@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/signinout/Login/login.dart';
-import 'package:http/http.dart' as http;
+import 'package:trekkers_pk/profile/signinout/SignUp/signuputils.dart';
 import 'package:trekkers_pk/reusabs/reusabs.dart';
 
 import '../../../backend/provider/providers.dart';
@@ -22,32 +22,18 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _confrmpass = TextEditingController();
   bool _tapenabled = true;
   bool _logloading = false;
+  bool _cloudvalid = false;
 
-  Future _checksignup(
-      String name, String email, String pass, BuildContext context) async {
-    final Map creds = {"name": name, "email": email, "password": pass};
-    final response = await http
-        .post(Uri.parse("https://api.dev.trekkers.pk/register"), body: creds);
-    if (response.statusCode == 200) {
-      setState(() {
-        _valid = true;
-      });
-    } else {
-      setState(() {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Unable to login"),
-          duration: Duration(seconds: 1),
-        ));
-      });
-    }
+  void _onValidationResult(bool isValid) {
+    setState(() {
+      _cloudvalid = isValid;
+    });
   }
 
-  bool _valid = false;
-
-  bool _isemailvalid = false;
-  bool _ispassvalid = false;
-  bool _iscnfrmpassvalid = false;
-  bool _isnamevalid = false;
+  bool _isemailvalid = false,
+      _ispassvalid = false,
+      _iscnfrmpassvalid = false,
+      _isnamevalid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -165,9 +151,7 @@ class _SignUpState extends State<SignUp> {
               children: [
                 SignInUpComps.loginbtn(
                     _logloading, "Sign Up", const Color(0xFF36A9E1), () async {
-                  print(
-                      "${_namecont.text}, ${_emailcont.text}, ${_passcont.text}");
-                  _valid = false;
+                  _cloudvalid = false;
                   setState(() {
                     _logloading = true;
                     FocusManager.instance.primaryFocus?.unfocus();
@@ -175,10 +159,15 @@ class _SignUpState extends State<SignUp> {
 
                   if (_tapenabled) {
                     _tapenabled = false;
-                    await _checksignup(_namecont.text, _emailcont.text,
-                        _passcont.text, context);
+                    await ValiditySignUp.checksignup(
+                        _namecont.text,
+                        _emailcont.text,
+                        _passcont.text,
+                        _confrmpass.text,
+                        _onValidationResult,
+                        context);
 
-                    _valid
+                    _cloudvalid
                         ? {
                             authProv.login(),
                             if (mounted)

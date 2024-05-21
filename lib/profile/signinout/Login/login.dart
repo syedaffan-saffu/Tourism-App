@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/profile/profile.dart';
+import 'package:trekkers_pk/profile/signinout/Login/loginutils.dart';
 import '../../../reusabs/reusabs.dart';
 import '../signinupcomps.dart';
 
@@ -14,30 +15,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool _logloading = false;
   final TextEditingController _emailcont = TextEditingController();
   final TextEditingController _passcont = TextEditingController();
+  bool _logloading = false;
   bool _tapenabled = true;
   bool _fieldenable = true;
-  bool _isemailvalid = false;
-  bool _ispassvalid = false;
-  bool _valid = false;
-  Future _checklogin(String email, String pass, BuildContext context) async {
-    final Map creds = {"email": email, "password": pass};
-    final response = await http
-        .post(Uri.parse("https://api.dev.trekkers.pk/login"), body: creds);
-    if (response.statusCode == 200) {
-      setState(() {
-        _valid = true;
-      });
-    } else {
-      setState(() {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Unable to login"),
-          duration: Duration(seconds: 1),
-        ));
-      });
-    }
+  bool _isemailvalid = false, _ispassvalid = false;
+  bool _cloudvalid = false;
+
+  void _onValidationResult(bool isValid) {
+    setState(() {
+      _cloudvalid = isValid;
+    });
   }
 
   @override
@@ -123,7 +112,7 @@ class _LoginState extends State<Login> {
             sbh(20),
             SignInUpComps.loginbtn(
                 _logloading, "Login", const Color(0xFF0561AB), () async {
-              _valid = false;
+              _cloudvalid = false;
               setState(() {
                 _logloading = true;
                 FocusManager.instance.primaryFocus?.unfocus();
@@ -131,9 +120,10 @@ class _LoginState extends State<Login> {
 
               if (_tapenabled) {
                 _tapenabled = false;
-                await _checklogin(_emailcont.text, _passcont.text, context);
+                await ValidityLogin.checklogin(_emailcont.text, _passcont.text,
+                    _onValidationResult, context);
 
-                _valid
+                _cloudvalid
                     ? {
                         authProv.login(),
                         if (mounted)
