@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/profile/profile.dart';
@@ -15,6 +14,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final List<bool> _empties = [false, false];
   final TextEditingController _emailcont = TextEditingController();
   final TextEditingController _passcont = TextEditingController();
   bool _logloading = false;
@@ -80,6 +80,7 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 48,
               child: TextField(
+                  style: const TextStyle(fontFamily: "Montserrat"),
                   enabled: _fieldenable,
                   controller: _emailcont,
                   onChanged: (value) {
@@ -88,6 +89,7 @@ class _LoginState extends State<Login> {
                     });
                   },
                   decoration: SignInUpComps.loginfields(
+                      isempty: _empties[0],
                       hint: "Email",
                       icon: Icons.person,
                       isvalid: _isemailvalid)),
@@ -106,7 +108,10 @@ class _LoginState extends State<Login> {
                 obscureText: true,
                 obscuringCharacter: "*",
                 decoration: SignInUpComps.loginfields(
-                    hint: "Password", icon: Icons.key, isvalid: _ispassvalid),
+                    isempty: _empties[1],
+                    hint: "Password",
+                    icon: Icons.key,
+                    isvalid: _ispassvalid),
               ),
             ),
             sbh(20),
@@ -114,6 +119,8 @@ class _LoginState extends State<Login> {
                 _logloading, "Login", const Color(0xFF0561AB), () async {
               _cloudvalid = false;
               setState(() {
+                _empties[0] = _emailcont.text.isEmpty;
+                _empties[1] = _passcont.text.isEmpty;
                 _logloading = true;
                 FocusManager.instance.primaryFocus?.unfocus();
               });

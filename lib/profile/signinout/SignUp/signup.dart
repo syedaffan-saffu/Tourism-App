@@ -16,6 +16,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final List<bool> _empties = [false, false, false, false];
   final TextEditingController _namecont = TextEditingController();
   final TextEditingController _emailcont = TextEditingController();
   final TextEditingController _passcont = TextEditingController();
@@ -83,106 +84,96 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             sbh(20),
-            SizedBox(
-              height: 48,
-              child: TextField(
-                controller: _namecont,
-                onChanged: (value) {
-                  setState(() {
-                    _isnamevalid = Validity.isNameValid(value);
-                  });
-                },
-                decoration: SignInUpComps.loginfields(
-                    hint: "Name", icon: Icons.person, isvalid: _isnamevalid),
-              ),
-            ),
-            sbh(10),
-            SizedBox(
-              height: 48,
-              child: TextField(
-                  controller: _emailcont,
-                  onChanged: (value) {
-                    setState(() {
-                      _isemailvalid = Validity.isEmailValid(value);
-                    });
-                  },
-                  decoration: SignInUpComps.loginfields(
-                      hint: "Email",
-                      icon: Icons.email,
-                      isvalid: _isemailvalid)),
-            ),
-            sbh(10),
-            SizedBox(
-              height: 48,
-              child: TextField(
-                controller: _passcont,
-                onChanged: (value) {
-                  setState(() {
-                    _ispassvalid = Validity.isPassValid(value);
-                  });
-                },
-                obscureText: true,
-                obscuringCharacter: "*",
-                decoration: SignInUpComps.loginfields(
-                    hint: "Password", icon: Icons.key, isvalid: _ispassvalid),
-              ),
-            ),
-            sbh(10),
-            SizedBox(
-              height: 48,
-              child: TextField(
-                controller: _confrmpass,
-                onChanged: (value) {
-                  setState(() {
-                    _iscnfrmpassvalid =
-                        Validity.isCnfPassValid(_confrmpass.text, value);
-                  });
-                },
-                obscureText: true,
-                obscuringCharacter: "*",
-                decoration: SignInUpComps.loginfields(
-                    hint: "Confirm Password",
-                    icon: Icons.key,
-                    isvalid: _iscnfrmpassvalid),
+            TapRegion(
+              onTapOutside: (event) {
+                FocusManager.instance.primaryFocus!.unfocus();
+              },
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 48,
+                    child: TextField(
+                      controller: _namecont,
+                      onChanged: (value) {
+                        setState(() {
+                          _isnamevalid = Validity.isNameValid(value);
+                          value.isNotEmpty ? _empties[0] = false : null;
+                        });
+                      },
+                      decoration: SignInUpComps.loginfields(
+                          isempty: _empties[0],
+                          hint: "Name",
+                          icon: Icons.person,
+                          isvalid: _isnamevalid),
+                    ),
+                  ),
+                  sbh(10),
+                  SizedBox(
+                    height: 48,
+                    child: TextField(
+                        controller: _emailcont,
+                        onChanged: (value) {
+                          setState(() {
+                            _isemailvalid = Validity.isEmailValid(value);
+                            value.isNotEmpty ? _empties[1] = false : null;
+                          });
+                        },
+                        decoration: SignInUpComps.loginfields(
+                            isempty: _empties[1],
+                            hint: "Email",
+                            icon: Icons.email,
+                            isvalid: _isemailvalid)),
+                  ),
+                  sbh(10),
+                  SizedBox(
+                    height: 48,
+                    child: TextField(
+                      controller: _passcont,
+                      onChanged: (value) {
+                        setState(() {
+                          _ispassvalid = Validity.isPassValid(value);
+                          value.isNotEmpty ? _empties[2] = false : null;
+                        });
+                      },
+                      obscureText: true,
+                      obscuringCharacter: "*",
+                      decoration: SignInUpComps.loginfields(
+                          isempty: _empties[2],
+                          hint: "Password",
+                          icon: Icons.key,
+                          isvalid: _ispassvalid),
+                    ),
+                  ),
+                  sbh(10),
+                  SizedBox(
+                    height: 48,
+                    child: TextField(
+                      controller: _confrmpass,
+                      onChanged: (value) {
+                        setState(() {
+                          _iscnfrmpassvalid =
+                              Validity.isCnfPassValid(_passcont.text, value);
+                          value.isNotEmpty ? _empties[3] = false : null;
+                        });
+                      },
+                      obscureText: true,
+                      obscuringCharacter: "*",
+                      decoration: SignInUpComps.loginfields(
+                          isempty: _empties[3],
+                          hint: "Confirm Password",
+                          icon: Icons.key,
+                          isvalid: _iscnfrmpassvalid),
+                    ),
+                  ),
+                ],
               ),
             ),
             sbh(20),
             Row(
               children: [
                 SignInUpComps.loginbtn(
-                    _logloading, "Sign Up", const Color(0xFF36A9E1), () async {
-                  _cloudvalid = false;
-                  setState(() {
-                    _logloading = true;
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  });
-
-                  if (_tapenabled) {
-                    _tapenabled = false;
-                    await ValiditySignUp.checksignup(
-                        _namecont.text,
-                        _emailcont.text,
-                        _passcont.text,
-                        _confrmpass.text,
-                        _onValidationResult,
-                        context);
-
-                    _cloudvalid
-                        ? {
-                            authProv.login(),
-                            if (mounted)
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => const Profile())),
-                            indexProv.changeindex(0)
-                          }
-                        : {
-                            _tapenabled = true,
-                            setState(() {
-                              _logloading = false;
-                            })
-                          };
-                  }
+                    _logloading, "Sign Up", const Color(0xFF36A9E1), () {
+                  _attemptValidandSignUp(authProv, indexProv);
                 }),
                 sbw(10),
                 SignInUpComps.loginbtn(false, "Login", const Color(0xFF0561AB),
@@ -215,6 +206,53 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  void _attemptValidandSignUp(
+      AuthProvider authProv, IndexProvider indexProv) async {
+    _cloudvalid = false;
+    _setchanges();
+
+    if (_tapenabled) {
+      _tapenabled = false;
+      await ValiditySignUp.checksignup(
+          _namecont.text,
+          _emailcont.text,
+          _passcont.text,
+          _confrmpass.text,
+          _isnamevalid,
+          _isemailvalid,
+          _ispassvalid,
+          _iscnfrmpassvalid,
+          _onValidationResult,
+          context);
+
+      _cloudvalid
+          ? {
+              authProv.login(),
+              if (mounted)
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const Profile())),
+              indexProv.changeindex(0)
+            }
+          : {
+              _tapenabled = true,
+              setState(() {
+                _logloading = false;
+              })
+            };
+    }
+  }
+
+  void _setchanges() {
+    setState(() {
+      _empties[0] = _namecont.text.isEmpty;
+      _empties[1] = _emailcont.text.isEmpty;
+      _empties[2] = _passcont.text.isEmpty;
+      _empties[3] = _confrmpass.text.isEmpty;
+      _logloading = true;
+      FocusManager.instance.primaryFocus?.unfocus();
+    });
   }
 
   @override

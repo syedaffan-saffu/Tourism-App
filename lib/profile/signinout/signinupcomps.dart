@@ -4,7 +4,10 @@ import 'package:flutter_svg/svg.dart';
 
 class SignInUpComps {
   static InputDecoration loginfields(
-      {required String hint, required IconData icon, required bool isvalid}) {
+      {required String hint,
+      required IconData icon,
+      required bool isvalid,
+      required bool isempty}) {
     return InputDecoration(
       prefixIcon: Icon(
         icon,
@@ -23,8 +26,14 @@ class SignInUpComps {
       filled: true,
       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       hintText: hint,
-      enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFEAEAEA))),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color:
+                  isempty ? const Color(0xFFFF3311) : const Color(0xFFEAEAEA))),
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color:
+                  isempty ? const Color(0xFFFF3311) : const Color(0xFFEAEAEA))),
     );
   }
 

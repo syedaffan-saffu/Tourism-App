@@ -6,6 +6,7 @@ import 'package:trekkers_pk/homescreen/recomms/recomms.dart';
 import 'package:trekkers_pk/profile/experiece.dart';
 import 'package:trekkers_pk/profile/profile_edit/profileedit.dart';
 import 'package:trekkers_pk/profile/signinout/Login/login.dart';
+import 'package:trekkers_pk/profile/signinout/verifyemail.dart';
 import 'profile/profile.dart';
 import 'mainpage.dart';
 import 'profile/signinout/SignUp/signup.dart';

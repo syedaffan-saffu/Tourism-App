@@ -2,10 +2,17 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class ValiditySignUp {
-  static bool _fieldsValid(
-      String name, String email, String pass, String cnfrmpass) {
+  static bool _fieldsValid(String name, String email, String pass,
+      String cnfrmpass, bool valid1, bool valid2, bool valid3, bool valid4) {
     final bool valid;
-    if (name.isEmpty || email.isEmpty || pass.isEmpty || cnfrmpass.isEmpty) {
+    if (name.isEmpty ||
+        email.isEmpty ||
+        pass.isEmpty ||
+        cnfrmpass.isEmpty ||
+        !valid1 ||
+        !valid2 ||
+        !valid3 ||
+        !valid4) {
       valid = false;
     } else {
       valid = true;
@@ -18,9 +25,14 @@ class ValiditySignUp {
       String email,
       String pass,
       String cnfrmpass,
+      bool valid1,
+      bool valid2,
+      bool valid3,
+      bool valid4,
       Function(bool) onValidationResult,
       BuildContext context) async {
-    if (ValiditySignUp._fieldsValid(name, email, pass, cnfrmpass)) {
+    if (ValiditySignUp._fieldsValid(
+        name, email, pass, cnfrmpass, valid1, valid2, valid3, valid4)) {
       final Map creds = {"name": name, "email": email, "password": pass};
       final response = await http
           .post(Uri.parse("https://api.dev.trekkers.pk/register"), body: creds);
@@ -35,7 +47,7 @@ class ValiditySignUp {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Not All fields are filled"),
+        content: Text("Not All fields are filled or Valid"),
         duration: Duration(seconds: 1),
       ));
     }
