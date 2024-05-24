@@ -23,16 +23,16 @@ class _LoginState extends State<Login> {
   bool _isemailvalid = false, _ispassvalid = false;
   bool _cloudvalid = false;
 
-  void _onValidationResult(bool isValid) {
-    setState(() {
-      _cloudvalid = isValid;
-    });
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final authProv = Provider.of<AuthProvider>(context, listen: false);
+    final authProv = Provider.of<AuthProvider2>(context, listen: false);
     final indexProv = Provider.of<IndexProvider>(context, listen: false);
+
     return Scaffold(
       appBar: null,
       body: SingleChildScrollView(
@@ -171,5 +171,11 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void _onValidationResult(bool isValid) {
+    setState(() {
+      _cloudvalid = isValid;
+    });
   }
 }

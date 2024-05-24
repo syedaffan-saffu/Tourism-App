@@ -22,10 +22,18 @@ class _MainPageState extends State<MainPage> {
     3: GlobalKey(),
   };
 
-  @override //Waqar
+  @override
+  void initState() {
+    super.initState();
+    final authProvider2 = Provider.of<AuthProvider2>(context, listen: false);
+    authProvider2.loadLoginStatus();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
+
     return Scaffold(
       appBar: null,
       body: NavigatorPopHandler(

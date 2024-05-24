@@ -7,15 +7,18 @@ import 'package:trekkers_pk/profile/experiece.dart';
 import 'package:trekkers_pk/profile/profile_edit/profileedit.dart';
 import 'package:trekkers_pk/profile/signinout/Login/login.dart';
 import 'package:trekkers_pk/profile/signinout/verifyemail.dart';
+import 'backend/sharedprefs/sharedprefs.dart';
 import 'profile/profile.dart';
 import 'mainpage.dart';
 import 'profile/signinout/SignUp/signup.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefsService = SharedPreferencesService();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ChangeNotifierProvider(create: (_) => AuthProvider2(prefsService)),
       ChangeNotifierProvider(create: (_) => IndexProvider()),
     ],
     child: const MyApp(),
@@ -23,8 +26,6 @@ void main() {
 }
 
 final GlobalKey<NavigatorState> mynavigatorKey = GlobalKey<NavigatorState>();
-
-bool isregistered = false;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

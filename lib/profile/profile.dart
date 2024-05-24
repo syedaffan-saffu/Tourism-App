@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:trekkers_pk/profile/cert_license.dart';
 import 'package:trekkers_pk/profile/experiece.dart';
 import 'package:trekkers_pk/profile/p_s_activities.dart';
+import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
+import '../backend/provider/providers.dart';
 import '/reusabs/reusabs.dart';
 import 'profile_edit/profileedit.dart';
 
@@ -10,6 +13,8 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProv = Provider.of<AuthProvider2>(context, listen: false);
+    final indexProv = Provider.of<IndexProvider>(context, listen: false);
     return Scaffold(
       appBar: ProfileComps.appBar("Profile"),
       body: Padding(
@@ -33,6 +38,13 @@ class Profile extends StatelessWidget {
           ProfileComps.profiletile('Certificate and License', () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const CertandLicense()));
+          }),
+          sbh(12),
+          ProfileComps.profiletile('Logout', () {
+            authProv.logout();
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const SignUp()));
+            indexProv.changeindex(0);
           }),
         ]),
       ),

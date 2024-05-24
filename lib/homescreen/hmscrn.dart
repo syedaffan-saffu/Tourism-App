@@ -31,7 +31,7 @@ class _HomescreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
 
     return Scaffold(
