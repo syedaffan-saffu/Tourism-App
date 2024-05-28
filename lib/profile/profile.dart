@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:trekkers_pk/homescreen/hmscrn.dart';
+import 'package:trekkers_pk/mainpage.dart';
 import 'package:trekkers_pk/profile/cert_license.dart';
 import 'package:trekkers_pk/profile/experiece.dart';
 import 'package:trekkers_pk/profile/p_s_activities.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
+import 'package:trekkers_pk/search/search.dart';
 import '../backend/provider/providers.dart';
 import '/reusabs/reusabs.dart';
 import 'profile_edit/profileedit.dart';
@@ -44,6 +47,18 @@ class Profile extends StatelessWidget {
             authProv.logout();
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => const SignUp()));
+            final pages = [
+              const HomeScreen(),
+              const Search(),
+              const Location()
+            ];
+            for (int i = 0; i <= 2; i++) {
+              // navigatorKeys[i]!
+              //     .currentState!
+              //     .popUntil((route) => route.isFirst);
+              navigatorKeys[i]!.currentState!.pushReplacement(
+                  MaterialPageRoute(builder: (context) => pages[i]));
+            }
             indexProv.changeindex(0);
           }),
         ]),

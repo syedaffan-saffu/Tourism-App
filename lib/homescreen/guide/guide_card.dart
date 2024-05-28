@@ -6,7 +6,8 @@ import '../../reusabs/reusabs.dart';
 import 'guideprofile/guide_profile.dart';
 
 class GuideCard extends StatelessWidget {
-  const GuideCard({super.key});
+  final ElevatedButton btn;
+  const GuideCard({super.key, required this.btn});
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +23,7 @@ class GuideCard extends StatelessWidget {
       70,
       80,
       50,
-      ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-              backgroundColor: const Color.fromARGB(255, 51, 173, 226),
-              elevation: 0.0,
-              shape: const RoundedRectangleBorder()),
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const GuidesProfile()));
-          },
-          child: const Text(
-            'View Profile',
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 15,
-                height: 0.0),
-          )),
+      btn,
     );
   }
 }

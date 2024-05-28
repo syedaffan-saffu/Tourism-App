@@ -21,7 +21,7 @@ class GuidesProfile extends StatefulWidget {
 class _GuidesProfileState extends State<GuidesProfile>
     with TickerProviderStateMixin {
   late ScrollController _scrollController;
-  GlobalKey<ScaffoldState> guideprofilekey = GlobalKey<ScaffoldState>();
+
   static const int trips = 20;
   late TabController _tabController;
   static const String name = 'Robert Lewandowski';
@@ -93,10 +93,9 @@ class _GuidesProfileState extends State<GuidesProfile>
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
-        key: guideprofilekey,
         appBar: authProvider.isLoggedIn
             ? HmComps.hmappbar(
                 context: context,
@@ -111,6 +110,7 @@ class _GuidesProfileState extends State<GuidesProfile>
           controller: _scrollController,
           slivers: [
             SliverAppBar(
+              surfaceTintColor: const Color(0xFFFFFFFF),
               primary: false,
               collapsedHeight: 40,
               toolbarHeight: 0,

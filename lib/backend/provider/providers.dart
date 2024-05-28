@@ -2,22 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../sharedprefs/sharedprefs.dart';
 
-class AuthProvider extends ChangeNotifier {
-  bool _isLoggedIn = false;
-
-  bool get isLoggedIn => _isLoggedIn;
-
-  void login() {
-    _isLoggedIn = true;
-    notifyListeners();
-  }
-
-  void logout() {
-    _isLoggedIn = false;
-    notifyListeners();
-  }
-}
-
 class IndexProvider extends ChangeNotifier {
   int _selectedindex = 0;
 
@@ -53,6 +37,20 @@ class AuthProvider2 extends ChangeNotifier {
   Future<void> logout() async {
     _isLoggedIn = false;
     await _prefsService.setUserLoggedIn(false);
+    notifyListeners();
+  }
+}
+
+class LinkCountProvider extends ChangeNotifier {
+  List<int> _count = [0, 0, 0, 0];
+  List<int> get count => _count;
+
+  void increment(int index) {
+    _count[index]++;
+  }
+
+  void decrement(int index) {
+    _count[index]--;
     notifyListeners();
   }
 }

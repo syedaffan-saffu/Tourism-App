@@ -1,12 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/homescreen/hmscrncomps.dart';
+import 'package:trekkers_pk/mainpage.dart';
 import 'adventure/adv_card.dart';
 import '/reusabs/reusabs.dart';
 import 'activities/activities.dart';
 import 'guide/guide_card.dart';
+import 'guide/guideprofile/guide_profile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,8 +32,14 @@ class _HomescreenState extends State<HomeScreen>
   static const String rating = "4.5";
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
+
     final authProvider = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
 
@@ -365,8 +374,32 @@ class _HomescreenState extends State<HomeScreen>
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return const Padding(
-                            padding: EdgeInsets.all(4.0), child: GuideCard());
+                        return Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: GuideCard(
+                              btn: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0.0, horizontal: 10.0),
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 51, 173, 226),
+                                      elevation: 0.0,
+                                      shape: const RoundedRectangleBorder()),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const GuidesProfile()));
+                                  },
+                                  child: const Text(
+                                    'View Profile',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                        height: 0.0),
+                                  )),
+                            ));
                       }),
                 )),
           ],

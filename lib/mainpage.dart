@@ -14,14 +14,14 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
-    0: GlobalKey(),
-    1: GlobalKey(),
-    2: GlobalKey(),
-    3: GlobalKey(),
-  };
+Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
+  0: GlobalKey(),
+  1: GlobalKey(),
+  2: GlobalKey(),
+  3: GlobalKey(),
+};
 
+class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
@@ -37,8 +37,17 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: null,
       body: NavigatorPopHandler(
-        onPop: () =>
-            navigatorKeys[indexprovider.selectedindex]!.currentState!.pop(),
+        onPop: () async {
+          bool isable = await navigatorKeys[indexprovider.selectedindex]!
+              .currentState!
+              .canPop();
+          if (isable) {
+            print(isable);
+            navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
+          } else {
+            indexprovider.changeindex(0);
+          }
+        },
         child: IndexedStack(
           index: indexprovider.selectedindex,
           children: [
