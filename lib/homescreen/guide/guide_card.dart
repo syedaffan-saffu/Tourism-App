@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../reusabs/reusabs.dart';
-import 'guideprofile/guide_profile.dart';
 
 class GuideCard extends StatelessWidget {
   final ElevatedButton btn;

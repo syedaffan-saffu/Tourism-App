@@ -29,14 +29,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        "/home": (context) => const HomeScreen(),
-        "/search": (context) => const Search(),
-        "/loc": (context) => const Location(),
-        "/profile": (context) => const Profile(),
-        "/adv": (context) => const Advplace(),
-        "/guide": (context) => const GuidesProfile(),
-      },
+      // routes: {
+      //   "/home": (context) => const HomeScreen(),
+      //   "/search": (context) => const Search(),
+      //   "/loc": (context) => const Location(),
+      //   "/profile": (context) => const Profile(),
+      //   "/adv": (context) => const Advplace(),
+      //   "/guide": (context) => const GuidesProfile(),
+      // },
       navigatorKey: mynavigatorKey,
       title: 'trekkers_pk',
       theme: ThemeData(

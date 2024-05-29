@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
+import 'backend/Navigation.dart';
 import 'backend/provider/providers.dart';
 import 'reusabs/reusabs.dart';
 import 'homescreen/hmscrn.dart';
@@ -22,31 +23,41 @@ Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
 };
 
 class _MainPageState extends State<MainPage> {
+  Map<int, NavigationTracker> navigationTrackers = {};
+  late final LinkCountProvider countprov;
+  late final List<int> routes;
+
   @override
   void initState() {
     super.initState();
     final authProvider2 = Provider.of<AuthProvider2>(context, listen: false);
+    countprov = Provider.of<LinkCountProvider>(context, listen: false);
     authProvider2.loadLoginStatus();
+    navigationTrackers = {
+      0: NavigationTracker(countprov, 0),
+      1: NavigationTracker(countprov, 1),
+      2: NavigationTracker(countprov, 2),
+      3: NavigationTracker(countprov, 3),
+    };
   }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
-
     return Scaffold(
       appBar: null,
       body: NavigatorPopHandler(
-        onPop: () async {
-          bool isable = await navigatorKeys[indexprovider.selectedindex]!
-              .currentState!
-              .canPop();
-          if (isable) {
-            print(isable);
-            navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
+        onPop: () {
+          if (countprov.count[indexprovider.selectedindex] < 2 &&
+              indexprovider.selectedindex != 0) {
+            setState(() {
+              indexprovider.changeindex(0);
+            });
           } else {
-            indexprovider.changeindex(0);
+            navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
           }
+          print("${indexprovider.selectedindex}, ${countprov.count}");
         },
         child: IndexedStack(
           index: indexprovider.selectedindex,
@@ -54,17 +65,21 @@ class _MainPageState extends State<MainPage> {
             NavigationPage(
               navigatorKey: navigatorKeys[0],
               child: const HomeScreen(),
+              navigatorObserver: navigationTrackers[0] as NavigatorObserver,
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[1],
               child: const Search(),
+              navigatorObserver: navigationTrackers[1] as NavigatorObserver,
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[2],
               child: const Location(),
+              navigatorObserver: navigationTrackers[2] as NavigatorObserver,
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[3],
+              navigatorObserver: navigationTrackers[3] as NavigatorObserver,
               child: authProvider.isLoggedIn ? const Profile() : const SignUp(),
             ),
           ],
@@ -81,6 +96,7 @@ class _MainPageState extends State<MainPage> {
           setState(() {
             indexprovider.changeindex(index);
           });
+          print("selected tab ${indexprovider.selectedindex}");
         },
         items: const [
           BottomNavigationBarItem(
@@ -97,9 +113,14 @@ class _MainPageState extends State<MainPage> {
 }
 
 class NavigationPage extends StatefulWidget {
-  const NavigationPage({super.key, required this.child, this.navigatorKey});
+  const NavigationPage(
+      {super.key,
+      required this.child,
+      this.navigatorKey,
+      required this.navigatorObserver});
   final Widget child;
   final GlobalKey? navigatorKey;
+  final NavigatorObserver navigatorObserver;
 
   @override
   State<NavigationPage> createState() => _NavigationPageState();
@@ -109,6 +130,7 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
+      observers: [widget.navigatorObserver],
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
             settings: settings,
