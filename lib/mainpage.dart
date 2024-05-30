@@ -15,6 +15,8 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
+GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+
 Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
   0: GlobalKey(),
   1: GlobalKey(),
@@ -46,36 +48,41 @@ class _MainPageState extends State<MainPage> {
     final authProvider = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
+      key: scaffoldkey,
       appBar: null,
       body: NavigatorPopHandler(
         onPop: () {
-          if (countprov.count[indexprovider.selectedindex] < 2 &&
-              indexprovider.selectedindex != 0) {
-            setState(() {
-              indexprovider.changeindex(0);
-            });
-          } else {
-            navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
-          }
-          print("${indexprovider.selectedindex}, ${countprov.count}");
+          // if (countprov.count[indexprovider.selectedindex] > 1) {
+          //   navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
+          // } else {
+          //   indexprovider.changeindex(0);
+          // }
+          // if (countprov.count[indexprovider.selectedindex] < 2 &&
+          //     indexprovider.selectedindex != 0) {
+          //   indexprovider.changeindex(0);
+          // } else {
+          //   navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
+          // }
+          navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
+          // print("${indexprovider.selectedindex}, ${countprov.count}");
         },
         child: IndexedStack(
           index: indexprovider.selectedindex,
           children: [
             NavigationPage(
               navigatorKey: navigatorKeys[0],
-              child: const HomeScreen(),
               navigatorObserver: navigationTrackers[0] as NavigatorObserver,
+              child: const HomeScreen(),
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[1],
-              child: const Search(),
               navigatorObserver: navigationTrackers[1] as NavigatorObserver,
+              child: const Search(),
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[2],
-              child: const Location(),
               navigatorObserver: navigationTrackers[2] as NavigatorObserver,
+              child: const Location(),
             ),
             NavigationPage(
               navigatorKey: navigatorKeys[3],
@@ -130,7 +137,7 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      observers: [widget.navigatorObserver],
+      // observers: [widget.navigatorObserver],
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
             settings: settings,

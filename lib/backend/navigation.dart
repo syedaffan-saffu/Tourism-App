@@ -11,7 +11,7 @@ class NavigationTracker extends NavigatorObserver {
   void didPush(Route route, Route? previousRoute) {
     routeCount++;
     linkCountProvider.increment(index);
-    print('Route Pushed: , Total Routes: $routeCount, $index');
+    print('Route Pushed , Total Routes: $routeCount, selectedtab: $index');
     super.didPush(route, previousRoute);
   }
 
@@ -19,7 +19,7 @@ class NavigationTracker extends NavigatorObserver {
   void didPop(Route route, Route? previousRoute) {
     routeCount--;
     linkCountProvider.decrement(index);
-    print('Route Popped:, Total Routes: $routeCount, $index');
+    print('Route Popped , Total Routes: $routeCount, selectedtab: $index');
     super.didPop(route, previousRoute);
   }
 
