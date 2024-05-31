@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
 import 'backend/Navigation.dart';
 import 'backend/provider/providers.dart';
-import 'reusabs/reusabs.dart';
+import 'utils/reusabs.dart';
 import 'homescreen/hmscrn.dart';
 import 'profile/profile.dart';
 import 'search/search.dart';

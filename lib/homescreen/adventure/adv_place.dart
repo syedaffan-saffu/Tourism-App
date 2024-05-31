@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import '../../backend/provider/providers.dart';
 import '../hmscrncomps.dart';
 import 'adv_table.dart';
-import '/reusabs/reusabs.dart';
+import '../../utils/reusabs.dart';
 
-import '/reusabs/indicator.dart';
+import '../../utils/indicator.dart';
 
 class Advplace extends StatefulWidget {
   const Advplace({super.key});

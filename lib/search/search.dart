@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/search/s_tours/tours.dart';
-import '/reusabs/reusabs.dart';
+import '../utils/reusabs.dart';
 import 'package:intl/intl.dart';
 
 class Search extends StatefulWidget {

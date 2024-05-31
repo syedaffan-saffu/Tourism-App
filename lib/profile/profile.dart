@@ -8,7 +8,7 @@ import 'package:trekkers_pk/profile/p_s_activities.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
 import 'package:trekkers_pk/search/search.dart';
 import '../backend/provider/providers.dart';
-import '/reusabs/reusabs.dart';
+import '../utils/reusabs.dart';
 import 'profile_edit/profileedit.dart';
 
 class Profile extends StatelessWidget {

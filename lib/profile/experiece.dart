@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trekkers_pk/profile/p_s_activities.dart';
 import 'package:trekkers_pk/profile/profile_comps.dart';
 import 'package:trekkers_pk/profile/profile_edit/edit_components.dart';
-import 'package:trekkers_pk/reusabs/reusabs.dart';
+import 'package:trekkers_pk/utils/reusabs.dart';
 import 'profile.dart';
 
 class Experience extends StatefulWidget {

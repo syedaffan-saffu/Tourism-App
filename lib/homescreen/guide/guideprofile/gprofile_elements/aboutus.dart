@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'gprofilecomp.dart';
 
-import '../../../../reusabs/reusabs.dart';
+import '../../../../utils/reusabs.dart';
 
 class AboutUs {
   static const String tripname = "BIAFO GLACIER ICE CLIMBING";

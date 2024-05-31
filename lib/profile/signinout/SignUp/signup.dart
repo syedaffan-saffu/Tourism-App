@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/signinout/Login/login.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signuputils.dart';
-import 'package:trekkers_pk/reusabs/reusabs.dart';
+import 'package:trekkers_pk/utils/reusabs.dart';
 
 import '../../../backend/provider/providers.dart';
 import '../signinupcomps.dart';

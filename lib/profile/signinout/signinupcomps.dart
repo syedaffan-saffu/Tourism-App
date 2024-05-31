@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../reusabs/reusabs.dart';
+import '../../utils/reusabs.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SignInUpComps {

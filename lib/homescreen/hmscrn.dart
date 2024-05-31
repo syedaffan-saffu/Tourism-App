@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/homescreen/hmscrncomps.dart';
 import 'adventure/adv_card.dart';
-import '/reusabs/reusabs.dart';
+import '../utils/reusabs.dart';
 import 'activities/activities.dart';
 import 'guide/guide_card.dart';
 import 'guide/guideprofile/guide_profile.dart';

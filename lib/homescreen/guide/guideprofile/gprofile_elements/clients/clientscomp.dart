@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../../../../reusabs/reusabs.dart';
+import '../../../../../utils/reusabs.dart';
 import 'clientsrev.dart';
 
 class ClientsReview extends StatelessWidget {

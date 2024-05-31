@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../reusabs/reusabs.dart';
+import '../../utils/reusabs.dart';
 import 'signinupcomps.dart';
 
 class EmailVerify extends StatefulWidget {

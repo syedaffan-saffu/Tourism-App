@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/homescreen/adventure/adv_place.dart';
-import 'package:trekkers_pk/homescreen/guide/guideprofile/guide_profile.dart';
-import 'package:trekkers_pk/homescreen/hmscrn.dart';
-import 'package:trekkers_pk/profile/profile.dart';
-import 'package:trekkers_pk/search/search.dart';
+import 'package:trekkers_pk/router/routers.dart';
 import 'backend/sharedprefs/sharedprefs.dart';
-import 'mainpage.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,20 +19,40 @@ void main() {
 
 final GlobalKey<NavigatorState> mynavigatorKey = GlobalKey<NavigatorState>();
 
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       // routes: {
+//       //   "/home": (context) => const HomeScreen(),
+//       //   "/search": (context) => const Search(),
+//       //   "/loc": (context) => const Location(),
+//       //   "/profile": (context) => const Profile(),
+//       //   "/adv": (context) => const Advplace(),
+//       //   "/guide": (context) => const GuidesProfile(),
+//       // },
+//       navigatorKey: mynavigatorKey,
+//       title: 'trekkers_pk',
+//       theme: ThemeData(
+//         primaryColor: const Color(0xFF000000),
+//         textSelectionTheme:
+//             const TextSelectionThemeData(cursorColor: Color(0xFF000000)),
+//         appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+//         fontFamily: 'RedHat',
+//         useMaterial3: true,
+//       ),
+//       home: const MainPage(),
+//     );
+//   }
+// }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // routes: {
-      //   "/home": (context) => const HomeScreen(),
-      //   "/search": (context) => const Search(),
-      //   "/loc": (context) => const Location(),
-      //   "/profile": (context) => const Profile(),
-      //   "/adv": (context) => const Advplace(),
-      //   "/guide": (context) => const GuidesProfile(),
-      // },
-      navigatorKey: mynavigatorKey,
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'trekkers_pk',
       theme: ThemeData(
         primaryColor: const Color(0xFF000000),
@@ -47,7 +62,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'RedHat',
         useMaterial3: true,
       ),
-      home: const MainPage(),
     );
   }
 }

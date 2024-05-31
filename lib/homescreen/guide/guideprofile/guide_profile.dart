@@ -9,7 +9,7 @@ import 'gprofile_elements/aboutus.dart';
 import 'gprofile_elements/clients/clientsrev.dart';
 import 'gprofile_elements/videos/thumbnails.dart';
 import 'gprofile_elements/gprofilecomp.dart';
-import '../../../reusabs/reusabs.dart';
+import '../../../utils/reusabs.dart';
 
 class GuidesProfile extends StatefulWidget {
   const GuidesProfile({super.key});

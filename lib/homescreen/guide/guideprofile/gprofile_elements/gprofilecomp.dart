@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '/../reusabs/reusabs.dart';
+import '../../../../utils/reusabs.dart';
 
 class Gcomponents {
   static TextStyle heading = const TextStyle(

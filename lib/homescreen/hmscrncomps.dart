@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../reusabs/reusabs.dart';
+import '../utils/reusabs.dart';
 
 class HmComps {
   static AppBar hmappbar(

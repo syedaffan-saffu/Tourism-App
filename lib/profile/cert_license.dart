@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:trekkers_pk/profile/profile.dart';
-import 'package:trekkers_pk/reusabs/reusabs.dart';
+import 'package:trekkers_pk/utils/reusabs.dart';
 
 import 'profile_comps.dart';
 

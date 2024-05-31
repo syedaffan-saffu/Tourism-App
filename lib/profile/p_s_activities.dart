@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trekkers_pk/profile/cert_license.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/profile_edit/edit_components.dart';
-import 'package:trekkers_pk/reusabs/reusabs.dart';
+import 'package:trekkers_pk/utils/reusabs.dart';
 
 import 'profile_comps.dart';
 

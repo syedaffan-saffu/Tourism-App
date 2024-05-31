@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/signinout/Login/loginutils.dart';
-import '../../../reusabs/reusabs.dart';
+import '../../../utils/reusabs.dart';
 import '../signinupcomps.dart';
 
 class Login extends StatefulWidget {
