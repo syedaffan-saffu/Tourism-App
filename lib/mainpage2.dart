@@ -13,17 +13,21 @@ class BottomBarPage extends StatefulWidget {
 }
 
 class _BottomBarPageState extends State<BottomBarPage> {
-  late final IndexProvider indexprovider;
   @override
   void initState() {
     super.initState();
     final authProvider2 = Provider.of<AuthProvider2>(context, listen: false);
     authProvider2.loadLoginStatus();
-    indexprovider = Provider.of<IndexProvider>(context);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
+    final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
       appBar: null,
       body: widget.navigationShell,
@@ -34,7 +38,7 @@ class _BottomBarPageState extends State<BottomBarPage> {
         showSelectedLabels: false,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
-        onTap: (index) => _onTap(context, index),
+        onTap: (index) => _onTap(context, index, indexprovider),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(CustomIcons.home),
@@ -48,9 +52,9 @@ class _BottomBarPageState extends State<BottomBarPage> {
     );
   }
 
-  void _onTap(BuildContext context, int index) {
-    indexprovider.changeindex(index);
-    print("selected tab ${indexprovider.selectedindex}");
+  void _onTap(BuildContext context, int index, IndexProvider indexProvider) {
+    indexProvider.changeindex(index);
+    print("selected tab ${indexProvider.selectedindex}");
     widget.navigationShell.goBranch(
       index,
       initialLocation: index == widget.navigationShell.currentIndex,

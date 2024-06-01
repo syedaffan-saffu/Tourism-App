@@ -8,6 +8,7 @@ import 'package:trekkers_pk/homescreen/hmscrn.dart';
 import 'package:trekkers_pk/mainpage2.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
+import 'package:trekkers_pk/router/routes.dart';
 import 'package:trekkers_pk/search/s_tours/tours.dart';
 import 'package:trekkers_pk/search/search.dart';
 
@@ -19,12 +20,13 @@ final GlobalKey<NavigatorState> _sectionBNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
 final GlobalKey<NavigatorState> _sectionCNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
-
-late final AuthProvider2 authProvider2;
+final GlobalKey<NavigatorState> _sectionDNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
+late final authProvider2;
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/a',
+  initialLocation: '/home',
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
       // parentNavigatorKey: _parentshellkey,
@@ -35,13 +37,7 @@ final GoRouter router = GoRouter(
         // using a BottomNavigationBar). The StatefulNavigationShell is passed
         // to be able access the state of the shell and to navigate to other
         // branches in a stateful way.
-        return PopScope(
-            canPop: false,
-            onPopInvoked: (didpop) {
-              print(navigationShell.route.parentNavigatorKey!.currentState!
-                  .canPop());
-            },
-            child: BottomBarPage(navigationShell: navigationShell));
+        return BottomBarPage(navigationShell: navigationShell);
       },
       branches: <StatefulShellBranch>[
         // The route branch for the first tab of the bottom navigation bar.
@@ -112,7 +108,7 @@ final GoRouter router = GoRouter(
         ),
 ///////////////////////////////////////////////////////////
         StatefulShellBranch(
-          navigatorKey: _sectionCNavigatorKey,
+          navigatorKey: _sectionDNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               // The screen to display as the root in the third tab of the
@@ -129,16 +125,31 @@ final GoRouter router = GoRouter(
   ],
 );
 
-class MainPage2 extends StatefulWidget {
-  const MainPage2({super.key});
+class InitPage extends StatefulWidget {
+  const InitPage({super.key});
 
   @override
-  State<MainPage2> createState() => _MainPage2State();
+  State<InitPage> createState() => _InitPageState();
 }
 
-class _MainPage2State extends State<MainPage2> {
+class _InitPageState extends State<InitPage> {
+  @override
+  void initState() {
+    Goroutes goroutes = Goroutes();
+    goroutes.router;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
   }
 }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return const InitPage();
+//   }
+// }
