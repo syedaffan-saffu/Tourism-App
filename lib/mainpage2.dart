@@ -1,7 +1,9 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'backend/provider/providers.dart';
+import 'router/initpage.dart';
 import 'utils/reusabs.dart';
 
 class BottomBarPage extends StatefulWidget {
@@ -16,13 +18,14 @@ class _BottomBarPageState extends State<BottomBarPage> {
   @override
   void initState() {
     super.initState();
-    final authProvider2 = Provider.of<AuthProvider2>(context, listen: false);
-    authProvider2.loadLoginStatus();
+
+    BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
   }
 
   @override
@@ -50,6 +53,41 @@ class _BottomBarPageState extends State<BottomBarPage> {
         ],
       ),
     );
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    if (sectionBNavigatorKey.currentState != null &&
+        sectionCNavigatorKey.currentState != null &&
+        sectionDNavigatorKey.currentState != null) {
+      if (widget.navigationShell.currentIndex == 0) {
+        print("Home bye"); // Do some stuff.
+        return false;
+      } else if (sectionBNavigatorKey.currentState!.canPop() &&
+          widget.navigationShell.currentIndex == 1) {
+        print("B bye"); // Do some stuff.
+        return false;
+      } else if (sectionCNavigatorKey.currentState!.canPop() &&
+          widget.navigationShell.currentIndex == 2) {
+        print("C bye"); // Do some stuff.
+        return false;
+      } else if (sectionDNavigatorKey.currentState!.canPop() &&
+          widget.navigationShell.currentIndex == 3) {
+        print("D bye"); // Do some stuff.
+        return false;
+      } else {
+        widget.navigationShell.goBranch(0);
+        print("nothing to pop, going to home screen back");
+        return true;
+      }
+    } else {
+      if (widget.navigationShell.currentIndex == 0) {
+        print("some of them are null");
+        return false;
+      } else {
+        widget.navigationShell.goBranch(0);
+        return true;
+      }
+    }
   }
 
   void _onTap(BuildContext context, int index, IndexProvider indexProvider) {

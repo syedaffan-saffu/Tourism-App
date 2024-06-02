@@ -8,31 +8,34 @@ import 'package:trekkers_pk/homescreen/hmscrn.dart';
 import 'package:trekkers_pk/mainpage2.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
-import 'package:trekkers_pk/router/routes.dart';
+
 import 'package:trekkers_pk/search/s_tours/tours.dart';
 import 'package:trekkers_pk/search/search.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey =
+final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
-final GlobalKey<NavigatorState> _sectionANavigatorKey =
+final GlobalKey<NavigatorState> sectionANavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
-final GlobalKey<NavigatorState> _sectionBNavigatorKey =
+final GlobalKey<NavigatorState> sectionBNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
-final GlobalKey<NavigatorState> _sectionCNavigatorKey =
+final GlobalKey<NavigatorState> sectionCNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
-final GlobalKey<NavigatorState> _sectionDNavigatorKey =
+final GlobalKey<NavigatorState> sectionDNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
-late final authProvider2;
+
+AuthProvider2 _authProvider2(BuildContext context) {
+  final authprov = Provider.of<AuthProvider2>(context);
+  return authprov;
+}
 
 final GoRouter router = GoRouter(
-  navigatorKey: _rootNavigatorKey,
+  navigatorKey: rootNavigatorKey,
   initialLocation: '/home',
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
       // parentNavigatorKey: _parentshellkey,
       builder: (BuildContext context, GoRouterState state,
           StatefulNavigationShell navigationShell) {
-        authProvider2 = Provider.of<AuthProvider2>(context, listen: false);
         // Return the widget that implements the custom shell (in this case
         // using a BottomNavigationBar). The StatefulNavigationShell is passed
         // to be able access the state of the shell and to navigate to other
@@ -42,7 +45,7 @@ final GoRouter router = GoRouter(
       branches: <StatefulShellBranch>[
         // The route branch for the first tab of the bottom navigation bar.
         StatefulShellBranch(
-          navigatorKey: _sectionANavigatorKey,
+          navigatorKey: sectionANavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               // The screen to display as the root in the first tab of the
@@ -71,7 +74,7 @@ final GoRouter router = GoRouter(
 
         // The route branch for the second tab of the bottom navigation bar.
         StatefulShellBranch(
-          navigatorKey: _sectionBNavigatorKey,
+          navigatorKey: sectionBNavigatorKey,
           // It's not necessary to provide a navigatorKey if it isn't also
           // needed elsewhere. If not provided, a default key will be used.
           routes: <RouteBase>[
@@ -94,7 +97,7 @@ final GoRouter router = GoRouter(
 
         // The route branch for the third tab of the bottom navigation bar.
         StatefulShellBranch(
-          navigatorKey: _sectionCNavigatorKey,
+          navigatorKey: sectionCNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               // The screen to display as the root in the third tab of the
@@ -108,14 +111,16 @@ final GoRouter router = GoRouter(
         ),
 ///////////////////////////////////////////////////////////
         StatefulShellBranch(
-          navigatorKey: _sectionDNavigatorKey,
+          navigatorKey: sectionDNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               // The screen to display as the root in the third tab of the
               // bottom navigation bar.
               path: '/profile',
-              builder: (BuildContext context, GoRouterState state) =>
-                  authProvider2.isLoggedIn ? const Profile() : const SignUp(),
+              builder: (BuildContext context, GoRouterState state) {
+                final authprov2 = _authProvider2(context);
+                return authprov2.isLoggedIn ? const Profile() : const SignUp();
+              },
               routes: const <RouteBase>[],
             ),
           ],
@@ -125,26 +130,6 @@ final GoRouter router = GoRouter(
   ],
 );
 
-class InitPage extends StatefulWidget {
-  const InitPage({super.key});
-
-  @override
-  State<InitPage> createState() => _InitPageState();
-}
-
-class _InitPageState extends State<InitPage> {
-  @override
-  void initState() {
-    Goroutes goroutes = Goroutes();
-    goroutes.router;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});
