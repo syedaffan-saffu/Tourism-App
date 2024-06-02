@@ -5,7 +5,7 @@ import '../sharedprefs/sharedprefs.dart';
 class IndexProvider extends ChangeNotifier {
   int _selectedindex = 0;
 
-  int get selectedindex => _selectedindex;
+  int get selectedindex => _selectedindex;//s
 
   void changeindex(int index) {
     _selectedindex = index;
