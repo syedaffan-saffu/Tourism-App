@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/search/s_tours/tours.dart';
 import '../utils/reusabs.dart';
 import 'package:intl/intl.dart';
 
@@ -39,6 +39,7 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
+    final gorouter = GoRouter.of(context);
     final authprov = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
     return SingleChildScrollView(
@@ -119,9 +120,8 @@ class _SearchState extends State<Search> {
             child: ElevatedButton(
               onPressed: () {
                 authprov.isLoggedIn
-                    ? Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Tours()))
-                    : indexprovider.changeindex(3);
+                    ? gorouter.go("/search/tours")
+                    : {indexprovider.changeindex(3), gorouter.go("/profile")};
               },
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0.0),

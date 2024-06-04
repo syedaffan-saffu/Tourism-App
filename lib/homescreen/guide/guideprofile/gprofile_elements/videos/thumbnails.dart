@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofile_elements/aboutus.dart';
-import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofile_elements/videos/videos.dart';
 import 'package:trekkers_pk/utils/reusabs.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
-final GlobalKey _columnkey = GlobalKey();
 
 class Thumbnails extends StatelessWidget {
   final GlobalKey<NavigatorState> skey;
@@ -21,7 +19,7 @@ class Thumbnails extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: contextheight(context),
-      child: Column(key: _columnkey, children: [
+      child: Column(children: [
         const Text(
           AboutUs.description,
           style: TextStyle(
@@ -79,10 +77,7 @@ class Thumbnails extends StatelessWidget {
           Center(
               child: IconButton(
             onPressed: () {
-              key.currentState!.push(MaterialPageRoute(
-                  builder: (context) => YTPlayer(videoid: videoid)));
-              // Navigator.of(context).push(MaterialPageRoute(
-              //     builder: (context) => YTPlayer(videoid: videoid)));
+              GoRouter.of(context).push("/ytvideo", extra: videoid);
             },
             icon: SvgPicture.asset(
               "assets/icons/yticon.svg",

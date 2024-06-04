@@ -1,97 +1,39 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
-import 'backend/Navigation.dart';
 import 'backend/provider/providers.dart';
+import 'router/initpage.dart';
 import 'utils/reusabs.dart';
-import 'homescreen/hmscrn.dart';
-import 'profile/profile.dart';
-import 'search/search.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class BottomBarPage extends StatefulWidget {
+  final StatefulNavigationShell navigationShell;
+  const BottomBarPage({super.key, required this.navigationShell});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<BottomBarPage> createState() => _BottomBarPageState();
 }
 
-GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
-
-Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
-  0: GlobalKey(),
-  1: GlobalKey(),
-  2: GlobalKey(),
-  3: GlobalKey(),
-};
-
-class _MainPageState extends State<MainPage> {
-  Map<int, NavigationTracker> navigationTrackers = {};
-  late final LinkCountProvider countprov;
-  late final List<int> routes;
-
+class _BottomBarPageState extends State<BottomBarPage> {
   @override
   void initState() {
     super.initState();
-    final authProvider2 = Provider.of<AuthProvider2>(context, listen: false);
-    countprov = Provider.of<LinkCountProvider>(context, listen: false);
-    authProvider2.loadLoginStatus();
-    navigationTrackers = {
-      0: NavigationTracker(countprov, 0),
-      1: NavigationTracker(countprov, 1),
-      2: NavigationTracker(countprov, 2),
-      3: NavigationTracker(countprov, 3),
-    };
+
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
-      key: scaffoldkey,
       appBar: null,
-      body: NavigatorPopHandler(
-        onPop: () {
-          // if (countprov.count[indexprovider.selectedindex] > 1) {
-          //   navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
-          // } else {
-          //   indexprovider.changeindex(0);
-          // }
-          // if (countprov.count[indexprovider.selectedindex] < 2 &&
-          //     indexprovider.selectedindex != 0) {
-          //   indexprovider.changeindex(0);
-          // } else {
-          //   navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
-          // }
-          navigatorKeys[indexprovider.selectedindex]!.currentState!.pop();
-          // print("${indexprovider.selectedindex}, ${countprov.count}");
-        },
-        child: IndexedStack(
-          index: indexprovider.selectedindex,
-          children: [
-            NavigationPage(
-              navigatorKey: navigatorKeys[0],
-              navigatorObserver: navigationTrackers[0] as NavigatorObserver,
-              child: const HomeScreen(),
-            ),
-            NavigationPage(
-              navigatorKey: navigatorKeys[1],
-              navigatorObserver: navigationTrackers[1] as NavigatorObserver,
-              child: const Search(),
-            ),
-            NavigationPage(
-              navigatorKey: navigatorKeys[2],
-              navigatorObserver: navigationTrackers[2] as NavigatorObserver,
-              child: const Location(),
-            ),
-            NavigationPage(
-              navigatorKey: navigatorKeys[3],
-              navigatorObserver: navigationTrackers[3] as NavigatorObserver,
-              child: authProvider.isLoggedIn ? const Profile() : const SignUp(),
-            ),
-          ],
-        ),
-      ),
+      body: widget.navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         selectedLabelStyle: const TextStyle(fontSize: 1.0),
         type: BottomNavigationBarType.fixed,
@@ -99,12 +41,7 @@ class _MainPageState extends State<MainPage> {
         showSelectedLabels: false,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
-        onTap: (index) {
-          setState(() {
-            indexprovider.changeindex(index);
-          });
-          print("selected tab ${indexprovider.selectedindex}");
-        },
+        onTap: (index) => _onTap(context, index, indexprovider),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(CustomIcons.home),
@@ -117,35 +54,47 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-}
 
-class NavigationPage extends StatefulWidget {
-  const NavigationPage(
-      {super.key,
-      required this.child,
-      this.navigatorKey,
-      required this.navigatorObserver});
-  final Widget child;
-  final GlobalKey? navigatorKey;
-  final NavigatorObserver navigatorObserver;
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    print(
+        "navigatorkey::::${rootNavigatorKey.currentState} canpop: ${rootNavigatorKey.currentState!.canPop()} ");
+    final indexProvider = Provider.of<IndexProvider>(context, listen: false);
 
-  @override
-  State<NavigationPage> createState() => _NavigationPageState();
-}
+    if (widget.navigationShell.currentIndex == 0) {
+      print("Home bye"); // Do some stuff.
+      return false;
+    } else if (sectionBNavigatorKey.currentState != null &&
+        sectionBNavigatorKey.currentState!.canPop() &&
+        widget.navigationShell.currentIndex == 1) {
+      print("B bye"); // Do some stuff.
+      return false;
+    } else if (sectionCNavigatorKey.currentState != null &&
+        sectionCNavigatorKey.currentState!.canPop() &&
+        widget.navigationShell.currentIndex == 2) {
+      print("C bye"); // Do some stuff.
+      return false;
+    } else if (sectionDNavigatorKey.currentState != null &&
+        sectionDNavigatorKey.currentState!.canPop() &&
+        widget.navigationShell.currentIndex == 3) {
+      print("D bye"); // Do some stuff.
+      return false;
+    } else if (rootNavigatorKey.currentState!.canPop()) {
+      rootNavigatorKey.currentState!.pop();
+      return false;
+    } else {
+      widget.navigationShell.goBranch(0);
+      indexProvider.changeindex(0);
+      print("nothing to pop, going to home screen back");
+      return true;
+    }
+  }
 
-class _NavigationPageState extends State<NavigationPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Navigator(
-      // observers: [widget.navigatorObserver],
-      onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(
-            settings: settings,
-            builder: (BuildContext context) {
-              return widget.child;
-            });
-      },
-      key: widget.navigatorKey,
+  void _onTap(BuildContext context, int index, IndexProvider indexProvider) {
+    indexProvider.changeindex(index);
+    print("selected tab ${indexProvider.selectedindex}");
+    widget.navigationShell.goBranch(
+      index,
+      initialLocation: index == indexProvider.selectedindex,
     );
   }
 }

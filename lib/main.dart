@@ -11,13 +11,11 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (_) => AuthProvider2(prefsService)),
       ChangeNotifierProvider(create: (_) => IndexProvider()),
-      ChangeNotifierProvider(create: (_) => LinkCountProvider())
+      ChangeNotifierProvider(create: (_) => RoutesProvider())
     ],
     child: const MyApp(),
   ));
 }
-
-final GlobalKey<NavigatorState> mynavigatorKey = GlobalKey<NavigatorState>();
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});

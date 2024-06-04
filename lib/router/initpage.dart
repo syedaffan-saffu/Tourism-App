@@ -1,12 +1,14 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
 import 'package:trekkers_pk/homescreen/adventure/adv_place.dart';
+import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofile_elements/videos/videos.dart';
+import 'package:trekkers_pk/homescreen/guide/guideprofile/guide_profile.dart';
 import 'package:trekkers_pk/homescreen/hmscrn.dart';
-import 'package:trekkers_pk/mainpage2.dart';
+import 'package:trekkers_pk/mainpage.dart';
 import 'package:trekkers_pk/profile/profile.dart';
+import 'package:trekkers_pk/profile/signinout/Login/login.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
 
 import 'package:trekkers_pk/search/s_tours/tours.dart';
@@ -17,11 +19,11 @@ final GlobalKey<NavigatorState> rootNavigatorKey =
 final GlobalKey<NavigatorState> sectionANavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
 final GlobalKey<NavigatorState> sectionBNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
+    GlobalKey<NavigatorState>(debugLabel: 'sectionBNav');
 final GlobalKey<NavigatorState> sectionCNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
+    GlobalKey<NavigatorState>(debugLabel: 'sectionCNav');
 final GlobalKey<NavigatorState> sectionDNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
+    GlobalKey<NavigatorState>(debugLabel: 'sectionDNav');
 
 AuthProvider2 _authProvider2(BuildContext context) {
   final authprov = Provider.of<AuthProvider2>(context);
@@ -32,6 +34,11 @@ final GoRouter router = GoRouter(
   navigatorKey: rootNavigatorKey,
   initialLocation: '/home',
   routes: <RouteBase>[
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: '/ytvideo',
+      builder: (context, state) => YTPlayer(videoid: state.extra.toString()),
+    ),
     StatefulShellRoute.indexedStack(
       // parentNavigatorKey: _parentshellkey,
       builder: (BuildContext context, GoRouterState state,
@@ -65,7 +72,7 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'guide',
                   builder: (BuildContext context, GoRouterState state) =>
-                      const Advplace(),
+                      const GuidesProfile(),
                 )
               ],
             ),
@@ -86,7 +93,7 @@ final GoRouter router = GoRouter(
                   const Search(),
               routes: <RouteBase>[
                 GoRoute(
-                  path: 'Tours',
+                  path: 'tours',
                   builder: (BuildContext context, GoRouterState state) =>
                       const Tours(),
                 ),
@@ -121,7 +128,14 @@ final GoRouter router = GoRouter(
                 final authprov2 = _authProvider2(context);
                 return authprov2.isLoggedIn ? const Profile() : const SignUp();
               },
-              routes: const <RouteBase>[],
+              routes: <RouteBase>[
+                GoRoute(
+                  path: 'login',
+                  builder: (context, state) {
+                    return const Login();
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -129,12 +143,3 @@ final GoRouter router = GoRouter(
     ),
   ],
 );
-
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     return const InitPage();
-//   }
-// }

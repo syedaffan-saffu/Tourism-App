@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
@@ -7,7 +8,6 @@ import 'adventure/adv_card.dart';
 import '../utils/reusabs.dart';
 import 'activities/activities.dart';
 import 'guide/guide_card.dart';
-import 'guide/guideprofile/guide_profile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -40,12 +40,14 @@ class _HomescreenState extends State<HomeScreen>
 
     final authProvider = Provider.of<AuthProvider2>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
+    final gorouter = GoRouter.of(context);
 
     return Scaffold(
       appBar: authProvider.isLoggedIn
           ? HmComps.hmappbar(
               context: context,
               ontap: (event) {
+                gorouter.go("/profile");
                 setState(() {
                   indexprovider.changeindex(3);
                 });
@@ -122,7 +124,10 @@ class _HomescreenState extends State<HomeScreen>
                                     onPressed: () {
                                       authProvider.isLoggedIn
                                           ? () {}
-                                          : indexprovider.changeindex(3);
+                                          : {
+                                              indexprovider.changeindex(3),
+                                              gorouter.go('/profile')
+                                            };
                                     },
                                     child: const Text(
                                       'Explore More',
@@ -191,6 +196,7 @@ class _HomescreenState extends State<HomeScreen>
                                   setState(() {
                                     indexprovider.changeindex(3);
                                   });
+                                  gorouter.go("/profile");
                                 },
                         ));
                   },
@@ -247,6 +253,7 @@ class _HomescreenState extends State<HomeScreen>
                                     setState(() {
                                       indexprovider.changeindex(3);
                                     });
+                                    gorouter.go("/profile");
                                   },
                             index: index,
                             onwished: () {
@@ -277,9 +284,12 @@ class _HomescreenState extends State<HomeScreen>
               child: InkWell(
                 onTap: () {
                   authProvider.isLoggedIn
-                      ? setState(() {
-                          indexprovider.changeindex(3);
-                        })
+                      ? {
+                          setState(() {
+                            indexprovider.changeindex(3);
+                          }),
+                          gorouter.go("/profile")
+                        }
                       : null;
                 },
                 child: Stack(
@@ -384,10 +394,7 @@ class _HomescreenState extends State<HomeScreen>
                                       elevation: 0.0,
                                       shape: const RoundedRectangleBorder()),
                                   onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const GuidesProfile()));
+                                    gorouter.go("/home/guide");
                                   },
                                   child: const Text(
                                     'View Profile',

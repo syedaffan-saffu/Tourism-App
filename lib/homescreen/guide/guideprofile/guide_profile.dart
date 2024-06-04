@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/homescreen/hmscrncomps.dart';
-import 'package:trekkers_pk/main.dart';
+import 'package:trekkers_pk/router/initpage.dart';
 import '../../../backend/provider/providers.dart';
 import 'gprofile_elements/aboutus.dart';
 import 'gprofile_elements/clients/clientsrev.dart';
@@ -117,11 +117,11 @@ class _GuidesProfileState extends State<GuidesProfile>
               backgroundColor: const Color(0xFFFFFAFF),
               automaticallyImplyLeading: false,
               pinned: true,
-              expandedHeight: 350,
+              expandedHeight: contextheight(context) / 2.25,
               bottom: TabBar(
-                  overlayColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed)) {
+                  overlayColor: WidgetStateProperty.resolveWith<Color>(
+                      (Set<WidgetState> states) {
+                    if (states.contains(WidgetState.pressed)) {
                       return Colors.transparent;
                     }
 
@@ -313,7 +313,7 @@ class _GuidesProfileState extends State<GuidesProfile>
                 child: SizedBox(
                   height: contextheight(context),
                   child: Thumbnails(
-                    skey: mynavigatorKey,
+                    skey: rootNavigatorKey,
                   ),
                 ),
               ),

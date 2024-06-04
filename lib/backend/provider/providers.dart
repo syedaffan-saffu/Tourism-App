@@ -5,7 +5,7 @@ import '../sharedprefs/sharedprefs.dart';
 class IndexProvider extends ChangeNotifier {
   int _selectedindex = 0;
 
-  int get selectedindex => _selectedindex;//s
+  int get selectedindex => _selectedindex; //s
 
   void changeindex(int index) {
     _selectedindex = index;
@@ -41,7 +41,7 @@ class AuthProvider2 extends ChangeNotifier {
   }
 }
 
-class LinkCountProvider extends ChangeNotifier {
+class RoutesProvider extends ChangeNotifier {
   List<int> _count = [0, 0, 0, 0];
   List<int> get count => _count;
 

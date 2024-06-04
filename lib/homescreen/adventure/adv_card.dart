@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/utils/reusabs.dart';
-import 'adv_place.dart';
 
 class AdvCard extends StatelessWidget {
   final void Function() onpressed;
@@ -31,8 +31,7 @@ class AdvCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const Advplace()));
+        GoRouter.of(context).go("/home/adv");
       },
       child: CardView(
         img: image,
