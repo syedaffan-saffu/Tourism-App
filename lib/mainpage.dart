@@ -31,6 +31,7 @@ class _BottomBarPageState extends State<BottomBarPage> {
   @override
   Widget build(BuildContext context) {
     final indexprovider = Provider.of<IndexProvider>(context);
+    final authprov = Provider.of<AuthProvider2>(context);
     return Scaffold(
       appBar: null,
       body: widget.navigationShell,
@@ -41,7 +42,7 @@ class _BottomBarPageState extends State<BottomBarPage> {
         showSelectedLabels: false,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
-        onTap: (index) => _onTap(context, index, indexprovider),
+        onTap: (index) => _onTap(context, index, indexprovider, authprov),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(CustomIcons.home),
@@ -56,8 +57,6 @@ class _BottomBarPageState extends State<BottomBarPage> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    print(
-        "navigatorkey::::${rootNavigatorKey.currentState} canpop: ${rootNavigatorKey.currentState!.canPop()} ");
     final indexProvider = Provider.of<IndexProvider>(context, listen: false);
 
     if (widget.navigationShell.currentIndex == 0) {
@@ -89,13 +88,13 @@ class _BottomBarPageState extends State<BottomBarPage> {
     }
   }
 
-  void _onTap(BuildContext context, int index, IndexProvider indexProvider) {
-    indexProvider.changeindex(index);
-    print("selected tab ${indexProvider.selectedindex}");
+  void _onTap(BuildContext context, int index, IndexProvider indexProvider,
+      AuthProvider2 authprov) {
     widget.navigationShell.goBranch(
       index,
       initialLocation: index == indexProvider.selectedindex,
     );
+    indexProvider.changeindex(index);
   }
 }
 

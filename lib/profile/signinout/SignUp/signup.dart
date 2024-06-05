@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/profile/profile.dart';
-import 'package:trekkers_pk/profile/signinout/Login/login.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signuputils.dart';
 import 'package:trekkers_pk/utils/reusabs.dart';
 
@@ -178,8 +178,7 @@ class _SignUpState extends State<SignUp> {
                 sbw(10),
                 SignInUpComps.loginbtn(false, "Login", const Color(0xFF0561AB),
                     () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const Login()));
+                  GoRouter.of(context).go("/profile/login");
                 })
               ],
             ),

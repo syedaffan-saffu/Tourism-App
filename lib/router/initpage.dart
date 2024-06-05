@@ -7,7 +7,11 @@ import 'package:trekkers_pk/homescreen/guide/guideprofile/gprofile_elements/vide
 import 'package:trekkers_pk/homescreen/guide/guideprofile/guide_profile.dart';
 import 'package:trekkers_pk/homescreen/hmscrn.dart';
 import 'package:trekkers_pk/mainpage.dart';
+import 'package:trekkers_pk/profile/cert_license.dart';
+import 'package:trekkers_pk/profile/experiece.dart';
+import 'package:trekkers_pk/profile/p_s_activities.dart';
 import 'package:trekkers_pk/profile/profile.dart';
+import 'package:trekkers_pk/profile/profile_edit/profileedit.dart';
 import 'package:trekkers_pk/profile/signinout/Login/login.dart';
 import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
 
@@ -133,6 +137,30 @@ final GoRouter router = GoRouter(
                   path: 'login',
                   builder: (context, state) {
                     return const Login();
+                  },
+                ),
+                GoRoute(
+                  path: 'profedit',
+                  builder: (context, state) {
+                    return const ProfileEdit();
+                  },
+                ),
+                GoRoute(
+                  path: 'exp',
+                  builder: (context, state) {
+                    return const Experience();
+                  },
+                ),
+                GoRoute(
+                  path: 'sportsact',
+                  builder: (context, state) {
+                    return const SportsAct();
+                  },
+                ),
+                GoRoute(
+                  path: 'certnlic',
+                  builder: (context, state) {
+                    return const CertandLicense();
                   },
                 ),
               ],

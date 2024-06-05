@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/profile/p_s_activities.dart';
+import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/profile/profile_comps.dart';
 import 'package:trekkers_pk/profile/profile_edit/edit_components.dart';
 import 'package:trekkers_pk/utils/reusabs.dart';
@@ -45,12 +45,10 @@ class _ExperienceState extends State<Experience> {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Not All Fiels are Valid!")));
       } else {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const SportsAct()));
+        GoRouter.of(context).push("/profile/sportsact");
       }
     } else if (_ischeckedno) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const SportsAct()));
+      GoRouter.of(context).push("/profile/sportsact");
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Not All Fiels are Valid!")));

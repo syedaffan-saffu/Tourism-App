@@ -284,13 +284,13 @@ class _HomescreenState extends State<HomeScreen>
               child: InkWell(
                 onTap: () {
                   authProvider.isLoggedIn
-                      ? {
+                      ? null
+                      : {
                           setState(() {
                             indexprovider.changeindex(3);
                           }),
                           gorouter.go("/profile")
-                        }
-                      : null;
+                        };
                 },
                 child: Stack(
                   alignment: AlignmentDirectional.bottomStart,

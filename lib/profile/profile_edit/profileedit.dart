@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:trekkers_pk/profile/experiece.dart';
+import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/profile/profile_edit/edit_components.dart';
 
 import '../../utils/reusabs.dart';
@@ -77,8 +77,7 @@ class _ProfileEditState extends State<ProfileEdit> {
         ),
       ));
     } else {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const Experience()));
+      GoRouter.of(context).push("/profile/exp");
     }
   }
 

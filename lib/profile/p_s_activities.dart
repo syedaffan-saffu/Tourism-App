@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/profile/cert_license.dart';
+import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/profile/profile.dart';
 import 'package:trekkers_pk/profile/profile_edit/edit_components.dart';
 import 'package:trekkers_pk/utils/reusabs.dart';
@@ -251,8 +251,7 @@ class _SportsActState extends State<SportsAct> {
               ProfileComps.submitButton(
                   text: "Next",
                   onpressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const CertandLicense()));
+                    GoRouter.of(context).push("/profile/certnlic");
                   })
             ],
           ),

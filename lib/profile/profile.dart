@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:trekkers_pk/homescreen/hmscrn.dart';
-import 'package:trekkers_pk/mainpage.dart';
-import 'package:trekkers_pk/profile/cert_license.dart';
-import 'package:trekkers_pk/profile/experiece.dart';
-import 'package:trekkers_pk/profile/p_s_activities.dart';
-import 'package:trekkers_pk/profile/signinout/SignUp/signup.dart';
-import 'package:trekkers_pk/search/search.dart';
+import 'package:trekkers_pk/router/initpage.dart';
 import '../backend/provider/providers.dart';
 import '../utils/reusabs.dart';
-import 'profile_edit/profileedit.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -24,41 +18,35 @@ class Profile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           ProfileComps.profiletile('Profile Edit', () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const ProfileEdit()));
+            GoRouter.of(context).go("/profile/profedit");
           }),
           sbh(12),
           ProfileComps.profiletile('Experience', () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const Experience()));
+            GoRouter.of(context).go("/profile/exp");
           }),
           sbh(12),
           ProfileComps.profiletile('Professional Sport Activities', () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SportsAct()));
+            GoRouter.of(context).go("/profile/sportsact");
           }),
           sbh(12),
           ProfileComps.profiletile('Certificate and License', () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const CertandLicense()));
+            GoRouter.of(context).go("/profile/certnlic");
           }),
           sbh(12),
           ProfileComps.profiletile('Logout', () {
             authProv.logout();
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const SignUp()));
-            final pages = [
-              const HomeScreen(),
-              const Search(),
-              const Location()
-            ];
-            for (int i = 0; i <= 2; i++) {
-              // navigatorKeys[i]!
-              //     .currentState!
-              //     .popUntil((route) => route.isFirst);
-              navigatorKeys[i]!.currentState!.pushReplacement(
-                  MaterialPageRoute(builder: (context) => pages[i]));
+
+            sectionANavigatorKey.currentState!
+                .popUntil((route) => route.settings.name == "/home");
+            if (sectionBNavigatorKey.currentState != null) {
+              sectionBNavigatorKey.currentState!
+                  .popUntil((route) => route.settings.name == "/search");
             }
+            if (sectionCNavigatorKey.currentState != null) {
+              sectionCNavigatorKey.currentState!
+                  .popUntil((route) => route.settings.name == "/location");
+            }
+            GoRouter.of(context).go("/home");
             indexProv.changeindex(0);
           }),
         ]),
