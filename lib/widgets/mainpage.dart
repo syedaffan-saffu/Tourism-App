@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -44,10 +46,7 @@ class _BottomBarPageState extends State<BottomBarPage> {
         unselectedItemColor: Colors.grey,
         onTap: (index) => _onTap(context, index, indexprovider, authprov),
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(CustomIcons.home),
-            label: '',
-          ),
+          BottomNavigationBarItem(icon: Icon(CustomIcons.home), label: ''),
           BottomNavigationBarItem(icon: Icon(CustomIcons.search), label: ''),
           BottomNavigationBarItem(icon: Icon(CustomIcons.location), label: ''),
           BottomNavigationBarItem(icon: Icon(CustomIcons.profile), label: ''),
@@ -60,8 +59,32 @@ class _BottomBarPageState extends State<BottomBarPage> {
     final indexProvider = Provider.of<IndexProvider>(context, listen: false);
 
     if (widget.navigationShell.currentIndex == 0) {
-      print("Home bye"); // Do some stuff.
-      return false;
+      if (sectionANavigatorKey.currentState!.canPop()) {
+        print("Home bye "); // Do some stuff.
+        return false;
+      } else {
+        // showDialog(
+        //     context: context,
+        //     builder: (context) {
+        //       return AlertDialog(
+        //         title: const Text("Sure to exit?"),
+        //         actions: [
+        //           TextButton(
+        //               onPressed: () {
+        //                 context.pop();
+        //               },
+        //               child: const Text("cancel")),
+        //           TextButton(
+        //               onPressed: () {
+        //                 exit(0);
+        //               },
+        //               child: const Text("Exit"))
+        //         ],
+        //       );
+        //     });
+
+        return false;
+      }
     } else if (sectionBNavigatorKey.currentState != null &&
         sectionBNavigatorKey.currentState!.canPop() &&
         widget.navigationShell.currentIndex == 1) {
