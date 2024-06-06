@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:trekkers_pk/backend/router/initpage.dart';
+import 'package:trekkers_pk/backend/router/routes.dart';
 import '../../backend/provider/providers.dart';
 import '../../utils/reusabs.dart';
 

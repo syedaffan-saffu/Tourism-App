@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../backend/provider/providers.dart';
-import '../backend/router/initpage.dart';
+import '../backend/router/routes.dart';
 import '../utils/reusabs.dart';
 
 class BottomBarPage extends StatefulWidget {
