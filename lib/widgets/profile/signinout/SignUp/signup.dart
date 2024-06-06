@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final authProv = Provider.of<AuthProvider2>(context, listen: false);
+    final authProv = Provider.of<AuthProvider>(context, listen: false);
     final indexProv = Provider.of<IndexProvider>(context, listen: false);
     return Scaffold(
       appBar: null,
@@ -208,7 +208,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _attemptValidandSignUp(
-      AuthProvider2 authProv, IndexProvider indexProv) async {
+      AuthProvider authProv, IndexProvider indexProv) async {
     _cloudvalid = false;
     _setchanges();
 

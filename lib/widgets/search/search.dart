@@ -40,7 +40,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     final gorouter = GoRouter.of(context);
-    final authprov = Provider.of<AuthProvider2>(context);
+    final authprov = Provider.of<AuthProvider>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
     return SingleChildScrollView(
       child: Padding(

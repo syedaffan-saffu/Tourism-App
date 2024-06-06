@@ -38,7 +38,7 @@ class _HomescreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final authProvider = Provider.of<AuthProvider2>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
     final gorouter = GoRouter.of(context);
 
