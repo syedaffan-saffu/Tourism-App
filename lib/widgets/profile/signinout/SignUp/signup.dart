@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:trekkers_pk/src/profile/profile.dart';
-import 'package:trekkers_pk/src/profile/signinout/SignUp/signuputils.dart';
+import 'package:trekkers_pk/widgets/profile/profile.dart';
+import 'package:trekkers_pk/widgets/profile/signinout/SignUp/signuputils.dart';
 import 'package:trekkers_pk/utils/reusabs.dart';
 
 import '../../../../backend/provider/providers.dart';

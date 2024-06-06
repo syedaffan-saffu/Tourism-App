@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/src/homescreen/hmscrncomps.dart';
+import 'package:trekkers_pk/widgets/homescreen/hmscrncomps.dart';
 import 'adventure/adv_card.dart';
 import '../../utils/reusabs.dart';
 import 'activities/activities.dart';

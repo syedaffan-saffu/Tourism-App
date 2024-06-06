@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:trekkers_pk/src/homescreen/hmscrncomps.dart';
+import 'package:trekkers_pk/widgets/homescreen/hmscrncomps.dart';
 import 'package:trekkers_pk/backend/router/initpage.dart';
 import '../../../../backend/provider/providers.dart';
 import 'gprofile_elements/aboutus.dart';

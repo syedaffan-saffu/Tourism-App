@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/src/homescreen/adventure/adv_place.dart';
-import 'package:trekkers_pk/src/homescreen/guide/guideprofile/gprofile_elements/videos/videos.dart';
-import 'package:trekkers_pk/src/homescreen/guide/guideprofile/guide_profile.dart';
-import 'package:trekkers_pk/src/homescreen/hmscrn.dart';
-import 'package:trekkers_pk/src/mainpage.dart';
-import 'package:trekkers_pk/src/profile/cert_license.dart';
-import 'package:trekkers_pk/src/profile/experiece.dart';
-import 'package:trekkers_pk/src/profile/p_s_activities.dart';
-import 'package:trekkers_pk/src/profile/profile.dart';
-import 'package:trekkers_pk/src/profile/profile_edit/profileedit.dart';
-import 'package:trekkers_pk/src/profile/signinout/Login/login.dart';
-import 'package:trekkers_pk/src/profile/signinout/SignUp/signup.dart';
+import 'package:trekkers_pk/widgets/homescreen/adventure/adv_place.dart';
+import 'package:trekkers_pk/widgets/homescreen/guide/guideprofile/gprofile_elements/videos/videos.dart';
+import 'package:trekkers_pk/widgets/homescreen/guide/guideprofile/guide_profile.dart';
+import 'package:trekkers_pk/widgets/homescreen/hmscrn.dart';
+import 'package:trekkers_pk/widgets/mainpage.dart';
+import 'package:trekkers_pk/widgets/profile/cert_license.dart';
+import 'package:trekkers_pk/widgets/profile/experiece.dart';
+import 'package:trekkers_pk/widgets/profile/p_s_activities.dart';
+import 'package:trekkers_pk/widgets/profile/profile.dart';
+import 'package:trekkers_pk/widgets/profile/profile_edit/profileedit.dart';
+import 'package:trekkers_pk/widgets/profile/signinout/Login/login.dart';
+import 'package:trekkers_pk/widgets/profile/signinout/SignUp/signup.dart';
 
-import 'package:trekkers_pk/src/search/s_tours/tours.dart';
-import 'package:trekkers_pk/src/search/search.dart';
+import 'package:trekkers_pk/widgets/search/s_tours/tours.dart';
+import 'package:trekkers_pk/widgets/search/search.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/src/search/s_tours/tours_comp/tripsntours/tripsntours.dart';
+import 'package:trekkers_pk/widgets/search/s_tours/tours_comp/tripsntours/tripsntours.dart';
 
 import '../../../../utils/reusabs.dart';
 

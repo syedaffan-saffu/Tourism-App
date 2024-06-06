@@ -3,7 +3,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
-import 'package:trekkers_pk/src/profile/profile_edit/edit_components.dart';
+import 'package:trekkers_pk/widgets/profile/profile_edit/edit_components.dart';
 
 import '../../../utils/reusabs.dart';
 import '../profile.dart';

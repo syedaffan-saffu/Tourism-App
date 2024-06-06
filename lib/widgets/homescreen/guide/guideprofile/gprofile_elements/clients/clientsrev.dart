@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/src/homescreen/guide/guideprofile/gprofile_elements/clients/clientscomp.dart';
+import 'package:trekkers_pk/widgets/homescreen/guide/guideprofile/gprofile_elements/clients/clientscomp.dart';
 
 class CLientsReviews extends StatelessWidget {
   const CLientsReviews({super.key});

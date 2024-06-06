@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/src/profile/signinout/Login/loginutils.dart';
+import 'package:trekkers_pk/widgets/profile/signinout/Login/loginutils.dart';
 import 'package:trekkers_pk/backend/router/initpage.dart';
 import '../../../../utils/reusabs.dart';
 import '../signinupcomps.dart';
