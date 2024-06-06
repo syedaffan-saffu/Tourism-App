@@ -63,25 +63,25 @@ class _BottomBarPageState extends State<BottomBarPage> {
         print("Home bye "); // Do some stuff.
         return false;
       } else {
-        // showDialog(
-        //     context: context,
-        //     builder: (context) {
-        //       return AlertDialog(
-        //         title: const Text("Sure to exit?"),
-        //         actions: [
-        //           TextButton(
-        //               onPressed: () {
-        //                 context.pop();
-        //               },
-        //               child: const Text("cancel")),
-        //           TextButton(
-        //               onPressed: () {
-        //                 exit(0);
-        //               },
-        //               child: const Text("Exit"))
-        //         ],
-        //       );
-        //     });
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Sure to exit?"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        context.pop();
+                      },
+                      child: const Text("cancel")),
+                  TextButton(
+                      onPressed: () {
+                        exit(0);
+                      },
+                      child: const Text("Exit"))
+                ],
+              );
+            });
 
         return false;
       }
