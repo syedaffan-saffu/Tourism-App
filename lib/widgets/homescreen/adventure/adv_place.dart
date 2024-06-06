@@ -61,7 +61,7 @@ class _AdvplaceState extends State<Advplace> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider2>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
     final indexprovider = Provider.of<IndexProvider>(context);
     return Scaffold(
       appBar: authProvider.isLoggedIn

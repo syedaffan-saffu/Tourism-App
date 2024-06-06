@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final authProv = Provider.of<AuthProvider2>(context, listen: false);
+    final authProv = Provider.of<AuthProvider>(context, listen: false);
     final indexProv = Provider.of<IndexProvider>(context, listen: false);
 
     return Scaffold(

@@ -13,13 +13,13 @@ class IndexProvider extends ChangeNotifier {
   }
 }
 
-class AuthProvider2 extends ChangeNotifier {
+class AuthProvider extends ChangeNotifier {
   final SharedPreferencesService _prefsService;
 
   bool _isLoggedIn = false;
   bool get isLoggedIn => _isLoggedIn;
 
-  AuthProvider2(this._prefsService) {
+  AuthProvider(this._prefsService) {
     loadLoginStatus();
   }
 

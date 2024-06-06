@@ -10,7 +10,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProv = Provider.of<AuthProvider2>(context, listen: false);
+    final authProv = Provider.of<AuthProvider>(context, listen: false);
     final indexProv = Provider.of<IndexProvider>(context, listen: false);
     return Scaffold(
       appBar: ProfileComps.appBar("Profile"),

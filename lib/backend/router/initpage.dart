@@ -29,8 +29,8 @@ final GlobalKey<NavigatorState> sectionCNavigatorKey =
 final GlobalKey<NavigatorState> sectionDNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionDNav');
 
-AuthProvider2 _authProvider2(BuildContext context) {
-  final authprov = Provider.of<AuthProvider2>(context);
+AuthProvider _authProvider2(BuildContext context) {
+  final authprov = Provider.of<AuthProvider>(context);
   return authprov;
 }
 
