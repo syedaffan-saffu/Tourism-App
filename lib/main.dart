@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/router/initpage.dart';
+import 'package:trekkers_pk/backend/router/initpage.dart';
 import 'backend/sharedprefs/sharedprefs.dart';
 import 'package:provider/provider.dart';
 
