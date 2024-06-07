@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +17,7 @@ class BottomBarPage extends StatefulWidget {
 }
 
 class _BottomBarPageState extends State<BottomBarPage> {
+  int _counter = 0;
   @override
   void initState() {
     super.initState();
@@ -55,7 +56,8 @@ class _BottomBarPageState extends State<BottomBarPage> {
     );
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  Future<bool> myInterceptor(
+      bool stopDefaultButtonEvent, RouteInfo info) async {
     final indexProvider = Provider.of<IndexProvider>(context, listen: false);
 
     if (widget.navigationShell.currentIndex == 0) {
@@ -63,42 +65,55 @@ class _BottomBarPageState extends State<BottomBarPage> {
         print("Home bye "); // Do some stuff.
         return false;
       } else {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text("Sure to exit?"),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        context.pop();
-                      },
-                      child: const Text("cancel")),
-                  TextButton(
-                      onPressed: () {
-                        exit(0);
-                      },
-                      child: const Text("Exit"))
-                ],
-              );
-            });
+        _counter++;
 
-        return false;
+        if (_counter == 1) {
+          await showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text("Exit?"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          context.pop();
+                          _counter = 0;
+                        },
+                        child: const Text("cancel")),
+                    TextButton(
+                        onPressed: () {
+                          exit(0);
+                        },
+                        child: const Text("exit")),
+                  ],
+                );
+              });
+        } else {
+          exit(0);
+        }
+        return true;
       }
     } else if (sectionBNavigatorKey.currentState != null &&
         sectionBNavigatorKey.currentState!.canPop() &&
         widget.navigationShell.currentIndex == 1) {
-      print("B bye"); // Do some stuff.
+      if (kDebugMode) {
+        print("B bye");
+      } // Do some stuff.
       return false;
     } else if (sectionCNavigatorKey.currentState != null &&
         sectionCNavigatorKey.currentState!.canPop() &&
         widget.navigationShell.currentIndex == 2) {
-      print("C bye"); // Do some stuff.
+      if (kDebugMode) {
+        print("C bye");
+      } // Do some stuff.
       return false;
     } else if (sectionDNavigatorKey.currentState != null &&
         sectionDNavigatorKey.currentState!.canPop() &&
         widget.navigationShell.currentIndex == 3) {
-      print("D bye"); // Do some stuff.
+      if (kDebugMode) {
+        print("D bye");
+      } // Do some stuff.
       return false;
     } else if (rootNavigatorKey.currentState!.canPop()) {
       rootNavigatorKey.currentState!.pop();
@@ -106,7 +121,9 @@ class _BottomBarPageState extends State<BottomBarPage> {
     } else {
       widget.navigationShell.goBranch(0);
       indexProvider.changeindex(0);
-      print("nothing to pop, going to home screen back");
+      if (kDebugMode) {
+        print("nothing to pop, going to home screen back");
+      }
       return true;
     }
   }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:trekkers_pk/widgets/profile/profile.dart';
 import 'package:trekkers_pk/widgets/profile/signinout/SignUp/signuputils.dart';
 import 'package:trekkers_pk/utils/reusabs.dart';
-
 import '../../../../backend/provider/providers.dart';
 import '../signinupcomps.dart';
 
@@ -229,10 +227,11 @@ class _SignUpState extends State<SignUp> {
       _cloudvalid
           ? {
               authProv.login(),
-              if (mounted)
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const Profile())),
-              indexProv.changeindex(0)
+              GoRouter.of(context).go("/home"),
+              setState(() {
+                indexProv.changeindex(0);
+                _logloading = false;
+              })
             }
           : {
               _tapenabled = true,
