@@ -3,6 +3,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
+import 'package:isar/isar.dart';
+import 'package:trekkers_pk/backend/database/localdb.dart';
+import 'package:trekkers_pk/backend/database/profiledb/profileeditdb.dart';
 import 'package:trekkers_pk/widgets/profile/profile_edit/edit_components.dart';
 
 import '../../../utils/reusabs.dart';
@@ -16,6 +19,7 @@ class ProfileEdit extends StatefulWidget {
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
+  bool _valid = false;
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final List<String> items1 = [
@@ -53,32 +57,39 @@ class _ProfileEditState extends State<ProfileEdit> {
     });
   }
 
-  void _validation() {
-    if (!_isuploaded ||
-        selectedgender == null ||
-        _name.text.isEmpty ||
-        _phone.text.isEmpty ||
-        languages.isEmpty) {
-      if (_name.text.isEmpty) {
-        setState(() {
-          _nameisempty = true;
-        });
-      }
-      if (_phone.text.isEmpty) {
-        setState(() {
-          _phoneisempty = true;
-        });
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text(
-          'Not all fields are Selected or Filled!',
-        ),
-      ));
-    } else {
-      GoRouter.of(context).push("/profile/exp");
+  void readedit() async {
+    final isar = await IsarDb.opendb([ProfileeditdbSchema]);
+    final existingdata = await isar.profileeditdbs.get(1);
+    print(":::::::::::::::::::::::: Read Edit Run :::::::::::");
+    if (existingdata != null) {
+      _name.text = existingdata.name!;
+      _phone.text = existingdata.phone!;
     }
+    print(":::::::: Read Edit Finished::::::::::::::::::");
+  }
+
+  void writeedit(
+    String name,
+    String num,
+  ) async {
+    final isar = await IsarDb.opendb([ProfileeditdbSchema]);
+
+    final data = Profileeditdb()
+      ..id = 1
+      ..name = name
+      ..phone = num;
+    // ..gender = gender
+    // ..langs = langs
+    // ..prof = prof;
+    await isar.writeTxn(() async {
+      await isar.profileeditdbs.put(data);
+    });
+  }
+
+  @override
+  void initState() {
+    readedit();
+    super.initState();
   }
 
   @override
@@ -253,12 +264,52 @@ class _ProfileEditState extends State<ProfileEdit> {
             sbh(12),
             ProfileComps.submitButton(
               text: "Next",
-              onpressed: _validation,
+              onpressed: () async {
+                _validation();
+                _valid
+                    ? {
+                        writeedit(_name.text, _phone.text),
+                        GoRouter.of(context).push("/profile/exp")
+                      }
+                    : null;
+              },
             )
           ]),
         ),
       ),
     );
+  }
+
+  void _validation() {
+    if (!_isuploaded ||
+        selectedgender == null ||
+        _name.text.isEmpty ||
+        _phone.text.isEmpty ||
+        languages.isEmpty) {
+      if (_name.text.isEmpty) {
+        setState(() {
+          _nameisempty = true;
+        });
+      }
+      if (_phone.text.isEmpty) {
+        setState(() {
+          _phoneisempty = true;
+        });
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        duration: Duration(seconds: 1),
+        content: Text(
+          'Not all fields are Selected or Filled!',
+        ),
+      ));
+    } else {
+      setState(() {
+        _valid = true;
+      });
+
+      // gorouter line
+    }
   }
 
   @override
