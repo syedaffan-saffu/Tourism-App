@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +9,7 @@ import 'package:trekkers_pk/backend/database/localdb.dart';
 import 'package:trekkers_pk/backend/database/profiledb/profileeditdb.dart';
 import 'package:trekkers_pk/widgets/profile/profile_edit/edit_components.dart';
 
-import '../../../utils/reusabs.dart';
+import '../../../utils/utilspack1.dart';
 import '../profile.dart';
 
 class ProfileEdit extends StatefulWidget {
@@ -20,8 +21,10 @@ class ProfileEdit extends StatefulWidget {
 
 class _ProfileEditState extends State<ProfileEdit> {
   bool _valid = false;
+  Isar? isar;
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phone = TextEditingController();
+  bool _isopendb = false;
   final List<String> items1 = [
     'Male',
     'Female',
@@ -34,17 +37,33 @@ class _ProfileEditState extends State<ProfileEdit> {
   ];
   static final List<String> items3 = ['beginner', 'Intermediate', 'Native'];
 
-  String? selectedgender;
+  String? _selectedgender;
   String? selectedlang;
   String? selectedprof;
+
+  String dblangs(List<String> langs) {
+    String concated = "";
+    for (int i = 0; i < langs.length; i++) {
+      concated = concated + langs[i];
+    }
+    return concated;
+  }
+
+  String dbprofs(List<String> profs) {
+    String concated = "";
+    for (int i = 0; i <= profs.length; i++) {
+      concated = concated + " ${profs[i]}";
+    }
+    return concated;
+  }
 
   List<String> languages = [];
   List<String> languageLevels = [];
 
-  // GlobalKey<NavigatorState> navigatorkey = GlobalKey<NavigatorState>();
   bool _isuploaded = false;
   final ImagePicker _picker = ImagePicker();
   File? _profimagefile;
+  File? _profimagefileu;
   bool _nameisempty = false;
   bool _phoneisempty = false;
 
@@ -53,42 +72,46 @@ class _ProfileEditState extends State<ProfileEdit> {
         await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       _profimagefile = File(imageraw!.path);
+      _profimagefileu = File(imageraw.path);
       _isuploaded = true;
     });
   }
 
-  void readedit() async {
-    final isar = await IsarDb.opendb([ProfileeditdbSchema]);
-    final existingdata = await isar.profileeditdbs.get(1);
-    print(":::::::::::::::::::::::: Read Edit Run :::::::::::");
+  void readeditdb() async {
+    Profileeditdb? existingdata;
+    if (isar == null) {
+      isar = await IsarDb.opendb([ProfileeditdbSchema]);
+      existingdata = await isar!.profileeditdbs.get(1);
+    } else {
+      existingdata = await isar!.profileeditdbs.get(1);
+    }
     if (existingdata != null) {
       _name.text = existingdata.name!;
       _phone.text = existingdata.phone!;
-    }
-    print(":::::::: Read Edit Finished::::::::::::::::::");
+    } else {}
   }
 
-  void writeedit(
+  void writeeditdb(
     String name,
     String num,
+    String? gender,
+    String langs,
   ) async {
-    final isar = await IsarDb.opendb([ProfileeditdbSchema]);
-
     final data = Profileeditdb()
       ..id = 1
       ..name = name
-      ..phone = num;
-    // ..gender = gender
-    // ..langs = langs
+      ..phone = num
+      ..gender = gender
+      ..langs = langs;
     // ..prof = prof;
-    await isar.writeTxn(() async {
-      await isar.profileeditdbs.put(data);
+    await isar!.writeTxn(() async {
+      await isar!.profileeditdbs.put(data);
     });
   }
 
   @override
   void initState() {
-    readedit();
+    readeditdb();
     super.initState();
   }
 
@@ -173,10 +196,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                           ),
                         ))
                     .toList(),
-                value: selectedgender,
+                value: _selectedgender,
                 onChanged: (String? value) {
                   setState(() {
-                    selectedgender = value;
+                    _selectedgender = value;
                   });
                 },
                 buttonStyleData: ButtonStyleData(
@@ -268,7 +291,8 @@ class _ProfileEditState extends State<ProfileEdit> {
                 _validation();
                 _valid
                     ? {
-                        writeedit(_name.text, _phone.text),
+                        writeeditdb(_name.text, _phone.text, _selectedgender,
+                            dblangs(languages)),
                         GoRouter.of(context).push("/profile/exp")
                       }
                     : null;
@@ -282,7 +306,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   void _validation() {
     if (!_isuploaded ||
-        selectedgender == null ||
+        _selectedgender == null ||
         _name.text.isEmpty ||
         _phone.text.isEmpty ||
         languages.isEmpty) {
@@ -314,6 +338,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   void dispose() {
+    isar!.close();
     super.dispose();
   }
 }

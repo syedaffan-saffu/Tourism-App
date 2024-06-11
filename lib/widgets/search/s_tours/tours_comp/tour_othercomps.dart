@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trekkers_pk/widgets/search/s_tours/tours_comp/tripsntours/tripsntours.dart';
 
-import '../../../../utils/reusabs.dart';
+import '../../../../utils/utilspack1.dart';
 
 double _screenWidth(BuildContext context) {
   return MediaQuery.of(context).size.width;

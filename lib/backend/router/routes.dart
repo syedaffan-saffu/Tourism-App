@@ -12,8 +12,8 @@ import 'package:trekkers_pk/widgets/profile/experiece.dart';
 import 'package:trekkers_pk/widgets/profile/p_s_activities.dart';
 import 'package:trekkers_pk/widgets/profile/profile.dart';
 import 'package:trekkers_pk/widgets/profile/profile_edit/profileedit.dart';
-import 'package:trekkers_pk/widgets/profile/signinout/Login/login.dart';
-import 'package:trekkers_pk/widgets/profile/signinout/SignUp/signup.dart';
+import 'package:trekkers_pk/widgets/profile/Auth/Login/login.dart';
+import 'package:trekkers_pk/widgets/profile/Auth/SignUp/signup.dart';
 
 import 'package:trekkers_pk/widgets/search/s_tours/tours.dart';
 import 'package:trekkers_pk/widgets/search/search.dart';

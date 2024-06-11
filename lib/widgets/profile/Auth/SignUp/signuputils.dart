@@ -1,8 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-class ValiditySignUp {
-  static bool _fieldsValid(String name, String email, String pass,
+class AuthandValidateSignUp {
+  static bool _arefieldsValid(String name, String email, String pass,
       String cnfrmpass, bool valid1, bool valid2, bool valid3, bool valid4) {
     final bool valid;
     if (name.isEmpty ||
@@ -20,7 +20,7 @@ class ValiditySignUp {
     return valid;
   }
 
-  static Future checksignup(
+  static Future authsignup(
       String name,
       String email,
       String pass,
@@ -31,7 +31,7 @@ class ValiditySignUp {
       bool valid4,
       Function(bool) onValidationResult,
       BuildContext context) async {
-    if (ValiditySignUp._fieldsValid(
+    if (_arefieldsValid(
         name, email, pass, cnfrmpass, valid1, valid2, valid3, valid4)) {
       final Map creds = {"name": name, "email": email, "password": pass};
       final response = await http

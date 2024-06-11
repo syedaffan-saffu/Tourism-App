@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/widgets/homescreen/guide/guideprofile/gprofile_elements/aboutus.dart';
-import 'package:trekkers_pk/utils/reusabs.dart';
+import 'package:trekkers_pk/utils/utilspack1.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Thumbnails extends StatelessWidget {

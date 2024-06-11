@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../utils/reusabs.dart';
+import '../../../utils/utilspack1.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SignInUpComps {
+class AuthComps {
   static InputDecoration loginfields(
       {required String hint,
       required IconData icon,

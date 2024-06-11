@@ -12,7 +12,7 @@ class ValidityLogin {
     return valid;
   }
 
-  static Future checklogin(String email, String pass,
+  static Future authlogin(String email, String pass,
       Function(bool) onValidationResult, BuildContext context) async {
     if (_fieldsValid(email, pass)) {
       final Map creds = {"email": email, "password": pass};

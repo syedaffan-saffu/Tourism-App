@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:trekkers_pk/utils/reusabs.dart';
+import 'package:trekkers_pk/utils/utilspack1.dart';
 
 import 'tours_comp/likedislike.dart';
 import 'tours_comp/tour_othercomps.dart';

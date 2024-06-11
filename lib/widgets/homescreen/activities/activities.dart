@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:trekkers_pk/utils/reusabs.dart';
+import 'package:trekkers_pk/utils/utilspack1.dart';
 
 class ActivitiesCard extends StatelessWidget {
   final void Function() onpressed;

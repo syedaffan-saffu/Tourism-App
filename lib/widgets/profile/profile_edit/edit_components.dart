@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/reusabs.dart';
+import '../../../utils/utilspack1.dart';
 
 class EditComps {
   static Widget langTile(List<String> languages, List<String> languageLevels,

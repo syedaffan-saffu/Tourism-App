@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/reusabs.dart';
-import 'signinupcomps.dart';
+import '../../../utils/utilspack1.dart';
+import 'authcomps.dart';
 
 class EmailVerify extends StatefulWidget {
   const EmailVerify({super.key});
@@ -100,10 +100,10 @@ class _EmailVerifyState extends State<EmailVerify> {
                   controller: _emailcont,
                   onChanged: (value) {
                     setState(() {
-                      _isemailvalid = Validity.isEmailValid(value);
+                      _isemailvalid = ValidityUtils.isEmailValid(value);
                     });
                   },
-                  decoration: SignInUpComps.loginfields(
+                  decoration: AuthComps.loginfields(
                       hint: "Email",
                       icon: Icons.email,
                       isempty: _isempty,
@@ -113,7 +113,7 @@ class _EmailVerifyState extends State<EmailVerify> {
             _sent
                 ? Text(
                     "Verification Link has been sent to ${_emailcont.text}. Plz Check your Email")
-                : SignInUpComps.loginbtn(
+                : AuthComps.loginbtn(
                     _verloading,
                     "Verify Email",
                     _tapenabled
@@ -131,11 +131,10 @@ class _EmailVerifyState extends State<EmailVerify> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SignInUpComps.socialbtn(
-                    "Apple", Social.apple, Colors.black, () {}),
-                SignInUpComps.socialbtn("Facebook", Social.facebook,
+                AuthComps.socialbtn("Apple", Social.apple, Colors.black, () {}),
+                AuthComps.socialbtn("Facebook", Social.facebook,
                     const Color(0xFF0561AB), () {}),
-                SignInUpComps.socialbtn(
+                AuthComps.socialbtn(
                     "Google", Social.google, const Color(0xFFEA1818), () {})
               ],
             )

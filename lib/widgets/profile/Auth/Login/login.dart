@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
-import 'package:trekkers_pk/widgets/profile/signinout/Login/loginutils.dart';
+import 'package:trekkers_pk/widgets/profile/Auth/Login/loginutils.dart';
 import 'package:trekkers_pk/backend/router/routes.dart';
-import '../../../../utils/reusabs.dart';
-import '../signinupcomps.dart';
+import '../../../../utils/utilspack1.dart';
+import '../authcomps.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -86,10 +86,10 @@ class _LoginState extends State<Login> {
                   controller: _emailcont,
                   onChanged: (value) {
                     setState(() {
-                      _isemailvalid = Validity.isEmailValid(value);
+                      _isemailvalid = ValidityUtils.isEmailValid(value);
                     });
                   },
-                  decoration: SignInUpComps.loginfields(
+                  decoration: AuthComps.loginfields(
                       isempty: _empties[0],
                       hint: "Email",
                       icon: Icons.person,
@@ -103,12 +103,12 @@ class _LoginState extends State<Login> {
                 controller: _passcont,
                 onChanged: (value) {
                   setState(() {
-                    _ispassvalid = Validity.isPassValid(value);
+                    _ispassvalid = ValidityUtils.isPassValid(value);
                   });
                 },
                 obscureText: true,
                 obscuringCharacter: "*",
-                decoration: SignInUpComps.loginfields(
+                decoration: AuthComps.loginfields(
                     isempty: _empties[1],
                     hint: "Password",
                     icon: Icons.key,
@@ -116,8 +116,8 @@ class _LoginState extends State<Login> {
               ),
             ),
             sbh(20),
-            SignInUpComps.loginbtn(
-                _logloading, "Login", const Color(0xFF0561AB), () async {
+            AuthComps.loginbtn(_logloading, "Login", const Color(0xFF0561AB),
+                () async {
               _cloudvalid = false;
               setState(() {
                 _empties[0] = _emailcont.text.isEmpty;
@@ -128,7 +128,7 @@ class _LoginState extends State<Login> {
 
               if (_tapenabled) {
                 _tapenabled = false;
-                await ValidityLogin.checklogin(_emailcont.text, _passcont.text,
+                await ValidityLogin.authlogin(_emailcont.text, _passcont.text,
                     _onValidationResult, context);
 
                 _cloudvalid
@@ -161,11 +161,10 @@ class _LoginState extends State<Login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SignInUpComps.socialbtn(
-                    "Apple", Social.apple, Colors.black, () {}),
-                SignInUpComps.socialbtn("Facebook", Social.facebook,
+                AuthComps.socialbtn("Apple", Social.apple, Colors.black, () {}),
+                AuthComps.socialbtn("Facebook", Social.facebook,
                     const Color(0xFF0561AB), () {}),
-                SignInUpComps.socialbtn(
+                AuthComps.socialbtn(
                     "Google", Social.google, const Color(0xFFEA1818), () {})
               ],
             )

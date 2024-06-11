@@ -101,7 +101,7 @@ class HeartIcons {
 //////////////////////////////////////////////////////////////////////
 ///
 ///
-class Validity {
+class ValidityUtils {
   static bool isEmailValid(String email) {
     // Regular expression for a simple email validation
     final RegExp emailRegex =

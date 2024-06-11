@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../utils/reusabs.dart';
+import '../../../../../utils/utilspack1.dart';
 
 class TnTCard extends StatelessWidget {
   const TnTCard({super.key});

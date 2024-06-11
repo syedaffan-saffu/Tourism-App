@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:trekkers_pk/widgets/profile/signinout/SignUp/signuputils.dart';
-import 'package:trekkers_pk/utils/reusabs.dart';
+import 'package:trekkers_pk/widgets/profile/Auth/SignUp/signuputils.dart';
+import 'package:trekkers_pk/utils/utilspack1.dart';
 import '../../../../backend/provider/providers.dart';
-import '../signinupcomps.dart';
+import '../authcomps.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -14,18 +14,18 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final List<bool> _empties = [false, false, false, false];
+  final List<bool> _emptyfields = [false, false, false, false];
   final TextEditingController _namecont = TextEditingController();
   final TextEditingController _emailcont = TextEditingController();
   final TextEditingController _passcont = TextEditingController();
   final TextEditingController _confrmpass = TextEditingController();
   bool _tapenabled = true;
-  bool _logloading = false;
-  bool _cloudvalid = false;
+  bool _loading = false;
+  bool _isserverauthvalid = false;
 
   void _onValidationResult(bool isValid) {
     setState(() {
-      _cloudvalid = isValid;
+      _isserverauthvalid = isValid;
     });
   }
 
@@ -94,12 +94,12 @@ class _SignUpState extends State<SignUp> {
                       controller: _namecont,
                       onChanged: (value) {
                         setState(() {
-                          _isnamevalid = Validity.isNameValid(value);
-                          value.isNotEmpty ? _empties[0] = false : null;
+                          _isnamevalid = ValidityUtils.isNameValid(value);
+                          value.isNotEmpty ? _emptyfields[0] = false : null;
                         });
                       },
-                      decoration: SignInUpComps.loginfields(
-                          isempty: _empties[0],
+                      decoration: AuthComps.loginfields(
+                          isempty: _emptyfields[0],
                           hint: "Name",
                           icon: Icons.person,
                           isvalid: _isnamevalid),
@@ -112,12 +112,12 @@ class _SignUpState extends State<SignUp> {
                         controller: _emailcont,
                         onChanged: (value) {
                           setState(() {
-                            _isemailvalid = Validity.isEmailValid(value);
-                            value.isNotEmpty ? _empties[1] = false : null;
+                            _isemailvalid = ValidityUtils.isEmailValid(value);
+                            value.isNotEmpty ? _emptyfields[1] = false : null;
                           });
                         },
-                        decoration: SignInUpComps.loginfields(
-                            isempty: _empties[1],
+                        decoration: AuthComps.loginfields(
+                            isempty: _emptyfields[1],
                             hint: "Email",
                             icon: Icons.email,
                             isvalid: _isemailvalid)),
@@ -129,14 +129,14 @@ class _SignUpState extends State<SignUp> {
                       controller: _passcont,
                       onChanged: (value) {
                         setState(() {
-                          _ispassvalid = Validity.isPassValid(value);
-                          value.isNotEmpty ? _empties[2] = false : null;
+                          _ispassvalid = ValidityUtils.isPassValid(value);
+                          value.isNotEmpty ? _emptyfields[2] = false : null;
                         });
                       },
                       obscureText: true,
                       obscuringCharacter: "*",
-                      decoration: SignInUpComps.loginfields(
-                          isempty: _empties[2],
+                      decoration: AuthComps.loginfields(
+                          isempty: _emptyfields[2],
                           hint: "Password",
                           icon: Icons.key,
                           isvalid: _ispassvalid),
@@ -149,15 +149,15 @@ class _SignUpState extends State<SignUp> {
                       controller: _confrmpass,
                       onChanged: (value) {
                         setState(() {
-                          _iscnfrmpassvalid =
-                              Validity.isCnfPassValid(_passcont.text, value);
-                          value.isNotEmpty ? _empties[3] = false : null;
+                          _iscnfrmpassvalid = ValidityUtils.isCnfPassValid(
+                              _passcont.text, value);
+                          value.isNotEmpty ? _emptyfields[3] = false : null;
                         });
                       },
                       obscureText: true,
                       obscuringCharacter: "*",
-                      decoration: SignInUpComps.loginfields(
-                          isempty: _empties[3],
+                      decoration: AuthComps.loginfields(
+                          isempty: _emptyfields[3],
                           hint: "Confirm Password",
                           icon: Icons.key,
                           isvalid: _iscnfrmpassvalid),
@@ -169,13 +169,12 @@ class _SignUpState extends State<SignUp> {
             sbh(20),
             Row(
               children: [
-                SignInUpComps.loginbtn(
-                    _logloading, "Sign Up", const Color(0xFF36A9E1), () {
-                  _attemptValidandSignUp(authProv, indexProv);
+                AuthComps.loginbtn(_loading, "Sign Up", const Color(0xFF36A9E1),
+                    () {
+                  _attemptValidationandSignUp(authProv, indexProv);
                 }),
                 sbw(10),
-                SignInUpComps.loginbtn(false, "Login", const Color(0xFF0561AB),
-                    () {
+                AuthComps.loginbtn(false, "Login", const Color(0xFF0561AB), () {
                   GoRouter.of(context).go("/profile/login");
                 })
               ],
@@ -191,11 +190,10 @@ class _SignUpState extends State<SignUp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SignInUpComps.socialbtn(
-                    "Apple", Social.apple, Colors.black, () {}),
-                SignInUpComps.socialbtn("Facebook", Social.facebook,
+                AuthComps.socialbtn("Apple", Social.apple, Colors.black, () {}),
+                AuthComps.socialbtn("Facebook", Social.facebook,
                     const Color(0xFF0561AB), () {}),
-                SignInUpComps.socialbtn(
+                AuthComps.socialbtn(
                     "Google", Social.google, const Color(0xFFEA1818), () {})
               ],
             )
@@ -205,14 +203,14 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void _attemptValidandSignUp(
+  void _attemptValidationandSignUp(
       AuthProvider authProv, IndexProvider indexProv) async {
-    _cloudvalid = false;
+    _isserverauthvalid = false;
     _setchanges();
 
     if (_tapenabled) {
       _tapenabled = false;
-      await ValiditySignUp.checksignup(
+      await AuthandValidateSignUp.authsignup(
           _namecont.text,
           _emailcont.text,
           _passcont.text,
@@ -224,19 +222,19 @@ class _SignUpState extends State<SignUp> {
           _onValidationResult,
           context);
 
-      _cloudvalid
+      _isserverauthvalid
           ? {
               authProv.login(),
               GoRouter.of(context).go("/home"),
               setState(() {
                 indexProv.changeindex(0);
-                _logloading = false;
+                _loading = false;
               })
             }
           : {
               _tapenabled = true,
               setState(() {
-                _logloading = false;
+                _loading = false;
               })
             };
     }
@@ -244,11 +242,11 @@ class _SignUpState extends State<SignUp> {
 
   void _setchanges() {
     setState(() {
-      _empties[0] = _namecont.text.isEmpty;
-      _empties[1] = _emailcont.text.isEmpty;
-      _empties[2] = _passcont.text.isEmpty;
-      _empties[3] = _confrmpass.text.isEmpty;
-      _logloading = true;
+      _emptyfields[0] = _namecont.text.isEmpty;
+      _emptyfields[1] = _emailcont.text.isEmpty;
+      _emptyfields[2] = _passcont.text.isEmpty;
+      _emptyfields[3] = _confrmpass.text.isEmpty;
+      _loading = true;
       FocusManager.instance.primaryFocus?.unfocus();
     });
   }
