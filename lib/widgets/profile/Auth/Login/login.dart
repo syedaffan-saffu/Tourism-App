@@ -15,14 +15,14 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final List<bool> _empties = [false, false];
+  final List<bool> _isfieldempty = [false, false];
   final TextEditingController _emailcont = TextEditingController();
   final TextEditingController _passcont = TextEditingController();
-  bool _logloading = false;
+  bool _loading = false;
   bool _tapenabled = true;
   bool _fieldenable = true;
   bool _isemailvalid = false, _ispassvalid = false;
-  bool _cloudvalid = false;
+  bool _isserverauthvalid = false;
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _LoginState extends State<Login> {
                     });
                   },
                   decoration: AuthComps.loginfields(
-                      isempty: _empties[0],
+                      isempty: _isfieldempty[0],
                       hint: "Email",
                       icon: Icons.person,
                       isvalid: _isemailvalid)),
@@ -109,43 +109,43 @@ class _LoginState extends State<Login> {
                 obscureText: true,
                 obscuringCharacter: "*",
                 decoration: AuthComps.loginfields(
-                    isempty: _empties[1],
+                    isempty: _isfieldempty[1],
                     hint: "Password",
                     icon: Icons.key,
                     isvalid: _ispassvalid),
               ),
             ),
             sbh(20),
-            AuthComps.loginbtn(_logloading, "Login", const Color(0xFF0561AB),
+            AuthComps.loginbtn(_loading, "Login", const Color(0xFF0561AB),
                 () async {
-              _cloudvalid = false;
+              _isserverauthvalid = false;
               setState(() {
-                _empties[0] = _emailcont.text.isEmpty;
-                _empties[1] = _passcont.text.isEmpty;
-                _logloading = true;
+                _isfieldempty[0] = _emailcont.text.isEmpty;
+                _isfieldempty[1] = _passcont.text.isEmpty;
+                _loading = true;
                 FocusManager.instance.primaryFocus?.unfocus();
               });
 
               if (_tapenabled) {
                 _tapenabled = false;
-                await ValidityLogin.authlogin(_emailcont.text, _passcont.text,
+                await AuthorizeLogin.auth(_emailcont.text, _passcont.text,
                     _onValidationResult, context);
 
-                _cloudvalid
+                _isserverauthvalid
                     ? {
                         authProv.login(),
                         sectionDNavigatorKey.currentState!.pop(),
                         GoRouter.of(context).go("/home"),
                         setState(() {
                           indexProv.changeindex(0);
-                          _logloading = false;
+                          _loading = false;
                         })
                       }
                     : {
                         _tapenabled = true,
                         _fieldenable = true,
                         setState(() {
-                          _logloading = false;
+                          _loading = false;
                         })
                       };
               }
@@ -176,7 +176,7 @@ class _LoginState extends State<Login> {
 
   void _onValidationResult(bool isValid) {
     setState(() {
-      _cloudvalid = isValid;
+      _isserverauthvalid = isValid;
     });
   }
 }

@@ -210,7 +210,7 @@ class _SignUpState extends State<SignUp> {
 
     if (_tapenabled) {
       _tapenabled = false;
-      await AuthandValidateSignUp.authsignup(
+      await AuthorizeSignUp.auth(
           _namecont.text,
           _emailcont.text,
           _passcont.text,

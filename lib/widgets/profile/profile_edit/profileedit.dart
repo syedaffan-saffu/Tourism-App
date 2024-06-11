@@ -24,7 +24,6 @@ class _ProfileEditState extends State<ProfileEdit> {
   Isar? isar;
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phone = TextEditingController();
-  bool _isopendb = false;
   final List<String> items1 = [
     'Male',
     'Female',
@@ -77,7 +76,7 @@ class _ProfileEditState extends State<ProfileEdit> {
     });
   }
 
-  void readeditdb() async {
+  void _readdb() async {
     Profileeditdb? existingdata;
     if (isar == null) {
       isar = await IsarDb.opendb([ProfileeditdbSchema]);
@@ -91,7 +90,7 @@ class _ProfileEditState extends State<ProfileEdit> {
     } else {}
   }
 
-  void writeeditdb(
+  void _writedb(
     String name,
     String num,
     String? gender,
@@ -111,7 +110,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   void initState() {
-    readeditdb();
+    _readdb();
     super.initState();
   }
 
@@ -291,7 +290,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                 _validation();
                 _valid
                     ? {
-                        writeeditdb(_name.text, _phone.text, _selectedgender,
+                        _writedb(_name.text, _phone.text, _selectedgender,
                             dblangs(languages)),
                         GoRouter.of(context).push("/profile/exp")
                       }
