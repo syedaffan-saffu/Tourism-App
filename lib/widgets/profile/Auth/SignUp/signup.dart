@@ -94,7 +94,7 @@ class _SignUpState extends State<SignUp> {
                       controller: _namecont,
                       onChanged: (value) {
                         setState(() {
-                          _isnamevalid = ValidityUtils.isNameValid(value);
+                          _isnamevalid = ValidationUtils.isNameValid(value);
                           value.isNotEmpty ? _emptyfields[0] = false : null;
                         });
                       },
@@ -112,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                         controller: _emailcont,
                         onChanged: (value) {
                           setState(() {
-                            _isemailvalid = ValidityUtils.isEmailValid(value);
+                            _isemailvalid = ValidationUtils.isEmailValid(value);
                             value.isNotEmpty ? _emptyfields[1] = false : null;
                           });
                         },
@@ -129,7 +129,7 @@ class _SignUpState extends State<SignUp> {
                       controller: _passcont,
                       onChanged: (value) {
                         setState(() {
-                          _ispassvalid = ValidityUtils.isPassValid(value);
+                          _ispassvalid = ValidationUtils.isPassValid(value);
                           value.isNotEmpty ? _emptyfields[2] = false : null;
                         });
                       },
@@ -149,7 +149,7 @@ class _SignUpState extends State<SignUp> {
                       controller: _confrmpass,
                       onChanged: (value) {
                         setState(() {
-                          _iscnfrmpassvalid = ValidityUtils.isCnfPassValid(
+                          _iscnfrmpassvalid = ValidationUtils.isCnfPassValid(
                               _passcont.text, value);
                           value.isNotEmpty ? _emptyfields[3] = false : null;
                         });

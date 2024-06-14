@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:trekkers_pk/widgets/profile/profile_comps.dart';
-import 'package:trekkers_pk/widgets/profile/profile_edit/edit_components.dart';
+import 'package:trekkers_pk/widgets/profile/profile_edit/prof_edit_comps.dart';
 import 'package:trekkers_pk/utils/utilspack1.dart';
 import 'profile.dart';
 

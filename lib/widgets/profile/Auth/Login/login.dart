@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
                   controller: _emailcont,
                   onChanged: (value) {
                     setState(() {
-                      _isemailvalid = ValidityUtils.isEmailValid(value);
+                      _isemailvalid = ValidationUtils.isEmailValid(value);
                     });
                   },
                   decoration: AuthComps.loginfields(
@@ -103,7 +103,7 @@ class _LoginState extends State<Login> {
                 controller: _passcont,
                 onChanged: (value) {
                   setState(() {
-                    _ispassvalid = ValidityUtils.isPassValid(value);
+                    _ispassvalid = ValidationUtils.isPassValid(value);
                   });
                 },
                 obscureText: true,

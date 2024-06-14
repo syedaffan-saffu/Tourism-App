@@ -100,7 +100,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                   controller: _emailcont,
                   onChanged: (value) {
                     setState(() {
-                      _isemailvalid = ValidityUtils.isEmailValid(value);
+                      _isemailvalid = ValidationUtils.isEmailValid(value);
                     });
                   },
                   decoration: AuthComps.loginfields(

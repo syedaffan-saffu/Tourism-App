@@ -17,29 +17,19 @@ const ProfileeditdbSchema = CollectionSchema(
   name: r'Profileeditdb',
   id: -1940245520869586638,
   properties: {
-    r'gender': PropertySchema(
+    r'img': PropertySchema(
       id: 0,
-      name: r'gender',
-      type: IsarType.string,
-    ),
-    r'langs': PropertySchema(
-      id: 1,
-      name: r'langs',
+      name: r'img',
       type: IsarType.string,
     ),
     r'name': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'name',
       type: IsarType.string,
     ),
     r'phone': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'phone',
-      type: IsarType.string,
-    ),
-    r'prof': PropertySchema(
-      id: 4,
-      name: r'prof',
       type: IsarType.string,
     )
   },
@@ -64,13 +54,7 @@ int _profileeditdbEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
-    final value = object.gender;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.langs;
+    final value = object.img;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -87,12 +71,6 @@ int _profileeditdbEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
-  {
-    final value = object.prof;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
   return bytesCount;
 }
 
@@ -102,11 +80,9 @@ void _profileeditdbSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.gender);
-  writer.writeString(offsets[1], object.langs);
-  writer.writeString(offsets[2], object.name);
-  writer.writeString(offsets[3], object.phone);
-  writer.writeString(offsets[4], object.prof);
+  writer.writeString(offsets[0], object.img);
+  writer.writeString(offsets[1], object.name);
+  writer.writeString(offsets[2], object.phone);
 }
 
 Profileeditdb _profileeditdbDeserialize(
@@ -116,12 +92,10 @@ Profileeditdb _profileeditdbDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Profileeditdb();
-  object.gender = reader.readStringOrNull(offsets[0]);
   object.id = id;
-  object.langs = reader.readStringOrNull(offsets[1]);
-  object.name = reader.readStringOrNull(offsets[2]);
-  object.phone = reader.readStringOrNull(offsets[3]);
-  object.prof = reader.readStringOrNull(offsets[4]);
+  object.img = reader.readStringOrNull(offsets[0]);
+  object.name = reader.readStringOrNull(offsets[1]);
+  object.phone = reader.readStringOrNull(offsets[2]);
   return object;
 }
 
@@ -137,10 +111,6 @@ P _profileeditdbDeserializeProp<P>(
     case 1:
       return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
-    case 3:
-      return (reader.readStringOrNull(offset)) as P;
-    case 4:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -243,160 +213,6 @@ extension ProfileeditdbQueryWhere
 
 extension ProfileeditdbQueryFilter
     on QueryBuilder<Profileeditdb, Profileeditdb, QFilterCondition> {
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'gender',
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'gender',
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'gender',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'gender',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'gender',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'gender',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'gender',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'gender',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'gender',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'gender',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'gender',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      genderIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'gender',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
@@ -452,31 +268,30 @@ extension ProfileeditdbQueryFilter
   }
 
   QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsIsNull() {
+      imgIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'langs',
+        property: r'img',
       ));
     });
   }
 
   QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsIsNotNull() {
+      imgIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'langs',
+        property: r'img',
       ));
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsEqualTo(
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> imgEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'langs',
+        property: r'img',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -484,7 +299,7 @@ extension ProfileeditdbQueryFilter
   }
 
   QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsGreaterThan(
+      imgGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -492,15 +307,14 @@ extension ProfileeditdbQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'langs',
+        property: r'img',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsLessThan(
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> imgLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -508,15 +322,14 @@ extension ProfileeditdbQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'langs',
+        property: r'img',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsBetween(
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> imgBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -525,7 +338,7 @@ extension ProfileeditdbQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'langs',
+        property: r'img',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -536,49 +349,50 @@ extension ProfileeditdbQueryFilter
   }
 
   QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsStartsWith(
+      imgStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'langs',
+        property: r'img',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsEndsWith(
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> imgEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'langs',
+        property: r'img',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsContains(String value, {bool caseSensitive = true}) {
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> imgContains(
+      String value,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'langs',
+        property: r'img',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsMatches(String pattern, {bool caseSensitive = true}) {
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> imgMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'langs',
+        property: r'img',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -586,20 +400,20 @@ extension ProfileeditdbQueryFilter
   }
 
   QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsIsEmpty() {
+      imgIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'langs',
+        property: r'img',
         value: '',
       ));
     });
   }
 
   QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      langsIsNotEmpty() {
+      imgIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'langs',
+        property: r'img',
         value: '',
       ));
     });
@@ -911,159 +725,6 @@ extension ProfileeditdbQueryFilter
       ));
     });
   }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'prof',
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'prof',
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> profEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'prof',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'prof',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'prof',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> profBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'prof',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'prof',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'prof',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'prof',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition> profMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'prof',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'prof',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterFilterCondition>
-      profIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'prof',
-        value: '',
-      ));
-    });
-  }
 }
 
 extension ProfileeditdbQueryObject
@@ -1074,27 +735,15 @@ extension ProfileeditdbQueryLinks
 
 extension ProfileeditdbQuerySortBy
     on QueryBuilder<Profileeditdb, Profileeditdb, QSortBy> {
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> sortByGender() {
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> sortByImg() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gender', Sort.asc);
+      return query.addSortBy(r'img', Sort.asc);
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> sortByGenderDesc() {
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> sortByImgDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gender', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> sortByLangs() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'langs', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> sortByLangsDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'langs', Sort.desc);
+      return query.addSortBy(r'img', Sort.desc);
     });
   }
 
@@ -1121,34 +770,10 @@ extension ProfileeditdbQuerySortBy
       return query.addSortBy(r'phone', Sort.desc);
     });
   }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> sortByProf() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'prof', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> sortByProfDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'prof', Sort.desc);
-    });
-  }
 }
 
 extension ProfileeditdbQuerySortThenBy
     on QueryBuilder<Profileeditdb, Profileeditdb, QSortThenBy> {
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenByGender() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gender', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenByGenderDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gender', Sort.desc);
-    });
-  }
-
   QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1161,15 +786,15 @@ extension ProfileeditdbQuerySortThenBy
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenByLangs() {
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenByImg() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'langs', Sort.asc);
+      return query.addSortBy(r'img', Sort.asc);
     });
   }
 
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenByLangsDesc() {
+  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenByImgDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'langs', Sort.desc);
+      return query.addSortBy(r'img', Sort.desc);
     });
   }
 
@@ -1196,33 +821,14 @@ extension ProfileeditdbQuerySortThenBy
       return query.addSortBy(r'phone', Sort.desc);
     });
   }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenByProf() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'prof', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QAfterSortBy> thenByProfDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'prof', Sort.desc);
-    });
-  }
 }
 
 extension ProfileeditdbQueryWhereDistinct
     on QueryBuilder<Profileeditdb, Profileeditdb, QDistinct> {
-  QueryBuilder<Profileeditdb, Profileeditdb, QDistinct> distinctByGender(
+  QueryBuilder<Profileeditdb, Profileeditdb, QDistinct> distinctByImg(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'gender', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QDistinct> distinctByLangs(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'langs', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'img', caseSensitive: caseSensitive);
     });
   }
 
@@ -1239,13 +845,6 @@ extension ProfileeditdbQueryWhereDistinct
       return query.addDistinctBy(r'phone', caseSensitive: caseSensitive);
     });
   }
-
-  QueryBuilder<Profileeditdb, Profileeditdb, QDistinct> distinctByProf(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'prof', caseSensitive: caseSensitive);
-    });
-  }
 }
 
 extension ProfileeditdbQueryProperty
@@ -1256,15 +855,9 @@ extension ProfileeditdbQueryProperty
     });
   }
 
-  QueryBuilder<Profileeditdb, String?, QQueryOperations> genderProperty() {
+  QueryBuilder<Profileeditdb, String?, QQueryOperations> imgProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'gender');
-    });
-  }
-
-  QueryBuilder<Profileeditdb, String?, QQueryOperations> langsProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'langs');
+      return query.addPropertyName(r'img');
     });
   }
 
@@ -1277,12 +870,6 @@ extension ProfileeditdbQueryProperty
   QueryBuilder<Profileeditdb, String?, QQueryOperations> phoneProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'phone');
-    });
-  }
-
-  QueryBuilder<Profileeditdb, String?, QQueryOperations> profProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'prof');
     });
   }
 }

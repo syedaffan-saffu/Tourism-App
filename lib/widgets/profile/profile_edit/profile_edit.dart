@@ -1,13 +1,11 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
-import 'package:isar/isar.dart';
-import 'package:trekkers_pk/backend/database/localdb.dart';
-import 'package:trekkers_pk/backend/database/profiledb/profileeditdb.dart';
-import 'package:trekkers_pk/widgets/profile/profile_edit/edit_components.dart';
+import 'package:trekkers_pk/widgets/profile/profile_edit/prof_edit_comps.dart';
+import 'package:trekkers_pk/widgets/profile/profile_edit/profile_edit_services.dart';
 
 import '../../../utils/utilspack1.dart';
 import '../profile.dart';
@@ -20,8 +18,9 @@ class ProfileEdit extends StatefulWidget {
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
+  final ProfileEditServices _profileService = ProfileEditServices();
+  final ImagePicker _picker = ImagePicker();
   bool _valid = false;
-  Isar? isar;
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final List<String> items1 = [
@@ -40,78 +39,51 @@ class _ProfileEditState extends State<ProfileEdit> {
   String? selectedlang;
   String? selectedprof;
 
-  String dblangs(List<String> langs) {
-    String concated = "";
-    for (int i = 0; i < langs.length; i++) {
-      concated = concated + langs[i];
-    }
-    return concated;
-  }
-
-  String dbprofs(List<String> profs) {
-    String concated = "";
-    for (int i = 0; i <= profs.length; i++) {
-      concated = concated + " ${profs[i]}";
-    }
-    return concated;
-  }
-
   List<String> languages = [];
   List<String> languageLevels = [];
-
+  String? _cachedimgfile;
   bool _isuploaded = false;
-  final ImagePicker _picker = ImagePicker();
+
   File? _profimagefile;
-  File? _profimagefileu;
+  bool _newimgupload = false;
   bool _nameisempty = false;
   bool _phoneisempty = false;
 
   Future _imagepicker() async {
+    _newimgupload = true;
     final XFile? imageraw =
         await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       _profimagefile = File(imageraw!.path);
-      _profimagefileu = File(imageraw.path);
+      _cachedimgfile = imageraw.path;
       _isuploaded = true;
     });
   }
 
-  void _readdb() async {
-    Profileeditdb? existingdata;
-    if (isar == null) {
-      isar = await IsarDb.opendb([ProfileeditdbSchema]);
-      existingdata = await isar!.profileeditdbs.get(1);
-    } else {
-      existingdata = await isar!.profileeditdbs.get(1);
+  Future<void> _loadDbImg() async {
+    final img = await _profileService.readPicDb();
+    if (img != null) {
+      _profimagefile = img;
+      _cachedimgfile = img.path;
+      _isuploaded = true;
     }
-    if (existingdata != null) {
-      _name.text = existingdata.name!;
-      _phone.text = existingdata.phone!;
-    } else {}
+    null;
   }
 
-  void _writedb(
-    String name,
-    String num,
-    String? gender,
-    String langs,
-  ) async {
-    final data = Profileeditdb()
-      ..id = 1
-      ..name = name
-      ..phone = num
-      ..gender = gender
-      ..langs = langs;
-    // ..prof = prof;
-    await isar!.writeTxn(() async {
-      await isar!.profileeditdbs.put(data);
+  Future<void> _loadData() async {
+    final data = await _profileService.readDb();
+    setState(() {
+      _name.text = data['name'] ?? '';
+      _phone.text = data['phone'] ?? '';
     });
   }
 
   @override
   void initState() {
-    _readdb();
     super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _loadData();
+    });
   }
 
   @override
@@ -140,11 +112,14 @@ class _ProfileEditState extends State<ProfileEdit> {
               children: [
                 InkWell(
                   onTap: _imagepicker,
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.grey[300],
-                    foregroundImage:
-                        _isuploaded ? FileImage(_profimagefile!) : null,
+                  child: FutureBuilder(
+                    future: _newimgupload ? null : _loadDbImg(),
+                    builder: (context, snapshot) => CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey[300],
+                      foregroundImage:
+                          _isuploaded ? FileImage(_profimagefile!) : null,
+                    ),
                   ),
                 ),
                 sbw(20),
@@ -273,7 +248,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   itemBuilder: (context, index) {
                     return Padding(
                         padding: const EdgeInsets.only(right: 5),
-                        child: EditComps.langTile(
+                        child: ProfEditComps.langTile(
                             languages, languageLevels, index, () {
                           setState(() {
                             items2.add(languages.elementAt(index));
@@ -290,8 +265,11 @@ class _ProfileEditState extends State<ProfileEdit> {
                 _validation();
                 _valid
                     ? {
-                        _writedb(_name.text, _phone.text, _selectedgender,
-                            dblangs(languages)),
+                        await _profileService.writeDb(
+                          _cachedimgfile!,
+                          _name.text,
+                          _phone.text,
+                        ),
                         GoRouter.of(context).push("/profile/exp")
                       }
                     : null;
@@ -335,9 +313,14 @@ class _ProfileEditState extends State<ProfileEdit> {
     }
   }
 
+  String concater(List<String> listofstring) {
+    String concated = listofstring.join(",");
+    return concated;
+  }
+
   @override
   void dispose() {
-    isar!.close();
+    _profileService.closedb();
     super.dispose();
   }
 }

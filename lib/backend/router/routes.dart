@@ -11,7 +11,7 @@ import 'package:trekkers_pk/widgets/profile/cert_license.dart';
 import 'package:trekkers_pk/widgets/profile/experiece.dart';
 import 'package:trekkers_pk/widgets/profile/p_s_activities.dart';
 import 'package:trekkers_pk/widgets/profile/profile.dart';
-import 'package:trekkers_pk/widgets/profile/profile_edit/profileedit.dart';
+import 'package:trekkers_pk/widgets/profile/profile_edit/profile_edit.dart';
 import 'package:trekkers_pk/widgets/profile/Auth/Login/login.dart';
 import 'package:trekkers_pk/widgets/profile/Auth/SignUp/signup.dart';
 

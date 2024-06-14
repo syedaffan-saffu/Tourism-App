@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/utilspack1.dart';
 
-class EditComps {
+class ProfEditComps {
   static Widget langTile(List<String> languages, List<String> languageLevels,
       int index, void Function() onpressed) {
     return TextButton(
