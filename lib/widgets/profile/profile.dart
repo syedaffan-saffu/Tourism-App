@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/router/routes.dart';
+import 'package:trekkers_pk/backend/sharedprefs/sharedprefs.dart';
+import 'package:trekkers_pk/widgets/profile/profile_edit/profile_edit_services.dart';
 import '../../backend/provider/providers.dart';
 import '../../utils/utilspack1.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
+  static SharedPrefsStoreString sharedPrefsStoreString =
+      SharedPrefsStoreString();
+  static ProfileEditServices profileEditServices = ProfileEditServices();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class Profile extends StatelessWidget {
             GoRouter.of(context).go("/profile/certnlic");
           }),
           sbh(12),
-          ProfileComps.profiletile('Logout', () {
+          ProfileComps.profiletile('Logout', () async {
             authProv.logout();
 
             sectionANavigatorKey.currentState!
@@ -46,7 +51,12 @@ class Profile extends StatelessWidget {
               sectionCNavigatorKey.currentState!
                   .popUntil((route) => route.settings.name == "/location");
             }
-            GoRouter.of(context).go("/home");
+            profileEditServices.deleteDb(context);
+            sharedPrefsStoreString.deletetext();
+            if (context.mounted) {
+              GoRouter.of(context).go("/home");
+            }
+            authProv.logout();
             indexProv.changeindex(0);
           }),
         ]),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
+import 'package:trekkers_pk/utils/utilspack2.dart';
 import 'package:trekkers_pk/widgets/profile/profile_edit/prof_edit_comps.dart';
 import 'package:trekkers_pk/widgets/profile/profile_edit/profile_edit_services.dart';
 
@@ -61,7 +62,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   }
 
   Future<void> _loadDbImg() async {
-    final img = await _profileService.readPicDb();
+    final img = await _profileService.readPicDb(context);
     if (img != null) {
       _profimagefile = img;
       _cachedimgfile = img.path;
@@ -71,7 +72,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   }
 
   Future<void> _loadData() async {
-    final data = await _profileService.readDb();
+    final data = await _profileService.readDb(context);
     setState(() {
       _name.text = data['name'] ?? '';
       _phone.text = data['phone'] ?? '';
@@ -266,11 +267,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                 _valid
                     ? {
                         await _profileService.writeDb(
-                          _cachedimgfile!,
-                          _name.text,
-                          _phone.text,
-                        ),
-                        GoRouter.of(context).push("/profile/exp")
+                            _cachedimgfile!, _name.text, _phone.text, context),
                       }
                     : null;
               },
@@ -298,18 +295,13 @@ class _ProfileEditState extends State<ProfileEdit> {
         });
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text(
-          'Not all fields are Selected or Filled!',
-        ),
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+          UtilsPack2.snackBar("Not All Fields are Filled or Valid", 3));
     } else {
       setState(() {
         _valid = true;
       });
-
-      // gorouter line
+      GoRouter.of(context).push("/profile/exp");
     }
   }
 
@@ -320,7 +312,6 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   void dispose() {
-    _profileService.closedb();
     super.dispose();
   }
 }

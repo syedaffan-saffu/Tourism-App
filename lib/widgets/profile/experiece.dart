@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:trekkers_pk/backend/sharedprefs/sharedprefs.dart';
+import 'package:trekkers_pk/utils/utilspack2.dart';
 import 'package:trekkers_pk/widgets/profile/profile_comps.dart';
 import 'package:trekkers_pk/widgets/profile/profile_edit/prof_edit_comps.dart';
 import 'package:trekkers_pk/utils/utilspack1.dart';
@@ -13,7 +15,8 @@ class Experience extends StatefulWidget {
 }
 
 class _ExperienceState extends State<Experience> {
-  final TextEditingController _tellus = TextEditingController();
+  SharedPrefsStoreString sharedPrefsStoreString = SharedPrefsStoreString();
+  final TextEditingController _tellusfield = TextEditingController();
   static const List<String> _items1 = ["K-2", "Biafo", "Skardu", "Naran"];
   static const List<String> _items2 = [
     "Base Camp",
@@ -21,38 +24,44 @@ class _ExperienceState extends State<Experience> {
     "BaseCamp 2 7690m",
     "Camp 1 10000m"
   ];
-  static const String fchoice =
+  static const String _choicetext =
       "Have you taken any part or led any expeditions?";
   bool _ischeckedyes = false;
   bool _ischeckedno = false;
-  static const String ifyes =
+  static const String _ifyestext =
       "Have you been or led tours to these destinations?";
-  static const String hint =
+  static const String _hint =
       "(Please select the places and specify the exact location you have been to.)";
 
-  static const String exp =
+  static const String _anyexptext =
       "Do you have any achievements from your travels or journeys?";
-  static const String ifyes2 =
+  static const String _ifyestext2 =
       "If yes, please tell us if you have won any title, made any record, or achieved any notable accomplishments.";
-  String? locates;
-  String? sublocates;
-
-  void _validateexp() {
-    if (_ischeckedyes) {
-      if (locates == null || sublocates == null || _tellus.text.isEmpty) {
-        print(
-            " $_ischeckedyes ${locates == null} ${sublocates == null}  ${_tellus.text.isEmpty}");
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Not All Fiels are Valid!")));
-      } else {
-        GoRouter.of(context).push("/profile/sportsact");
-      }
-    } else if (_ischeckedno) {
-      GoRouter.of(context).push("/profile/sportsact");
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Not All Fiels are Valid!")));
+  String? _locats;
+  String? _sublocats;
+/////////////////////////////////////////////////////////////////////////
+  Future<void> _setText() async {
+    final gottext = await sharedPrefsStoreString.gettext("expfield");
+    _tellusfield.text = gottext;
+    if (gottext != "") {
+      setState(() {
+        _ischeckedyes = true;
+      });
+      debugPrint("$_ischeckedyes");
     }
+  }
+
+  Future<void> _storeText() async {
+    await sharedPrefsStoreString.storetext("expfield", _tellusfield.text);
+  }
+
+/////////////////////////////////////////////////////////////////////////
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setText();
+    });
   }
 
   @override
@@ -67,7 +76,7 @@ class _ExperienceState extends State<Experience> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                fchoice,
+                _choicetext,
                 style: ProfileComps.heading,
               ),
               SizedBox(
@@ -98,13 +107,14 @@ class _ExperienceState extends State<Experience> {
               ),
               _ischeckedyes
                   ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          ifyes,
+                          _ifyestext,
                           style: ProfileComps.heading,
                         ),
                         const Text(
-                          hint,
+                          _hint,
                           style: TextStyle(
                               color: Color(0xFFA1A1A1),
                               fontSize: 12,
@@ -114,10 +124,10 @@ class _ExperienceState extends State<Experience> {
                         DropDown(
                           title: "Locations",
                           items: _items1,
-                          value: locates,
+                          value: _locats,
                           onpressed: (String? value) {
                             setState(() {
-                              locates = value;
+                              _locats = value;
                             });
                           },
                         ),
@@ -125,10 +135,10 @@ class _ExperienceState extends State<Experience> {
                         DropDown(
                           title: "Sublocations",
                           items: _items2,
-                          value: sublocates,
+                          value: _sublocats,
                           onpressed: (String? value) {
                             setState(() {
-                              sublocates = value;
+                              _sublocats = value;
                             });
                           },
                         ),
@@ -137,17 +147,17 @@ class _ExperienceState extends State<Experience> {
                   : const SizedBox(),
               sbh(20),
               const Text(
-                exp,
+                _anyexptext,
                 style: ProfileComps.heading,
               ),
               Text(
-                ifyes2,
+                _ifyestext2,
                 style: ProfileComps.hintstyle
                     .copyWith(fontStyle: FontStyle.normal),
               ),
               sbh(20),
               TextField(
-                controller: _tellus,
+                controller: _tellusfield,
                 enabled: _ischeckedyes,
                 decoration: const InputDecoration(
                     filled: true,
@@ -167,5 +177,24 @@ class _ExperienceState extends State<Experience> {
         ),
       ),
     );
+  }
+
+  Future<void> _validateexp() async {
+    if (_ischeckedyes) {
+      if (_locats == null || _sublocats == null || _tellusfield.text.isEmpty) {
+        debugPrint(
+            " $_ischeckedyes ${_locats == null} ${_sublocats == null}  ${_tellusfield.text.isEmpty}");
+        ScaffoldMessenger.of(context)
+            .showSnackBar(UtilsPack2.snackBar("Not All Fields are Valid", 2));
+      } else {
+        await _storeText();
+        GoRouter.of(context).push("/profile/sportsact");
+      }
+    } else if (_ischeckedno) {
+      GoRouter.of(context).push("/profile/sportsact");
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(UtilsPack2.snackBar("Not All Fields are Valid", 2));
+    }
   }
 }

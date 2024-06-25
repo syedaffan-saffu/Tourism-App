@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
 
 import '../sharedprefs/sharedprefs.dart';
 
@@ -14,7 +15,7 @@ class IndexProvider extends ChangeNotifier {
 }
 
 class AuthProvider extends ChangeNotifier {
-  final SharedPreferencesService _prefsService;
+  final SharedPreferencesLoginService _prefsService;
 
   bool _isLoggedIn = false;
   bool get isLoggedIn => _isLoggedIn;
@@ -41,16 +42,13 @@ class AuthProvider extends ChangeNotifier {
   }
 }
 
-class RoutesProvider extends ChangeNotifier {
-  List<int> _count = [0, 0, 0, 0];
-  List<int> get count => _count;
+class IsarProvider extends ChangeNotifier {
+  Isar? _isar;
 
-  void increment(int index) {
-    _count[index]++;
-  }
+  Isar? get isar => _isar;
 
-  void decrement(int index) {
-    _count[index]--;
+  void isarUpdate(Isar? isarupdated) {
+    _isar = isarupdated;
     notifyListeners();
   }
 }

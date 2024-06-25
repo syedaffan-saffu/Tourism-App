@@ -6,12 +6,12 @@ import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefsService = SharedPreferencesService();
+  final existloginsrvc = SharedPreferencesLoginService();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => AuthProvider(prefsService)),
+      ChangeNotifierProvider(create: (_) => AuthProvider(existloginsrvc)),
       ChangeNotifierProvider(create: (_) => IndexProvider()),
-      ChangeNotifierProvider(create: (_) => RoutesProvider())
+      ChangeNotifierProvider(create: (_) => IsarProvider()),
     ],
     child: const MyApp(),
   ));
