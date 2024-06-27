@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trekkers_pk/utils/utilspack2.dart';
 import 'gprofilecomp.dart';
 
 import '../../../../../utils/utilspack1.dart';
@@ -16,7 +17,9 @@ class AboutUs {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('GUIDE BIO', style: Gcomponents.heading),
+        Row(
+          children: UtilsPack2.richHeadingText("Guide Bio"),
+        ),
         sbh(10),
         Text(
           bio,

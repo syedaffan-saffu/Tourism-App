@@ -6,6 +6,7 @@ import 'package:trekkers_pk/widgets/homescreen/adventure/adv_place.dart';
 import 'package:trekkers_pk/widgets/homescreen/guide/guideprofile/gprofile_elements/videos/videos.dart';
 import 'package:trekkers_pk/widgets/homescreen/guide/guideprofile/guide_profile.dart';
 import 'package:trekkers_pk/widgets/homescreen/hmscrn.dart';
+import 'package:trekkers_pk/widgets/location/location.dart';
 import 'package:trekkers_pk/widgets/mainpage.dart';
 import 'package:trekkers_pk/widgets/profile/cert_license.dart';
 import 'package:trekkers_pk/widgets/profile/experiece.dart';

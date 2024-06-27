@@ -22,4 +22,43 @@ class UtilsPack2 {
       backgroundColor: const Color(0xFF0561AB),
     );
   }
+
+  static List<Text> richHeadingText(String text) {
+    List<Text> texts = [];
+    text = text.toUpperCase();
+    text.split(" ").forEach((word) {
+      if (word.isNotEmpty) {
+        texts.add(Text(
+          word[0], // First letter
+          style: const TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              fontFamily: "Signika",
+              height: -0.1),
+        ));
+        if (word.length > 1) {
+          texts.add(Text(
+            word.substring(1), // Remaining part of the word
+            style: const TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+                fontFamily: "Signika"),
+          ));
+        }
+        texts.add(const Text(' ')); // Space between words
+      }
+    });
+    print(text);
+    // if (text.contains(" ")) {
+    //   List<String> splittedwords = text.split(" ");
+    //   for (int i = 0; i < splittedwords.length; i++) {
+    //     splittedfirstchars.add(splittedwords[i].characters.first);
+    //     withoutfirstchar.add(
+    //         splittedwords[i].replaceAll(splittedwords[i].characters.first, ""));
+    //   }
+    // } else {
+    //   splittedfirstchars = [text.characters.first];
+    // }
+    return texts;
+  }
 }
