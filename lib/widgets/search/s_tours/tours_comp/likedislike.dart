@@ -31,6 +31,7 @@ class _LikeDislikeState extends State<LikeDislike> {
               )),
           height: 30,
           child: IconButton(
+              highlightColor: Colors.transparent,
               iconSize: 16,
               padding: EdgeInsets.zero,
               onPressed: () {
@@ -66,6 +67,7 @@ class _LikeDislikeState extends State<LikeDislike> {
               )),
           height: 30,
           child: IconButton(
+              highlightColor: Colors.transparent,
               iconSize: 16,
               padding: EdgeInsets.zero,
               onPressed: () {

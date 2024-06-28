@@ -91,7 +91,7 @@ class _CertandLicenseState extends State<CertandLicense> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(_almost, style: ProfileComps.heading),
-                sbh(20),
+                gapV(20),
                 const Text(
                   "Are you a certified tour Guide",
                   style: ProfileComps.heading,
@@ -128,23 +128,23 @@ class _CertandLicenseState extends State<CertandLicense> {
                     ],
                   ),
                 ),
-                sbh(10),
+                gapV(10),
                 const Text(
                   "Do you have a license from regional or national authorities?",
                   style: ProfileComps.heading,
                 ),
-                sbh(10),
+                gapV(10),
                 ProfileComps2.licandcert(
                     isuploaded: _isuploaded1, onpresssed: _imagepicker1),
-                sbh(20),
+                gapV(20),
                 const Text(
                   "Do you have credibility from any reputable organization for tour conducts?",
                   style: ProfileComps.heading,
                 ),
-                sbh(10),
+                gapV(10),
                 ProfileComps2.licandcert(
                     isuploaded: _isuploaded2, onpresssed: _imagepicker2),
-                sbh(15),
+                gapV(15),
                 Text(
                   "Testimonials of Successful Tours(Add Pictures)",
                   style: ProfileComps.heading.copyWith(height: 1.5),
@@ -153,7 +153,7 @@ class _CertandLicenseState extends State<CertandLicense> {
                   "If you have been a part of successful tours, please upload the pictures here.",
                   style: ProfileComps.hintstyle,
                 ),
-                sbh(20),
+                gapV(20),
                 InkWell(
                   onTap: _multipicker,
                   child: Container(
@@ -182,7 +182,7 @@ class _CertandLicenseState extends State<CertandLicense> {
                               ],
                             )),
                 ),
-                sbh(20),
+                gapV(20),
                 ProfileComps.submitButton(text: "Next", onpressed: _validation)
               ],
             ),

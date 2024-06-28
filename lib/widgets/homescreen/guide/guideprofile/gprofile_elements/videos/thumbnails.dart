@@ -26,7 +26,7 @@ class Thumbnails extends StatelessWidget {
             color: Color(0xFF848484),
           ),
         ),
-        sbh(15),
+        gapV(15),
         Column(
           children: List.generate(
               3,

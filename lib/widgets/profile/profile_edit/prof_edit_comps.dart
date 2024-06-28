@@ -42,7 +42,7 @@ class ProfEditComps {
                 ),
               ],
             ),
-            sbw(5),
+            gapH(5),
             SizedBox(
                 height: 25, child: Image.asset('assets/icons/crossicon.png'))
           ],

@@ -38,7 +38,7 @@ class ClientsReview extends StatelessWidget {
                     scale: 6,
                   ),
                 ),
-                sbw(10),
+                gapH(10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -63,7 +63,7 @@ class ClientsReview extends StatelessWidget {
                           size: 15,
                           color: Color(0xFFF7AA20),
                         ),
-                        sbw(5),
+                        gapH(5),
                         Text(
                           date.split(" ").first,
                           style: const TextStyle(
@@ -77,12 +77,12 @@ class ClientsReview extends StatelessWidget {
                 )
               ],
             ),
-            sbh(5),
+            gapV(5),
             Text(
               review,
               style: bodystyle.copyWith(fontSize: 15, height: 1.4),
             ),
-            sbh(10),
+            gapV(10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -96,7 +96,7 @@ class ClientsReview extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           height: 1.0),
                     ),
-                    sbw(5),
+                    gapH(5),
                     RatingBarIndicator(
                       rating: rating,
                       itemBuilder: (context, index) => const Icon(

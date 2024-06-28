@@ -18,25 +18,25 @@ class AboutUs {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: UtilsPack2.richHeadingText("Guide Bio"),
+          children: UtilsPack2.headingTextRow("Guide Bio"),
         ),
-        sbh(10),
+        gapV(10),
         Text(
           bio,
           style: const TextStyle(
             color: Color(0xFF848484),
           ),
         ),
-        sbh(20),
+        gapV(20),
         Text("LANGUAGES", style: Gcomponents.heading),
-        sbh(15),
+        gapV(15),
         Wrap(
             spacing: 10,
             runSpacing: 10,
             children: List.generate(4, (index) => _langtiles(langs[index]))),
-        sbh(30),
+        gapV(30),
         Text("PERSONAL DETAILS", style: Gcomponents.heading),
-        sbh(15),
+        gapV(15),
         Row(
           children: [
             const Icon(
@@ -52,7 +52,7 @@ class AboutUs {
             ),
           ],
         ),
-        sbh(10),
+        gapV(10),
         Row(
           children: [
             const Icon(
@@ -68,7 +68,7 @@ class AboutUs {
             ),
           ],
         ),
-        sbh(20),
+        gapV(20),
         Row(
           children: [
             Text("RECENT TRIPS ", style: Gcomponents.heading),
@@ -88,7 +88,7 @@ class AboutUs {
             )
           ],
         ),
-        sbh(10),
+        gapV(10),
         Column(
             children: List.generate(
                 3,
@@ -120,7 +120,7 @@ class AboutUs {
               Icons.calendar_today,
               size: 16,
             ),
-            sbw(10),
+            gapH(10),
             Text(
               date,
               style: const TextStyle(fontWeight: FontWeight.w600),
@@ -148,7 +148,7 @@ class AboutUs {
               size: 18,
               color: Color(0xFF0561AB),
             ),
-            sbw(10),
+            gapH(10),
             Text(
               language,
               style: const TextStyle(
@@ -187,9 +187,9 @@ class AboutUs {
           tripname,
           style: Gcomponents.heading,
         ),
-        sbh(12),
+        gapV(12),
         const Text(description),
-        sbh(20),
+        gapV(20),
         SizedBox(
           height: 200,
           child: Stack(
@@ -218,7 +218,7 @@ class AboutUs {
             ],
           ),
         ),
-        sbh(10),
+        gapV(10),
         Wrap(
           spacing: 10,
           runSpacing: 10,

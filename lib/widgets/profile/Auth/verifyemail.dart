@@ -53,14 +53,14 @@ class _EmailVerifyState extends State<EmailVerify> {
           padding: const EdgeInsets.all(15.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            sbh(50),
+            gapV(50),
             Center(
               child: SizedBox(
                 height: 60,
                 child: Image.asset('assets/images/logon.png'),
               ),
             ),
-            sbh(15),
+            gapV(15),
             const Center(
               child: Text(
                 "TREKKERS.PK",
@@ -74,14 +74,14 @@ class _EmailVerifyState extends State<EmailVerify> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                sbh(50),
+                gapV(50),
                 const Text(
                   "Wellcome to the Team!",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
               ],
             ),
-            sbh(13),
+            gapV(13),
             const Text(
               "Digitize your tour guide career by becoming a part of the team. Sign up with your email and set a password to get started with your profile!",
               style: TextStyle(
@@ -89,7 +89,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                 color: Color(0xFF999999),
               ),
             ),
-            sbh(20),
+            gapV(20),
             SizedBox(
               height: 48,
               child: TextField(
@@ -109,7 +109,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                       isempty: _isempty,
                       isvalid: _isemailvalid)),
             ),
-            sbh(20),
+            gapV(20),
             _sent
                 ? Text(
                     "Verification Link has been sent to ${_emailcont.text}. Plz Check your Email")
@@ -120,7 +120,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                         ? const Color(0xFF36A9E1)
                         : const Color(0xAA46B9F1),
                     _tapenabled ? _simulateVerification : () {}),
-            sbh(30),
+            gapV(30),
             const Text(
               "Social Login",
               style: TextStyle(

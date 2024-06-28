@@ -41,14 +41,14 @@ class _LoginState extends State<Login> {
           padding: const EdgeInsets.all(15.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            sbh(50),
+            gapV(50),
             Center(
               child: SizedBox(
                 height: 60,
                 child: Image.asset('assets/images/logon.png'),
               ),
             ),
-            sbh(15),
+            gapV(15),
             const Center(
               child: Text(
                 "TREKKERS.PK",
@@ -62,14 +62,14 @@ class _LoginState extends State<Login> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                sbh(50),
+                gapV(50),
                 const Text(
                   "Wellcome to the Team!",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
               ],
             ),
-            sbh(13),
+            gapV(13),
             const Text(
               "Digitize your tour guide career by becoming a part of the team. Sign up with your email and set a password to get started with your profile!",
               style: TextStyle(
@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                 color: Color(0xFF999999),
               ),
             ),
-            sbh(20),
+            gapV(20),
             SizedBox(
               height: 48,
               child: TextField(
@@ -95,7 +95,7 @@ class _LoginState extends State<Login> {
                       icon: Icons.person,
                       isvalid: _isemailvalid)),
             ),
-            sbh(10),
+            gapV(10),
             SizedBox(
               height: 48,
               child: TextField(
@@ -115,7 +115,7 @@ class _LoginState extends State<Login> {
                     isvalid: _ispassvalid),
               ),
             ),
-            sbh(20),
+            gapV(20),
             AuthComps.loginbtn(_loading, "Login", const Color(0xFF0561AB),
                 () async {
               _isserverauthvalid = false;
@@ -150,7 +150,7 @@ class _LoginState extends State<Login> {
                       };
               }
             }),
-            sbh(30),
+            gapV(30),
             const Text(
               "Social Login",
               style: TextStyle(

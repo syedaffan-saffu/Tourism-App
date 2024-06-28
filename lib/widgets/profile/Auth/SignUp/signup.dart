@@ -45,14 +45,14 @@ class _SignUpState extends State<SignUp> {
           padding: const EdgeInsets.all(15.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            sbh(50),
+            gapV(50),
             Center(
               child: SizedBox(
                 height: 60,
                 child: Image.asset('assets/images/logon.png'),
               ),
             ),
-            sbh(15),
+            gapV(15),
             const Center(
               child: Text(
                 "TREKKERS.PK",
@@ -66,14 +66,14 @@ class _SignUpState extends State<SignUp> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                sbh(50),
+                gapV(50),
                 const Text(
                   "Wellcome to the Team!",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
               ],
             ),
-            sbh(13),
+            gapV(13),
             const Text(
               "Digitize your tour guide career by becoming a part of the team. Sign up with your email and set a password to get started with your profile!",
               style: TextStyle(
@@ -81,7 +81,7 @@ class _SignUpState extends State<SignUp> {
                 color: Color(0xFF999999),
               ),
             ),
-            sbh(20),
+            gapV(20),
             TapRegion(
               onTapOutside: (event) {
                 FocusManager.instance.primaryFocus!.unfocus();
@@ -105,7 +105,7 @@ class _SignUpState extends State<SignUp> {
                           isvalid: _isnamevalid),
                     ),
                   ),
-                  sbh(10),
+                  gapV(10),
                   SizedBox(
                     height: 48,
                     child: TextField(
@@ -122,7 +122,7 @@ class _SignUpState extends State<SignUp> {
                             icon: Icons.email,
                             isvalid: _isemailvalid)),
                   ),
-                  sbh(10),
+                  gapV(10),
                   SizedBox(
                     height: 48,
                     child: TextField(
@@ -142,7 +142,7 @@ class _SignUpState extends State<SignUp> {
                           isvalid: _ispassvalid),
                     ),
                   ),
-                  sbh(10),
+                  gapV(10),
                   SizedBox(
                     height: 48,
                     child: TextField(
@@ -166,20 +166,20 @@ class _SignUpState extends State<SignUp> {
                 ],
               ),
             ),
-            sbh(20),
+            gapV(20),
             Row(
               children: [
                 AuthComps.loginbtn(_loading, "Sign Up", const Color(0xFF36A9E1),
                     () {
                   _attemptValidationandSignUp(authProv, indexProv);
                 }),
-                sbw(10),
+                gapH(10),
                 AuthComps.loginbtn(false, "Login", const Color(0xFF0561AB), () {
                   GoRouter.of(context).go("/profile/login");
                 })
               ],
             ),
-            sbh(30),
+            gapV(30),
             const Text(
               "Social Login",
               style: TextStyle(

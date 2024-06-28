@@ -218,25 +218,25 @@ class CardView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    sbh(7),
+                    gapV(7),
                     Text(
                       title,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 19),
                     ),
-                    sbh(7),
+                    gapV(7),
                     SizedBox(
                       child: locorating,
                     ),
-                    sbh(7),
+                    gapV(7),
                     SizedBox(child: locs),
-                    sbh(7),
+                    gapV(7),
                     Text(
                       description,
                       style:
                           const TextStyle(color: Color.fromARGB(132, 0, 0, 0)),
                     ),
-                    sbh(15),
+                    gapV(15),
                     SizedBox(
                       child: btnrow,
                     ),
@@ -255,13 +255,13 @@ class CardView extends StatelessWidget {
 /////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 
-Widget sbh(double height) {
+Widget gapV(double height) {
   return SizedBox(
     height: height,
   );
 }
 
-Widget sbw(double width) {
+Widget gapH(double width) {
   return SizedBox(
     width: width,
   );

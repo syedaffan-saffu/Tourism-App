@@ -272,7 +272,7 @@ Card guidecard(
                                     ? Colors.green
                                     : Colors.red,
                               ),
-                              sbw(5),
+                              gapH(5),
                               Text(
                                 avail,
                                 style: const TextStyle(

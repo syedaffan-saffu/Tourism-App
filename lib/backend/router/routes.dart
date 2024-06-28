@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
+import 'package:trekkers_pk/widgets/homescreen/activities/readmore/readmore.dart';
 import 'package:trekkers_pk/widgets/homescreen/adventure/adv_place.dart';
+import 'package:trekkers_pk/widgets/homescreen/adventure/booking/booking.dart';
 import 'package:trekkers_pk/widgets/homescreen/guide/guideprofile/gprofile_elements/videos/videos.dart';
 import 'package:trekkers_pk/widgets/homescreen/guide/guideprofile/guide_profile.dart';
 import 'package:trekkers_pk/widgets/homescreen/hmscrn.dart';
@@ -70,9 +72,19 @@ final GoRouter router = GoRouter(
                 // first tab. This will cover screen A but not the application
                 // shell (bottom navigation bar).
                 GoRoute(
+                  path: 'book',
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const Booking(),
+                ),
+                GoRoute(
                   path: 'adv',
                   builder: (BuildContext context, GoRouterState state) =>
                       const Advplace(),
+                ),
+                GoRoute(
+                  path: 'actreadmore',
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const ReadMorePage(),
                 ),
                 GoRoute(
                   path: 'guide',

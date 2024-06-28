@@ -64,7 +64,7 @@ class TnTCard extends StatelessWidget {
               title,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
             ),
-            sbh(10),
+            gapV(10),
             Row(
                 children: List.generate(
                     4,
@@ -72,7 +72,7 @@ class TnTCard extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 15),
                           child: iconsRow(icons[index]),
                         ))),
-            sbh(10),
+            gapV(10),
             const Text(
               "Duration: $days Days",
               style: TextStyle(

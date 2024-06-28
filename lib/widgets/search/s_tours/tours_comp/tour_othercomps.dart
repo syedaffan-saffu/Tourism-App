@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trekkers_pk/widgets/search/s_tours/tours_comp/tripsntours/tripsntours.dart';
+import 'package:trekkers_pk/widgets/search/s_tours/tours_comp/tripsntourscard/tripsntourscard.dart';
 
 import '../../../../utils/utilspack1.dart';
 
@@ -105,7 +105,7 @@ class _AccordionState extends State<Accordion> {
                               : const Color(0xFF000000),
                         ),
                       ),
-                      sbw(15),
+                      gapH(15),
                       Text(
                         _lastrow[index],
                         style: heading.copyWith(

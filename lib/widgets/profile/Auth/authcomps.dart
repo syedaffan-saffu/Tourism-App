@@ -78,7 +78,7 @@ class AuthComps {
             icon,
             color: Colors.white,
           ),
-          sbw(5),
+          gapH(5),
           Text(
             text,
             style: const TextStyle(

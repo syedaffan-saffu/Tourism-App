@@ -25,19 +25,19 @@ class Profile extends StatelessWidget {
           ProfileComps.profiletile('Profile Edit', () {
             GoRouter.of(context).go("/profile/profedit");
           }),
-          sbh(12),
+          gapV(12),
           ProfileComps.profiletile('Experience', () {
             GoRouter.of(context).go("/profile/exp");
           }),
-          sbh(12),
+          gapV(12),
           ProfileComps.profiletile('Professional Sport Activities', () {
             GoRouter.of(context).go("/profile/sportsact");
           }),
-          sbh(12),
+          gapV(12),
           ProfileComps.profiletile('Certificate and License', () {
             GoRouter.of(context).go("/profile/certnlic");
           }),
-          sbh(12),
+          gapV(12),
           ProfileComps.profiletile('Logout', () async {
             authProv.logout();
 

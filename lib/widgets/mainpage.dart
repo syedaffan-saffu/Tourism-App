@@ -35,6 +35,7 @@ class _BottomBarPageState extends State<BottomBarPage> {
   Widget build(BuildContext context) {
     final indexprovider = Provider.of<IndexProvider>(context);
     final authprov = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       appBar: null,
       body: widget.navigationShell,

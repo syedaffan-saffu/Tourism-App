@@ -41,9 +41,9 @@ class Tours extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(children: [
           ImageRows.fstrow(context),
-          sbh(6),
+          gapV(6),
           ImageRows.scndrow(context),
-          sbh(5),
+          gapV(5),
           Padding(
             padding: const EdgeInsets.all(10),
             child:
@@ -68,7 +68,7 @@ class Tours extends StatelessWidget {
                   )
                 ],
               ),
-              sbh(20),
+              gapV(20),
               Text(
                 "ABOUT $_slctdtour",
                 style: heading.copyWith(fontSize: 24),
@@ -77,7 +77,7 @@ class Tours extends StatelessWidget {
                 desc,
                 style: bodystyle,
               ),
-              sbh(20),
+              gapV(20),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -97,7 +97,7 @@ class Tours extends StatelessWidget {
                   LikeDislike(),
                 ],
               ),
-              sbh(30),
+              gapV(30),
               // Container(
               //   padding: const EdgeInsets.symmetric(horizontal: 20),
               //   color: const Color(0xFF0561AB),

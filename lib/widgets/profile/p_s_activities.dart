@@ -71,7 +71,7 @@ class _SportsActState extends State<SportsAct> {
                 plzselect,
                 style: ProfileComps.heading,
               ),
-              sbh(20),
+              gapV(20),
               Wrap(
                 runSpacing: 5.0,
                 spacing: 5.0,
@@ -119,12 +119,12 @@ class _SportsActState extends State<SportsAct> {
                   );
                 }).toList(),
               ),
-              sbh(20),
+              gapV(20),
               const Text(
                 skillrate,
                 style: ProfileComps.heading,
               ),
-              sbh(15),
+              gapV(15),
               DropDown(
                 title: "Level",
                 items: items2,
@@ -135,7 +135,7 @@ class _SportsActState extends State<SportsAct> {
                   });
                 },
               ),
-              sbh(15),
+              gapV(15),
               const Text(
                 when,
                 style: ProfileComps.heading,
@@ -168,7 +168,7 @@ class _SportsActState extends State<SportsAct> {
               //         });
               //       }),
               // ),
-              sbh(20),
+              gapV(20),
               const Text(
                 haveyou,
                 style: ProfileComps.heading,
@@ -177,7 +177,7 @@ class _SportsActState extends State<SportsAct> {
                 hint1,
                 style: ProfileComps.hintstyle,
               ),
-              sbh(15),
+              gapV(15),
               DropDown(
                 title: "Institute",
                 items: institutes,
@@ -188,29 +188,29 @@ class _SportsActState extends State<SportsAct> {
                   });
                 },
               ),
-              sbh(15),
+              gapV(15),
               TextField(
                   decoration:
                       ProfileComps.profileinputdec('Course Name', false)),
-              sbh(15),
+              gapV(15),
               Text(
                 ifnamenot,
                 style: ProfileComps.hintstyle.copyWith(fontSize: 14),
               ),
-              sbh(15),
+              gapV(15),
               SizedBox(
                 width: contextwidth(context) * 0.75,
                 child: TextField(
                     decoration: ProfileComps.profileinputdec('Other', false)),
               ),
-              sbh(15),
+              gapV(15),
               SizedBox(
                 width: contextwidth(context) * 0.75,
                 child: TextField(
                     decoration:
                         ProfileComps.profileinputdec('Training Name', false)),
               ),
-              sbh(15),
+              gapV(15),
               const Text(
                 isexpert,
                 style: ProfileComps.heading,
@@ -245,9 +245,9 @@ class _SportsActState extends State<SportsAct> {
                 ifyes,
                 style: ProfileComps.heading,
               ),
-              sbh(10),
+              gapV(10),
               TextField(decoration: ProfileComps.profileinputdec('...', false)),
-              sbh(25),
+              gapV(25),
               ProfileComps.submitButton(
                   text: "Next",
                   onpressed: () {

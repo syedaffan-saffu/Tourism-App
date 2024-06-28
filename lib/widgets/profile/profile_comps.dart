@@ -31,7 +31,7 @@ class ProfileComps2 {
               ? Row(
                   children: [
                     const Text("Uploaded"),
-                    sbw(10),
+                    gapH(10),
                     const Icon(
                       Icons.check_box,
                       color: Color(0xFF66CC00),

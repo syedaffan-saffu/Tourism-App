@@ -120,7 +120,7 @@ class _ExperienceState extends State<Experience> {
                               fontSize: 12,
                               fontStyle: FontStyle.italic),
                         ),
-                        sbh(15),
+                        gapV(15),
                         DropDown(
                           title: "Locations",
                           items: _items1,
@@ -131,7 +131,7 @@ class _ExperienceState extends State<Experience> {
                             });
                           },
                         ),
-                        sbh(15),
+                        gapV(15),
                         DropDown(
                           title: "Sublocations",
                           items: _items2,
@@ -145,7 +145,7 @@ class _ExperienceState extends State<Experience> {
                       ],
                     )
                   : const SizedBox(),
-              sbh(20),
+              gapV(20),
               const Text(
                 _anyexptext,
                 style: ProfileComps.heading,
@@ -155,7 +155,7 @@ class _ExperienceState extends State<Experience> {
                 style: ProfileComps.hintstyle
                     .copyWith(fontStyle: FontStyle.normal),
               ),
-              sbh(20),
+              gapV(20),
               TextField(
                 controller: _tellusfield,
                 enabled: _ischeckedyes,
@@ -167,7 +167,7 @@ class _ExperienceState extends State<Experience> {
                 minLines: 5,
                 maxLines: 5,
               ),
-              sbh(10),
+              gapV(10),
               ProfileComps.submitButton(
                 text: "Next",
                 onpressed: _validateexp,

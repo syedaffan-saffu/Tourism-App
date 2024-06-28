@@ -108,7 +108,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               'You can also edit these details later.',
               style: ProfileComps.heading,
             ),
-            sbh(18),
+            gapV(18),
             Row(
               children: [
                 InkWell(
@@ -123,14 +123,14 @@ class _ProfileEditState extends State<ProfileEdit> {
                     ),
                   ),
                 ),
-                sbw(20),
+                gapH(20),
                 const Text(
                   'Profile Image Here',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 )
               ],
             ),
-            sbh(20),
+            gapV(20),
             TextField(
               onChanged: (value) {
                 setState(() {
@@ -141,7 +141,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ProfileComps.profileinputdec('Full Name', _nameisempty),
               controller: _name,
             ),
-            sbh(12),
+            gapV(12),
             TextField(
               onChanged: (value) {
                 setState(() {
@@ -153,7 +153,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               decoration:
                   ProfileComps.profileinputdec('Phone Number', _phoneisempty),
             ),
-            sbh(12),
+            gapV(12),
             DropdownButtonHideUnderline(
               child: DropdownButton2<String>(
                 isExpanded: true,
@@ -197,7 +197,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                 ),
               ),
             ),
-            sbh(12),
+            gapV(12),
             Container(
               height: 180,
               padding: const EdgeInsets.all(10.0),
@@ -240,7 +240,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                         color: const Color(0xFF0561AB))
                   ]),
             ),
-            sbh(10),
+            gapV(10),
             SizedBox(
               height: 50,
               child: ListView.builder(
@@ -259,7 +259,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                         }));
                   }),
             ),
-            sbh(12),
+            gapV(12),
             ProfileComps.submitButton(
               text: "Next",
               onpressed: () async {

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
+import 'package:trekkers_pk/utils/utilspack2.dart';
 import 'package:trekkers_pk/widgets/homescreen/hmscrncomps.dart';
 import 'adventure/adv_card.dart';
 import '../../utils/utilspack1.dart';
@@ -107,7 +108,7 @@ class _HomescreenState extends State<HomeScreen>
                                   style: TextStyle(
                                       fontSize: 12.5, color: Colors.white),
                                 ),
-                                sbh(8),
+                                gapV(8),
                                 SizedBox(
                                   height: 30,
                                   child: TextButton(
@@ -191,7 +192,9 @@ class _HomescreenState extends State<HomeScreen>
                         padding: const EdgeInsets.all(4.0),
                         child: AdvCard(
                           onpressed: authProvider.isLoggedIn
-                              ? () {}
+                              ? () {
+                                  gorouter.go("/home/book");
+                                }
                               : () {
                                   setState(() {
                                     indexprovider.changeindex(3);
@@ -214,13 +217,16 @@ class _HomescreenState extends State<HomeScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "ACTIVITIES",
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w900,
-                        fontFamily: 'Signika'),
-                  ),
+                  const HeadingText(
+                      text: "activities",
+                      mainAxisAlignment: MainAxisAlignment.start),
+                  // const Text(
+                  //   "ACTIVITIES",
+                  //   style: TextStyle(
+                  //       fontSize: 22,
+                  //       fontWeight: FontWeight.w900,
+                  //       fontFamily: 'Signika'),
+                  // ),
                   TextButton(
                       onPressed: () {},
                       child: const Text(
@@ -248,7 +254,9 @@ class _HomescreenState extends State<HomeScreen>
                           padding: const EdgeInsets.all(4.0),
                           child: ActivitiesCard(
                             onpressed: authProvider.isLoggedIn
-                                ? () {}
+                                ? () {
+                                    gorouter.go("/home/actreadmore");
+                                  }
                                 : () {
                                     setState(() {
                                       indexprovider.changeindex(3);
@@ -262,9 +270,8 @@ class _HomescreenState extends State<HomeScreen>
                               });
                               _favourite[index]
                                   ? ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          duration: Duration(seconds: 1),
-                                          content: Text("Added to Wishlist")))
+                                      UtilsPack2.snackBar(
+                                          "Added to Wishlist", 1))
                                   : null;
                             },
                             favourite: _favourite,

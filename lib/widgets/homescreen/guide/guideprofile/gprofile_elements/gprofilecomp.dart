@@ -35,7 +35,7 @@ class Gcomponents {
                   fontWeight: FontWeight.w700,
                   height: 1.3),
             ),
-            sbw(7),
+            gapH(7),
             Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
@@ -79,7 +79,7 @@ class Gcomponents {
                     style:
                         heading.copyWith(fontSize: 22, fontFamily: "Signika"),
                   ),
-                  sbh(10),
+                  gapV(10),
                   SizedBox(
                       height: 200,
                       width: double.infinity,
@@ -137,19 +137,19 @@ class Gcomponents {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    sbh(7),
+                    gapV(7),
                     Text(
                       title,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 19),
                     ),
-                    sbh(7),
+                    gapV(7),
                     Text(
                       description,
                       style:
                           const TextStyle(color: Color.fromARGB(132, 0, 0, 0)),
                     ),
-                    sbh(15),
+                    gapV(15),
                     SizedBox(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -52,7 +52,7 @@ class _SearchState extends State<Search> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
           const Divider(),
-          sbh(18),
+          gapV(18),
           TextField(
             controller: locController,
             decoration: const InputDecoration(
@@ -67,7 +67,7 @@ class _SearchState extends State<Search> {
                 ),
                 hintText: 'What kind of Trip you are looking for?'),
           ),
-          sbh(12),
+          gapV(12),
           TextField(
             onTap: () async {
               _dateTime = await showDateRangePicker(
@@ -104,7 +104,7 @@ class _SearchState extends State<Search> {
                 ),
                 hintText: 'When do you want to go?'),
           ),
-          sbh(20),
+          gapV(20),
           Wrap(
             clipBehavior: Clip.none,
             spacing: 10.0,
@@ -114,7 +114,7 @@ class _SearchState extends State<Search> {
                   suggestion, suggestions.indexOf(suggestion));
             }).toList(),
           ),
-          sbh(15),
+          gapV(15),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(

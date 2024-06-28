@@ -302,7 +302,7 @@ class _GuidesProfileState extends State<GuidesProfile>
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              sbh(20),
+              gapV(20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: AboutUs.aboutus(bio, _langs, phone, email, trips),
@@ -331,7 +331,7 @@ class _GuidesProfileState extends State<GuidesProfile>
                     child: Gcomponents.nexttripcard(
                         img, title, description, price)),
               ),
-              sbh(20),
+              gapV(20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Text(

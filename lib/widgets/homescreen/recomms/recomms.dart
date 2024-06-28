@@ -111,7 +111,7 @@ class _RecommsState extends State<Recomms> {
                           ),
                         )),
               ),
-              sbh(15),
+              gapV(15),
               Row(
                 children: [
                   Text(

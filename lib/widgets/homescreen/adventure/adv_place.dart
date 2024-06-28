@@ -133,7 +133,7 @@ class _AdvplaceState extends State<Advplace> {
             ),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            sbh(20),
+            gapV(20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -175,7 +175,7 @@ class _AdvplaceState extends State<Advplace> {
                                       child: Image.asset(
                                           'assets/icons/check_icon.png'),
                                     ),
-                                    sbw(8), // Adjust the width as needed
+                                    gapH(8), // Adjust the width as needed
                                     Text(
                                       hlts[index],
                                       style: TextStyle(
@@ -188,7 +188,7 @@ class _AdvplaceState extends State<Advplace> {
                                 ),
                               ),
                             ),
-                            sbh(10),
+                            gapV(10),
                             SizedBox(
                               height: 30,
                               child: TextButton(
@@ -214,7 +214,7 @@ class _AdvplaceState extends State<Advplace> {
                   ),
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                  sbh(20),
+                  gapV(20),
                   Container(
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -251,7 +251,7 @@ class _AdvplaceState extends State<Advplace> {
                             ],
                           ),
                         ),
-                        sbw(20),
+                        gapH(20),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Column(
@@ -275,7 +275,7 @@ class _AdvplaceState extends State<Advplace> {
                       ],
                     ),
                   ),
-                  sbh(20),
+                  gapV(20),
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   Wrap(
                     clipBehavior: Clip.none,
@@ -286,7 +286,7 @@ class _AdvplaceState extends State<Advplace> {
                     }).toList(),
                   ),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                  sbh(20),
+                  gapV(20),
                   SizedBox(
                     height: 45,
                     child: Row(
@@ -345,17 +345,17 @@ class _AdvplaceState extends State<Advplace> {
                     ),
                   ),
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                  sbh(20),
+                  gapV(20),
                   const Text(
                     'Itinerary',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  sbh(10),
+                  gapV(10),
                   const Text(
                     'Return Flight Amsterdam - Dublin',
                     style: TextStyle(color: Colors.grey),
                   ),
-                  sbh(20),
+                  gapV(20),
                   SizedBox(
                     height: 300,
                     width: double.infinity,
@@ -384,7 +384,7 @@ class _AdvplaceState extends State<Advplace> {
                 ],
               ),
             ),
-            sbh(20),
+            gapV(20),
             Container(
               height: 40,
               color: const Color(0xFFE6EEF5),
@@ -426,7 +426,7 @@ class _AdvplaceState extends State<Advplace> {
                 ],
               ),
             ),
-            sbh(5),
+            gapV(5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -448,7 +448,7 @@ class _AdvplaceState extends State<Advplace> {
                           fontWeight: FontWeight.w700),
                     ),
                   ),
-                  sbh(5),
+                  gapV(5),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -464,7 +464,7 @@ class _AdvplaceState extends State<Advplace> {
                           fontWeight: FontWeight.w700),
                     ),
                   ),
-                  sbh(5),
+                  gapV(5),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -561,7 +561,7 @@ class _AdvplaceState extends State<Advplace> {
                       ? 18
                       : 20,
             ),
-            sbw(7),
+            gapH(7),
             Text(text)
           ],
         ));

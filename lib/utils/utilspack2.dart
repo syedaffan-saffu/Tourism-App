@@ -23,7 +23,7 @@ class UtilsPack2 {
     );
   }
 
-  static List<Text> richHeadingText(String text) {
+  static List<Text> headingTextRow(String text) {
     List<Text> texts = [];
     text = text.toUpperCase();
     text.split(" ").forEach((word) {
@@ -41,24 +41,29 @@ class UtilsPack2 {
             word.substring(1), // Remaining part of the word
             style: const TextStyle(
                 fontSize: 25,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
                 fontFamily: "Signika"),
           ));
         }
         texts.add(const Text(' ')); // Space between words
       }
     });
-    print(text);
-    // if (text.contains(" ")) {
-    //   List<String> splittedwords = text.split(" ");
-    //   for (int i = 0; i < splittedwords.length; i++) {
-    //     splittedfirstchars.add(splittedwords[i].characters.first);
-    //     withoutfirstchar.add(
-    //         splittedwords[i].replaceAll(splittedwords[i].characters.first, ""));
-    //   }
-    // } else {
-    //   splittedfirstchars = [text.characters.first];
     // }
     return texts;
+  }
+}
+
+class HeadingText extends StatelessWidget {
+  const HeadingText(
+      {super.key, required this.text, required this.mainAxisAlignment});
+  final String text;
+  final MainAxisAlignment mainAxisAlignment;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: mainAxisAlignment,
+      children: UtilsPack2.headingTextRow(text),
+    );
   }
 }
