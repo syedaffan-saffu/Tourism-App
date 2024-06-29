@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/utilspack1.dart';
 import 'package:flutter_svg/svg.dart';
@@ -38,7 +39,11 @@ class AuthComps {
   }
 
   static ElevatedButton loginbtn(
-      bool isloading, String text, Color color, void Function() onpressed) {
+    bool isloading,
+    String text,
+    Color color,
+    void Function() onpressed,
+  ) {
     return ElevatedButton(
       onPressed: onpressed,
       style: ElevatedButton.styleFrom(

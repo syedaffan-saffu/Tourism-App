@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +18,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool _isconnectionlive = false;
   final List<bool> _isfieldempty = [false, false];
   final TextEditingController _emailcont = TextEditingController();
   final TextEditingController _passcont = TextEditingController();
@@ -23,10 +27,61 @@ class _LoginState extends State<Login> {
   bool _fieldenable = true;
   bool _isemailvalid = false, _ispassvalid = false;
   bool _isserverauthvalid = false;
+  late List<ConnectivityResult> connectivityResult;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        _initConnectivity();
+      },
+    );
+  }
+
+  Future<void> _initConnectivity() async {
+    try {
+      connectivityResult = await Connectivity().checkConnectivity();
+    } catch (e) {
+      print(e.toString());
+    }
+
+    _connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen((result) {
+      setState(() {
+        connectivityResult = result;
+      });
+    });
+  }
+
+  String getconstring() {
+    for (var result in connectivityResult) {
+      switch (result) {
+        case ConnectivityResult.mobile:
+          setState(() {
+            _isconnectionlive = true;
+          });
+          return "Mobile network available.";
+        case ConnectivityResult.wifi:
+          setState(() {
+            _isconnectionlive = true;
+          });
+          return "Wi-Fi is available.";
+        case ConnectivityResult.ethernet:
+          return "Ethernet connection available.";
+        case ConnectivityResult.vpn:
+          return "VPN connection active.";
+        case ConnectivityResult.bluetooth:
+          return "Bluetooth connection available.";
+        case ConnectivityResult.other:
+          return "Connected to a network which is not in the above mentioned networks.";
+        case ConnectivityResult.none:
+          // If none is found in the list, return a message
+          return "No available network types.";
+      }
+    }
+    return "Unknown connectivity state.";
   }
 
   @override
@@ -116,39 +171,39 @@ class _LoginState extends State<Login> {
               ),
             ),
             gapV(20),
-            AuthComps.loginbtn(_loading, "Login", const Color(0xFF0561AB),
-                () async {
-              _isserverauthvalid = false;
-              setState(() {
-                _isfieldempty[0] = _emailcont.text.isEmpty;
-                _isfieldempty[1] = _passcont.text.isEmpty;
-                _loading = true;
-                FocusManager.instance.primaryFocus?.unfocus();
-              });
+            AuthComps.loginbtn(_loading, "Login", const Color(0xFF0561AB), () {
+              _attemptlogin(authProv, indexProv);
+              // _isserverauthvalid = false;
+              // setState(() {
+              //   _isfieldempty[0] = _emailcont.text.isEmpty;
+              //   _isfieldempty[1] = _passcont.text.isEmpty;
+              //   _loading = true;
+              //   FocusManager.instance.primaryFocus?.unfocus();
+              // });
 
-              if (_tapenabled) {
-                _tapenabled = false;
-                await AuthorizeLogin.auth(_emailcont.text, _passcont.text,
-                    _onValidationResult, context);
+              // if (_tapenabled) {
+              //   _tapenabled = false;
+              //   await AuthorizeLogin.auth(_emailcont.text, _passcont.text,
+              //       _onValidationResult, context);
 
-                _isserverauthvalid
-                    ? {
-                        authProv.login(),
-                        sectionDNavigatorKey.currentState!.pop(),
-                        GoRouter.of(context).go("/home"),
-                        setState(() {
-                          indexProv.changeindex(0);
-                          _loading = false;
-                        })
-                      }
-                    : {
-                        _tapenabled = true,
-                        _fieldenable = true,
-                        setState(() {
-                          _loading = false;
-                        })
-                      };
-              }
+              //   _isserverauthvalid
+              //       ? {
+              //           authProv.login(),
+              //           sectionDNavigatorKey.currentState!.pop(),
+              //           GoRouter.of(context).go("/home"),
+              //           setState(() {
+              //             indexProv.changeindex(0);
+              //             _loading = false;
+              //           })
+              //         }
+              //       : {
+              //           _tapenabled = true,
+              //           _fieldenable = true,
+              //           setState(() {
+              //             _loading = false;
+              //           })
+              //         };
+              // }
             }),
             gapV(30),
             const Text(
@@ -174,9 +229,58 @@ class _LoginState extends State<Login> {
     );
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _connectivitySubscription.cancel();
+  }
+
   void _onValidationResult(bool isValid) {
     setState(() {
       _isserverauthvalid = isValid;
     });
+  }
+
+  void _attemptlogin(AuthProvider authProv, IndexProvider indexProv) async {
+    _isserverauthvalid = false;
+    setState(() {
+      _isfieldempty[0] = _emailcont.text.isEmpty;
+      _isfieldempty[1] = _passcont.text.isEmpty;
+      _loading = true;
+      FocusManager.instance.primaryFocus?.unfocus();
+    });
+
+    if (_tapenabled) {
+      _tapenabled = false;
+      _isconnectionlive
+          ? {
+              await AuthorizeLogin.auth(_emailcont.text, _passcont.text,
+                  _onValidationResult, context),
+              _isserverauthvalid
+                  ? {
+                      authProv.login(),
+                      sectionDNavigatorKey.currentState!.pop(),
+                      GoRouter.of(context).go("/home"),
+                      setState(() {
+                        indexProv.changeindex(0);
+                        _loading = false;
+                      })
+                    }
+                  : {
+                      _tapenabled = true,
+                      _fieldenable = true,
+                      setState(() {
+                        _loading = false;
+                      })
+                    }
+            }
+          : () {
+              _fieldenable = true;
+              setState(() {
+                _loading = false;
+              });
+            };
+    }
   }
 }

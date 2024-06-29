@@ -12,7 +12,10 @@ class UtilsPack2 {
           const SizedBox(
             width: 20,
           ),
-          Text(title),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
         ],
       ),
       duration: Duration(seconds: duration),
