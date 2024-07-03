@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:trekkers_pk/backend/provider/providers.dart';
+import 'package:trekkers_pk/utils/utilspack2.dart';
 import 'package:trekkers_pk/widgets/profile/Auth/Login/loginutils.dart';
 import 'package:trekkers_pk/backend/router/routes.dart';
 import '../../../../utils/utilspack1.dart';
@@ -43,9 +44,8 @@ class _LoginState extends State<Login> {
   Future<void> _initConnectivity() async {
     try {
       connectivityResult = await Connectivity().checkConnectivity();
-    } catch (e) {
-      print(e.toString());
-    }
+      // ignore: empty_catches
+    } catch (e) {}
 
     _connectivitySubscription =
         Connectivity().onConnectivityChanged.listen((result) {
@@ -62,10 +62,12 @@ class _LoginState extends State<Login> {
           setState(() {
             _isconnectionlive = true;
           });
+          print("::::::: connection mobile ::::::: $_isconnectionlive");
           return "Mobile network available.";
         case ConnectivityResult.wifi:
           setState(() {
             _isconnectionlive = true;
+            print("::::::: connection ::::::: $_isconnectionlive");
           });
           return "Wi-Fi is available.";
         case ConnectivityResult.ethernet:
@@ -77,10 +79,13 @@ class _LoginState extends State<Login> {
         case ConnectivityResult.other:
           return "Connected to a network which is not in the above mentioned networks.";
         case ConnectivityResult.none:
+          _isconnectionlive = false;
+          print("no connection :::::::::: $_isconnectionlive");
           // If none is found in the list, return a message
           return "No available network types.";
       }
     }
+
     return "Unknown connectivity state.";
   }
 
@@ -171,39 +176,10 @@ class _LoginState extends State<Login> {
               ),
             ),
             gapV(20),
-            AuthComps.loginbtn(_loading, "Login", const Color(0xFF0561AB), () {
+            AuthComps.loginbtn(_loading, "Login", const Color(0xFF0561AB),
+                () async {
+              getconstring();
               _attemptlogin(authProv, indexProv);
-              // _isserverauthvalid = false;
-              // setState(() {
-              //   _isfieldempty[0] = _emailcont.text.isEmpty;
-              //   _isfieldempty[1] = _passcont.text.isEmpty;
-              //   _loading = true;
-              //   FocusManager.instance.primaryFocus?.unfocus();
-              // });
-
-              // if (_tapenabled) {
-              //   _tapenabled = false;
-              //   await AuthorizeLogin.auth(_emailcont.text, _passcont.text,
-              //       _onValidationResult, context);
-
-              //   _isserverauthvalid
-              //       ? {
-              //           authProv.login(),
-              //           sectionDNavigatorKey.currentState!.pop(),
-              //           GoRouter.of(context).go("/home"),
-              //           setState(() {
-              //             indexProv.changeindex(0);
-              //             _loading = false;
-              //           })
-              //         }
-              //       : {
-              //           _tapenabled = true,
-              //           _fieldenable = true,
-              //           setState(() {
-              //             _loading = false;
-              //           })
-              //         };
-              // }
             }),
             gapV(30),
             const Text(
@@ -231,7 +207,6 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _connectivitySubscription.cancel();
   }
@@ -253,6 +228,7 @@ class _LoginState extends State<Login> {
 
     if (_tapenabled) {
       _tapenabled = false;
+
       _isconnectionlive
           ? {
               await AuthorizeLogin.auth(_emailcont.text, _passcont.text,
@@ -275,11 +251,14 @@ class _LoginState extends State<Login> {
                       })
                     }
             }
-          : () {
-              _fieldenable = true;
+          : {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  UtilsPack2.snackBar("No Internet Connection", 1)),
+              _fieldenable = true,
+              _tapenabled = true,
               setState(() {
                 _loading = false;
-              });
+              }),
             };
     }
   }
